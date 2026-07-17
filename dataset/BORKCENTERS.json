@@ -1,0 +1,54 @@
+{
+	"name": "BORKCENTERS",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureDataLakeStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "dudok_centers.json",
+				"folderPath": "masterdata",
+				"fileSystem": "container1"
+			}
+		},
+		"schema": {
+			"type": "object",
+			"properties": {
+				"data": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"properties": {
+							"type": {
+								"type": "string"
+							},
+							"CenterNr": {
+								"type": "string"
+							},
+							"Key": {
+								"type": "string"
+							},
+							"LeftNr": {
+								"type": "integer"
+							},
+							"Level": {
+								"type": "integer"
+							},
+							"Name": {
+								"type": "string"
+							},
+							"RightNr": {
+								"type": "integer"
+							}
+						}
+					}
+				}
+			}
+		}
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

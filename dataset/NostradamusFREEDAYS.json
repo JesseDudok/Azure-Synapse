@@ -1,0 +1,54 @@
+{
+	"name": "NostradamusFREEDAYS",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureDataLakeStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "dudok_nostradamus_freedays.json",
+				"fileSystem": "container2"
+			}
+		},
+		"schema": {
+			"type": "object",
+			"properties": {
+				"office_id": {
+					"type": "string"
+				},
+				"office_name": {
+					"type": "string"
+				},
+				"card_id": {
+					"type": "integer"
+				},
+				"freeday_id": {
+					"type": "string"
+				},
+				"freeday_start": {
+					"type": "string"
+				},
+				"freeday_end": {
+					"type": "string"
+				},
+				"freeday_days": {
+					"type": "integer"
+				},
+				"freeday_type": {
+					"type": "integer"
+				},
+				"freeday_hours": {
+					"type": "number"
+				},
+				"freeday_remarks": {
+					"type": "string"
+				}
+			}
+		}
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

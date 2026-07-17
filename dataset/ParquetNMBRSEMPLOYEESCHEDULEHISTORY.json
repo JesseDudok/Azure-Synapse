@@ -1,0 +1,136 @@
+{
+	"name": "ParquetNMBRSEMPLOYEESCHEDULEHISTORY",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "dudodatasynapse1-WorkspaceDefaultStorage",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": "outputNMBRS/Schedule history",
+				"fileSystem": "synapse"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": [
+			{
+				"name": "employeeId",
+				"type": "UTF8"
+			},
+			{
+				"name": "scheduleId",
+				"type": "UTF8"
+			},
+			{
+				"name": "startDate",
+				"type": "UTF8"
+			},
+			{
+				"name": "parttimePercentage",
+				"type": "DECIMAL",
+				"precision": 38,
+				"scale": 18
+			},
+			{
+				"name": "week1_monday",
+				"type": "DECIMAL",
+				"precision": 38,
+				"scale": 18
+			},
+			{
+				"name": "week1_tuesday",
+				"type": "DECIMAL",
+				"precision": 38,
+				"scale": 18
+			},
+			{
+				"name": "week1_wednesday",
+				"type": "DECIMAL",
+				"precision": 38,
+				"scale": 18
+			},
+			{
+				"name": "week1_thursday",
+				"type": "DECIMAL",
+				"precision": 38,
+				"scale": 18
+			},
+			{
+				"name": "week1_friday",
+				"type": "DECIMAL",
+				"precision": 38,
+				"scale": 18
+			},
+			{
+				"name": "week1_saturday",
+				"type": "DECIMAL",
+				"precision": 38,
+				"scale": 18
+			},
+			{
+				"name": "week1_sunday",
+				"type": "DECIMAL",
+				"precision": 38,
+				"scale": 18
+			},
+			{
+				"name": "week2_monday",
+				"type": "DECIMAL",
+				"precision": 38,
+				"scale": 18
+			},
+			{
+				"name": "week2_tuesday",
+				"type": "DECIMAL",
+				"precision": 38,
+				"scale": 18
+			},
+			{
+				"name": "week2_wednesday",
+				"type": "DECIMAL",
+				"precision": 38,
+				"scale": 18
+			},
+			{
+				"name": "week2_thursday",
+				"type": "DECIMAL",
+				"precision": 38,
+				"scale": 18
+			},
+			{
+				"name": "week2_friday",
+				"type": "DECIMAL",
+				"precision": 38,
+				"scale": 18
+			},
+			{
+				"name": "week2_saturday",
+				"type": "DECIMAL",
+				"precision": 38,
+				"scale": 18
+			},
+			{
+				"name": "week2_sunday",
+				"type": "DECIMAL",
+				"precision": 38,
+				"scale": 18
+			},
+			{
+				"name": "createdAt",
+				"type": "UTF8"
+			},
+			{
+				"name": "companyId",
+				"type": "UTF8"
+			},
+			{
+				"name": "companyName",
+				"type": "UTF8"
+			}
+		]
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

@@ -1,0 +1,116 @@
+{
+	"name": "NMBRSDEBTORS",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureDataLakeStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": "debtors",
+				"fileSystem": "container3"
+			}
+		},
+		"schema": {
+			"type": "object",
+			"properties": {
+				"pagination": {
+					"type": "object",
+					"properties": {
+						"pageNumber": {
+							"type": "integer"
+						},
+						"pageSize": {
+							"type": "integer"
+						},
+						"firstPage": {
+							"type": "string"
+						},
+						"lastPage": {
+							"type": "string"
+						},
+						"totalPages": {
+							"type": "integer"
+						},
+						"totalRecords": {
+							"type": "integer"
+						},
+						"nextPage": {
+							"type": "null"
+						},
+						"previousPage": {
+							"type": "null"
+						}
+					}
+				},
+				"data": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"properties": {
+							"debtor": {
+								"type": "object",
+								"properties": {
+									"debtorId": {
+										"type": "string"
+									},
+									"number": {
+										"type": "string"
+									},
+									"name": {
+										"type": "string"
+									}
+								}
+							},
+							"address": {
+								"type": "object",
+								"properties": {
+									"addressId": {
+										"type": "string"
+									},
+									"isDefault": {
+										"type": "boolean"
+									},
+									"type": {
+										"type": "string"
+									},
+									"street": {
+										"type": "string"
+									},
+									"houseNumber": {
+										"type": "string"
+									},
+									"houseNumberAddition": {
+										"type": "null"
+									},
+									"postalCode": {
+										"type": "string"
+									},
+									"city": {
+										"type": "string"
+									},
+									"stateProvince": {
+										"type": "string"
+									},
+									"countryISOCode": {
+										"type": "string"
+									},
+									"period": {
+										"type": "null"
+									},
+									"createdAt": {
+										"type": "string"
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

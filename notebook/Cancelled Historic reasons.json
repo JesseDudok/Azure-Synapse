@@ -1,0 +1,201 @@
+{
+	"name": "Cancelled Historic reasons",
+	"properties": {
+		"nbformat": 4,
+		"nbformat_minor": 2,
+		"bigDataPool": {
+			"referenceName": "SparkPool3",
+			"type": "BigDataPoolReference"
+		},
+		"sessionProperties": {
+			"driverMemory": "56g",
+			"driverCores": 8,
+			"executorMemory": "56g",
+			"executorCores": 8,
+			"numExecutors": 2,
+			"runAsWorkspaceSystemIdentity": false,
+			"conf": {
+				"spark.dynamicAllocation.enabled": "false",
+				"spark.dynamicAllocation.minExecutors": "2",
+				"spark.dynamicAllocation.maxExecutors": "2",
+				"spark.autotune.trackingId": "9f79b2f6-59ae-4140-af60-c439893d3b4a"
+			}
+		},
+		"metadata": {
+			"saveOutput": true,
+			"synapse_widget": {
+				"version": "0.1"
+			},
+			"enableDebugMode": false,
+			"language_info": {
+				"name": "python"
+			},
+			"a365ComputeOptions": {
+				"id": "/subscriptions/1ff7eded-6bf6-41c6-9ab9-969f53229294/resourceGroups/DUDODATA/providers/Microsoft.Synapse/workspaces/dudodatasynapse1/bigDataPools/SparkPool3",
+				"name": "SparkPool3",
+				"type": "Spark",
+				"endpoint": "https://dudodatasynapse1.dev.azuresynapse.net/livyApi/versions/2019-11-01-preview/sparkPools/SparkPool3",
+				"auth": {
+					"type": "AAD",
+					"authResource": "https://dev.azuresynapse.net",
+					"authHeader": null
+				},
+				"sparkVersion": "3.5",
+				"nodeCount": 10,
+				"cores": 8,
+				"memory": 56,
+				"extraHeader": null
+			},
+			"sessionKeepAliveTimeout": 30
+		},
+		"cells": [
+			{
+				"cell_type": "code",
+				"source": [
+					"# Block 1: Imports + Constants\n",
+					"import requests\n",
+					"import re\n",
+					"import time\n",
+					"from pyspark.sql.types import StructType, StructField, LongType, StringType\n",
+					"\n",
+					"MICE_BASE = \"https://api.miceoperations.com/api/v1\"\n",
+					"\n",
+					"API_KEYS = {\n",
+					"    '2593': '256f316c70300927d3283ee1f06088913731457cf3f5a754e18bb19eaa35664ad',\n",
+					"    '2592': '276504bc237dd39e44862449732bf90347c005dbf403ae6ca6fc921bf637feb06',\n",
+					"    '2811': '2d629636b361b82b468be35ab8c629e9ae74e0bbf0021870c188a044286e1b890',\n",
+					"    '2835': '2a1cdb0bb788267e43e72d72c7df2d10acd21a720ed3079583fc88f66cbcf7831',\n",
+					"    '2834': '24cb34f8a698b11d818f38755fba705765f9c9044f21da390bd90ebe047c5de16',\n",
+					"    '3291': '2df53ab09a346ef8ff35a2490f4addd88a166e13e8d3ea83cf16ebfb3720db2fe',\n",
+					"    '1568': '26aa5090e00d501d3c1b1a9f955a9f9f8d5bb4ca4c653f2ead872b76e12b69d18',\n",
+					"    '2676': '2cc1421c3221217b6f89806d5bf9ae9042f5db96154a5022a3170dac1eed9b196',\n",
+					"    '2591': '2636f6ce5ca7bd7f6ab9e6991904ada8e7ba8d5218f0c4c729ddbc55b83bde6fc',\n",
+					"    '2590': '2931c565a2828836f207bc48840894b61e0c795b2137f4ddffc76a5cbde448043',\n",
+					"    '2080': '2f12198b460783b8a41ef3d78d52f7376bc4bf8b3ca990cbaec7e65362425129d',\n",
+					"    '2810': '2bd6063318ced29daa5ca96e2508681842b432ee8823969a74e770672f78bf20f',\n",
+					"    '3154': '2f90a92050828544f9dbd157f39b7bb8c8ed89b72aec9039a8b699469ac4edbfd'\n",
+					"}\n",
+					"\n",
+					"# Candidates hardcoded from SQL query result\n",
+					"# Run this in SSMS first:\n",
+					"# SELECT event_id, company_id FROM dbo.FACT_Events\n",
+					"# WHERE event_status = 'cancelled' AND cancellation_reason IS NULL\n",
+					"# ORDER BY company_id\n",
+					"# Then paste the results as a list below, or use the ADLS approach in Block 2\n",
+					"\n",
+					"print(f\"✓ {len(API_KEYS)} API keys loaded\")"
+				],
+				"execution_count": 11
+			},
+			{
+				"cell_type": "code",
+				"source": [
+					"# Block 2: Read candidates from ADLS via Spark\n",
+					"# Much simpler than JDBC — reads directly from the gold layer parquet\n",
+					"candidates_df = spark.read \\\n",
+					"    .format(\"jdbc\") \\\n",
+					"    .option(\"url\", \"jdbc:sqlserver://dudodataserver1.database.windows.net:1433;database=dudodatabase1;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;Authentication=ActiveDirectoryManagedIdentity\") \\\n",
+					"    .option(\"query\", \"SELECT event_id, company_id FROM dbo.FACT_Events WHERE event_status = 'cancelled' AND cancellation_reason IS NULL\") \\\n",
+					"    .option(\"driver\", \"com.microsoft.sqlserver.jdbc.SQLServerDriver\") \\\n",
+					"    .load()\n",
+					"\n",
+					"candidates = candidates_df.collect()\n",
+					"print(f\"✓ {len(candidates)} candidates\")"
+				]
+			},
+			{
+				"cell_type": "code",
+				"source": [
+					"# Block 3: Fetch cancellation reasons from MICE API\n",
+					"def fetch_cancellation_reason(event_id, company_id):\n",
+					"    api_key = API_KEYS.get(str(company_id))\n",
+					"    if not api_key:\n",
+					"        return None, None\n",
+					"    try:\n",
+					"        r = requests.get(\n",
+					"            f\"{MICE_BASE}/events/{event_id}/messages\",\n",
+					"            headers={\"Authorization\": f\"Basic {api_key}\"},\n",
+					"            timeout=10\n",
+					"        )\n",
+					"        if r.status_code != 200:\n",
+					"            return None, None\n",
+					"        messages = r.json().get('data', [])\n",
+					"        reason = None\n",
+					"        note = None\n",
+					"        for msg in messages:\n",
+					"            if msg.get('type') != 'note':\n",
+					"                continue\n",
+					"            html = msg.get('message', '')\n",
+					"            strong_match = re.search(r'<strong>Geannuleerd:\\s*([^<]+)<\\/strong>', html)\n",
+					"            if not strong_match:\n",
+					"                continue\n",
+					"            reason = strong_match.group(1).strip()\n",
+					"            note_match = re.search(r'<\\/strong><\\/p><p>([^<]+)<\\/p>', html)\n",
+					"            note = note_match.group(1).strip() if note_match else None\n",
+					"        return reason, note\n",
+					"    except Exception as e:\n",
+					"        print(f\"⚠️ event {event_id}: {e}\")\n",
+					"        return None, None\n",
+					"\n",
+					"\n",
+					"results = []\n",
+					"total = len(candidates)\n",
+					"found = 0\n",
+					"not_found = 0\n",
+					"\n",
+					"for i, row in enumerate(candidates):\n",
+					"    reason, note = fetch_cancellation_reason(row['event_id'], row['company_id'])\n",
+					"    if reason:\n",
+					"        results.append({\n",
+					"            \"event_id\": int(row['event_id']),\n",
+					"            \"cancellation_reason\": reason,\n",
+					"            \"cancellation_note\": note or \"\"\n",
+					"        })\n",
+					"        found += 1\n",
+					"    else:\n",
+					"        not_found += 1\n",
+					"\n",
+					"    if (i + 1) % 100 == 0:\n",
+					"        print(f\"  [{i+1}/{total}] found: {found}, not found: {not_found}\")\n",
+					"\n",
+					"    time.sleep(0.1)\n",
+					"\n",
+					"print(f\"\\n✓ Done: {found} reasons found, {not_found} without reason\")"
+				]
+			},
+			{
+				"cell_type": "code",
+				"source": [
+					"# Block 4: Save results to ADLS as CSV — update via SSMS daarna\n",
+					"import csv, io\n",
+					"\n",
+					"OUTPUT_PATH = \"abfss://synapse@dudodatalake.dfs.core.windows.net/stagingMICE/backfill/cancellation_reasons.csv\"\n",
+					"\n",
+					"if not results:\n",
+					"    print(\"ℹ️ No results\")\n",
+					"else:\n",
+					"    schema = StructType([\n",
+					"        StructField(\"event_id\", LongType(), False),\n",
+					"        StructField(\"cancellation_reason\", StringType(), True),\n",
+					"        StructField(\"cancellation_note\", StringType(), True)\n",
+					"    ])\n",
+					"\n",
+					"    results_df = spark.createDataFrame(results, schema=schema)\n",
+					"    results_df.coalesce(1).write.mode(\"overwrite\").option(\"header\", \"true\").csv(OUTPUT_PATH)\n",
+					"\n",
+					"    print(f\"✓ {len(results)} rows saved to {OUTPUT_PATH}\")\n",
+					"    print(\"\\nDownload de CSV en voer in SSMS uit:\")\n",
+					"    print(\"\"\"\n",
+					"-- Na importeren als tabel dbo.BackfillCancellationReasons:\n",
+					"UPDATE e\n",
+					"SET e.cancellation_reason = s.cancellation_reason,\n",
+					"    e.cancellation_note   = s.cancellation_note\n",
+					"FROM dbo.FACT_Events e\n",
+					"INNER JOIN dbo.BackfillCancellationReasons s ON e.event_id = s.event_id\n",
+					"WHERE s.cancellation_reason IS NOT NULL;\n",
+					"    \"\"\")"
+				]
+			}
+		]
+	}
+}

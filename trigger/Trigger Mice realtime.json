@@ -1,0 +1,43 @@
+{
+	"name": "Trigger Mice realtime",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Started",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "MICE Event Orchestrator",
+					"type": "PipelineReference"
+				}
+			}
+		],
+		"type": "ScheduleTrigger",
+		"typeProperties": {
+			"recurrence": {
+				"frequency": "Day",
+				"interval": 1,
+				"startTime": "2026-01-22T08:29:00",
+				"timeZone": "W. Europe Standard Time",
+				"schedule": {
+					"minutes": [
+						0
+					],
+					"hours": [
+						8,
+						9,
+						10,
+						11,
+						12,
+						13,
+						14,
+						15,
+						16,
+						17,
+						18,
+						1
+					]
+				}
+			}
+		}
+	}
+}

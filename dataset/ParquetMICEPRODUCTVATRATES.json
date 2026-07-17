@@ -1,0 +1,67 @@
+{
+	"name": "ParquetMICEPRODUCTVATRATES",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureDataLakeStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "dudok_product_vat_rates.parquet",
+				"folderPath": "outputMICE/products",
+				"fileSystem": "synapse"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": [
+			{
+				"name": "product_id",
+				"type": "INT64"
+			},
+			{
+				"name": "product_name",
+				"type": "UTF8"
+			},
+			{
+				"name": "product_group_id",
+				"type": "INT64"
+			},
+			{
+				"name": "category_id",
+				"type": "INT64"
+			},
+			{
+				"name": "category_name",
+				"type": "UTF8"
+			},
+			{
+				"name": "vat_rate",
+				"type": "DOUBLE"
+			},
+			{
+				"name": "vat_amount",
+				"type": "DOUBLE"
+			},
+			{
+				"name": "vat_price",
+				"type": "DOUBLE"
+			},
+			{
+				"name": "vat_price_excl",
+				"type": "DOUBLE"
+			},
+			{
+				"name": "vat_general_ledger_number",
+				"type": "UTF8"
+			},
+			{
+				"name": "source_file",
+				"type": "UTF8"
+			}
+		]
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

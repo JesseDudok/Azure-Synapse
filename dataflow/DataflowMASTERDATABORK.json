@@ -1,0 +1,249 @@
+{
+	"name": "DataflowMASTERDATABORK",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "ParquetOUTPUTCENTER",
+						"type": "DatasetReference"
+					},
+					"name": "sourceCenters"
+				},
+				{
+					"dataset": {
+						"referenceName": "ParquetOUTPUTPAYMODEGROUPLIST",
+						"type": "DatasetReference"
+					},
+					"name": "sourcePaymodegrouplist"
+				},
+				{
+					"dataset": {
+						"referenceName": "ParquetOUTPUTPRODUCTGROUPLIST",
+						"type": "DatasetReference"
+					},
+					"name": "sourceProductgrouplist"
+				},
+				{
+					"dataset": {
+						"referenceName": "ParquetOUTPUTUSERS",
+						"type": "DatasetReference"
+					},
+					"name": "sourceUsers"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "S_CentersTable",
+						"type": "DatasetReference"
+					},
+					"name": "sinkCenters"
+				},
+				{
+					"dataset": {
+						"referenceName": "S_PayModeGroupList",
+						"type": "DatasetReference"
+					},
+					"name": "sinkPayModeGroupList"
+				},
+				{
+					"dataset": {
+						"referenceName": "S_ProductGroupListTable",
+						"type": "DatasetReference"
+					},
+					"name": "sinkProductGroupList"
+				},
+				{
+					"dataset": {
+						"referenceName": "S_UsersTable",
+						"type": "DatasetReference"
+					},
+					"name": "sinkUsers"
+				}
+			],
+			"transformations": [
+				{
+					"name": "MapDriftedCenters",
+					"description": "Creates an explicit mapping for each drifted column"
+				},
+				{
+					"name": "MapDriftedUsers",
+					"description": "Creates an explicit mapping for each drifted column"
+				},
+				{
+					"name": "MapDriftedPaymodegrouplist",
+					"description": "Creates an explicit mapping for each drifted column"
+				},
+				{
+					"name": "MapDriftedProductgrouplist",
+					"description": "Creates an explicit mapping for each drifted column"
+				},
+				{
+					"name": "selectProductgrouplist"
+				},
+				{
+					"name": "selectPaymodegrouplist"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          SourceFileName as string,",
+				"          CenterNr as string,",
+				"          Key as string,",
+				"          LeftNr as long,",
+				"          Level as long,",
+				"          Name as string,",
+				"          RevenueCenter as boolean,",
+				"          RightNr as long,",
+				"          SiteNr as long,",
+				"          SubCenter as long,",
+				"          type as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false,",
+				"     purgeFiles: true,",
+				"     format: 'parquet') ~> sourceCenters",
+				"source(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false,",
+				"     purgeFiles: true,",
+				"     format: 'parquet') ~> sourcePaymodegrouplist",
+				"source(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false,",
+				"     purgeFiles: true,",
+				"     format: 'parquet') ~> sourceProductgrouplist",
+				"source(output(",
+				"          SourceFileName as string,",
+				"          Key as string,",
+				"          Name as string,",
+				"          NationalId as string,",
+				"          PersonelId as string,",
+				"          type as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false,",
+				"     purgeFiles: true,",
+				"     format: 'parquet') ~> sourceUsers",
+				"sourceCenters derive(SourceFileName = toString(byName('SourceFileName')),",
+				"          CenterNr = toString(byName('CenterNr')),",
+				"          Key = toString(byName('Key')),",
+				"          LeftNr = toLong(byName('LeftNr')),",
+				"          Level = toLong(byName('Level')),",
+				"          Name = toString(byName('Name')),",
+				"          RevenueCenter = toBoolean(byName('RevenueCenter')),",
+				"          RightNr = toLong(byName('RightNr')),",
+				"          SiteNr = toLong(byName('SiteNr')),",
+				"          SubCenter = toLong(byName('SubCenter')),",
+				"          type = toString(byName('type'))) ~> MapDriftedCenters",
+				"sourceUsers derive(SourceFileName = toString(byName('SourceFileName')),",
+				"          Key = toString(byName('Key')),",
+				"          Name = toString(byName('Name')),",
+				"          NationalId = toString(byName('NationalId')),",
+				"          PersonelId = toString(byName('PersonelId')),",
+				"          type = toString(byName('type'))) ~> MapDriftedUsers",
+				"sourcePaymodegrouplist derive(SourceFileName = toString(byName('SourceFileName')),",
+				"          Data = toString(byName('Data')),",
+				"          GroupLevel = toLong(byName('GroupLevel')),",
+				"          Key = toString(byName('Key')),",
+				"          LeftNr = toLong(byName('LeftNr')),",
+				"          Name = toString(byName('Name')),",
+				"          RightNr = toLong(byName('RightNr')),",
+				"          type = toString(byName('type'))) ~> MapDriftedPaymodegrouplist",
+				"sourceProductgrouplist derive(SourceFileName = toString(byName('SourceFileName')),",
+				"          Data = toString(byName('Data')),",
+				"          GroupLevel = toLong(byName('GroupLevel')),",
+				"          GroupNr = toLong(byName('GroupNr')),",
+				"          Key = toString(byName('Key')),",
+				"          LeftNr = toLong(byName('LeftNr')),",
+				"          Name = toString(byName('Name')),",
+				"          RightNr = toLong(byName('RightNr')),",
+				"          VatCodeKey = toString(byName('VatCodeKey')),",
+				"          type = toString(byName('type'))) ~> MapDriftedProductgrouplist",
+				"MapDriftedProductgrouplist select(mapColumn(",
+				"          SourceFileName,",
+				"          Data,",
+				"          GroupLevel,",
+				"          GroupNr,",
+				"          Key,",
+				"          LeftNr,",
+				"          Name,",
+				"          RightNr,",
+				"          VatCodeKey,",
+				"          type",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> selectProductgrouplist",
+				"MapDriftedPaymodegrouplist select(mapColumn(",
+				"          SourceFileName,",
+				"          GroupLevel,",
+				"          Key,",
+				"          LeftNr,",
+				"          Name,",
+				"          RightNr,",
+				"          type",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> selectPaymodegrouplist",
+				"MapDriftedCenters sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          Id as integer",
+				"     ),",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     recreate:true,",
+				"     format: 'table',",
+				"     errorHandlingOption: 'stopOnFirstError') ~> sinkCenters",
+				"selectPaymodegrouplist sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          Id as integer",
+				"     ),",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     recreate:true,",
+				"     format: 'table',",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError') ~> sinkPayModeGroupList",
+				"selectProductgrouplist sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          Id as integer",
+				"     ),",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     recreate:true,",
+				"     format: 'table',",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError') ~> sinkProductGroupList",
+				"MapDriftedUsers sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          Id as integer",
+				"     ),",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     recreate:true,",
+				"     format: 'table',",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError') ~> sinkUsers"
+			]
+		}
+	}
+}

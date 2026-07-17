@@ -1,0 +1,32 @@
+{
+	"name": "TriggerNOSTRADAMUS",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Started",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "NostradamusprocessingPipe1",
+					"type": "PipelineReference"
+				}
+			}
+		],
+		"type": "ScheduleTrigger",
+		"typeProperties": {
+			"recurrence": {
+				"frequency": "Day",
+				"interval": 1,
+				"startTime": "2025-06-13T13:56:00",
+				"timeZone": "W. Europe Standard Time",
+				"schedule": {
+					"minutes": [
+						30
+					],
+					"hours": [
+						5
+					]
+				}
+			}
+		}
+	}
+}

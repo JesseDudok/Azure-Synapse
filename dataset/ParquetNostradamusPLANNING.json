@@ -1,0 +1,22 @@
+{
+	"name": "ParquetNostradamusPLANNING",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureDataLakeStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "dudok_nostradamus_planning.parquet",
+				"folderPath": "outputNostradamus/planning",
+				"fileSystem": "synapse"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": []
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

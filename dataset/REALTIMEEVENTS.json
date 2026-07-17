@@ -1,0 +1,21 @@
+{
+	"name": "REALTIMEEVENTS",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureDataLakeStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "dudok_events.json",
+				"folderPath": "Realtime/Events",
+				"fileSystem": "container4"
+			}
+		},
+		"schema": {}
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

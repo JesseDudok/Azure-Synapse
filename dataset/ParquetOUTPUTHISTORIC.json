@@ -1,0 +1,214 @@
+{
+	"name": "ParquetOUTPUTHISTORIC",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureDataLakeStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": "outputhistoric",
+				"fileSystem": "synapse"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": [
+			{
+				"name": "SourceFileName",
+				"type": "UTF8"
+			},
+			{
+				"name": "TicketKey",
+				"type": "UTF8"
+			},
+			{
+				"name": "TicketActualDate",
+				"type": "INT64"
+			},
+			{
+				"name": "TableNr",
+				"type": "UTF8"
+			},
+			{
+				"name": "CenterKey",
+				"type": "UTF8"
+			},
+			{
+				"name": "CenterName",
+				"type": "UTF8"
+			},
+			{
+				"name": "Covers",
+				"type": "UTF8"
+			},
+			{
+				"name": "TicketDate",
+				"type": "INT64"
+			},
+			{
+				"name": "PcName",
+				"type": "UTF8"
+			},
+			{
+				"name": "TicketNr",
+				"type": "INT64"
+			},
+			{
+				"name": "TicketTime",
+				"type": "UTF8"
+			},
+			{
+				"name": "TotalPrice",
+				"type": "DOUBLE"
+			},
+			{
+				"name": "TotalToPay",
+				"type": "DOUBLE"
+			},
+			{
+				"name": "TicketUserName",
+				"type": "UTF8"
+			},
+			{
+				"name": "Internal",
+				"type": "UTF8"
+			},
+			{
+				"name": "OrderKey",
+				"type": "UTF8"
+			},
+			{
+				"name": "ActionId",
+				"type": "UTF8"
+			},
+			{
+				"name": "OrderActualDate",
+				"type": "INT64"
+			},
+			{
+				"name": "OrderDate",
+				"type": "INT64"
+			},
+			{
+				"name": "OrderTime",
+				"type": "UTF8"
+			},
+			{
+				"name": "OrderUserName",
+				"type": "UTF8"
+			},
+			{
+				"name": "OrderUserKey",
+				"type": "UTF8"
+			},
+			{
+				"name": "LineKey",
+				"type": "UTF8"
+			},
+			{
+				"name": "LineGroupKey",
+				"type": "UTF8"
+			},
+			{
+				"name": "LineGroupName",
+				"type": "UTF8"
+			},
+			{
+				"name": "LinePrice",
+				"type": "DOUBLE"
+			},
+			{
+				"name": "LineProductKey",
+				"type": "UTF8"
+			},
+			{
+				"name": "LineProductName",
+				"type": "UTF8"
+			},
+			{
+				"name": "LineProductNr",
+				"type": "INT64"
+			},
+			{
+				"name": "LineQty",
+				"type": "INT64"
+			},
+			{
+				"name": "LineTotalEx",
+				"type": "DOUBLE"
+			},
+			{
+				"name": "LineTotalInc",
+				"type": "DOUBLE"
+			},
+			{
+				"name": "LineVatPerc",
+				"type": "INT64"
+			},
+			{
+				"name": "IsAddon",
+				"type": "BOOLEAN"
+			},
+			{
+				"name": "ParentLineKey",
+				"type": "UTF8"
+			},
+			{
+				"name": "PaymodeKey",
+				"type": "UTF8"
+			},
+			{
+				"name": "PaymodeGroupKey",
+				"type": "UTF8"
+			},
+			{
+				"name": "PaymodeGroupName",
+				"type": "UTF8"
+			},
+			{
+				"name": "PaymodePaymodeKey",
+				"type": "UTF8"
+			},
+			{
+				"name": "PaymodePaymodeName",
+				"type": "UTF8"
+			},
+			{
+				"name": "PaymodePaymodeNr",
+				"type": "INT64"
+			},
+			{
+				"name": "PaymodePaymodeType",
+				"type": "UTF8"
+			},
+			{
+				"name": "PaymodePrice",
+				"type": "DOUBLE"
+			},
+			{
+				"name": "PaymodeQty",
+				"type": "INT64"
+			},
+			{
+				"name": "PaymodeTotal",
+				"type": "DOUBLE"
+			},
+			{
+				"name": "PaymodeMemo",
+				"type": "UTF8"
+			},
+			{
+				"name": "PaymodeTerminalId",
+				"type": "UTF8"
+			},
+			{
+				"name": "PaymodeTransactionId",
+				"type": "UTF8"
+			}
+		]
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

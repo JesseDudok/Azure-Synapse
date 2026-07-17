@@ -1,0 +1,292 @@
+{
+	"name": "BORKprocessingPipe2",
+	"properties": {
+		"activities": [
+			{
+				"name": "COPY CENTERS",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "JsonSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "JsonReadSettings"
+						}
+					},
+					"sink": {
+						"type": "JsonSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "JsonWriteSettings"
+						}
+					},
+					"enableStaging": false
+				},
+				"inputs": [
+					{
+						"referenceName": "BORKCENTERS",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ProcessedBorkJsonMasterData",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "COPY USERS",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "JsonSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "JsonReadSettings"
+						}
+					},
+					"sink": {
+						"type": "JsonSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "JsonWriteSettings"
+						}
+					},
+					"enableStaging": false
+				},
+				"inputs": [
+					{
+						"referenceName": "BORKUSERS",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ProcessedBorkJsonMasterData",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "COPY PAYMODEGROUPLIST",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "JsonSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "JsonReadSettings"
+						}
+					},
+					"sink": {
+						"type": "JsonSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "JsonWriteSettings"
+						}
+					},
+					"enableStaging": false
+				},
+				"inputs": [
+					{
+						"referenceName": "BORKPAYMODEGROUPLIST",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ProcessedBorkJsonMasterData",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "COPY PRODUCTGROUPLIST",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "JsonSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "JsonReadSettings"
+						}
+					},
+					"sink": {
+						"type": "JsonSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "JsonWriteSettings"
+						}
+					},
+					"enableStaging": false
+				},
+				"inputs": [
+					{
+						"referenceName": "BORKPRODUCTGROUPLIST",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ProcessedBorkJsonMasterData",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "MasterdataProcessing",
+				"type": "SynapseNotebook",
+				"dependsOn": [
+					{
+						"activity": "COPY CENTERS",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					},
+					{
+						"activity": "COPY USERS",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					},
+					{
+						"activity": "COPY PAYMODEGROUPLIST",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					},
+					{
+						"activity": "COPY PRODUCTGROUPLIST",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebook": {
+						"referenceName": "JSONtoPARQUETBORKMASTERDATA",
+						"type": "NotebookReference"
+					},
+					"snapshot": true,
+					"sparkPool": {
+						"referenceName": "SparkPool3",
+						"type": "BigDataPoolReference"
+					},
+					"executorSize": "Small",
+					"conf": {
+						"spark.dynamicAllocation.minExecutors": 2,
+						"spark.dynamicAllocation.maxExecutors": 2
+					},
+					"driverSize": "Small",
+					"numExecutors": 2
+				}
+			},
+			{
+				"name": "Data flow MASTERDATA BORK",
+				"type": "ExecuteDataFlow",
+				"dependsOn": [
+					{
+						"activity": "MasterdataProcessing",
+						"dependencyConditions": [
+							"Completed"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 5,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataflow": {
+						"referenceName": "DataflowMASTERDATABORK",
+						"type": "DataFlowReference"
+					},
+					"compute": {
+						"coreCount": 8,
+						"computeType": "General"
+					},
+					"traceLevel": "None",
+					"cacheSinks": {
+						"firstRowOnly": true
+					}
+				}
+			}
+		],
+		"annotations": [],
+		"lastPublishTime": "2026-03-19T08:53:41Z"
+	},
+	"type": "Microsoft.Synapse/workspaces/pipelines"
+}

@@ -1,0 +1,163 @@
+{
+	"name": "ParquetMICEINVOICELINES",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureDataLakeStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "dudok_invoice_lines.parquet",
+				"folderPath": "outputMICE/invoices",
+				"fileSystem": "synapse"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": [
+			{
+				"name": "invoice_id",
+				"type": "INT64"
+			},
+			{
+				"name": "invoice_nr",
+				"type": "INT64"
+			},
+			{
+				"name": "draft_nr",
+				"type": "INT64"
+			},
+			{
+				"name": "company_id",
+				"type": "INT64"
+			},
+			{
+				"name": "client_id",
+				"type": "INT64"
+			},
+			{
+				"name": "client_name",
+				"type": "UTF8"
+			},
+			{
+				"name": "invoice_status",
+				"type": "UTF8"
+			},
+			{
+				"name": "invoice_description",
+				"type": "UTF8"
+			},
+			{
+				"name": "invoice_total_excl_vat",
+				"type": "DOUBLE"
+			},
+			{
+				"name": "invoice_total_vat",
+				"type": "DOUBLE"
+			},
+			{
+				"name": "invoice_total_incl_vat",
+				"type": "DOUBLE"
+			},
+			{
+				"name": "invoice_total_discount",
+				"type": "DOUBLE"
+			},
+			{
+				"name": "invoice_created",
+				"type": "UTF8"
+			},
+			{
+				"name": "invoice_updated",
+				"type": "UTF8"
+			},
+			{
+				"name": "invoice_reference",
+				"type": "UTF8"
+			},
+			{
+				"name": "payment_term",
+				"type": "INT64"
+			},
+			{
+				"name": "invoice_incl_vat",
+				"type": "BOOLEAN"
+			},
+			{
+				"name": "line_event_id",
+				"type": "INT64"
+			},
+			{
+				"name": "line_object_type",
+				"type": "UTF8"
+			},
+			{
+				"name": "line_object_id",
+				"type": "INT64"
+			},
+			{
+				"name": "line_object_code",
+				"type": "UTF8"
+			},
+			{
+				"name": "line_date",
+				"type": "UTF8"
+			},
+			{
+				"name": "line_amount",
+				"type": "DOUBLE"
+			},
+			{
+				"name": "line_description",
+				"type": "UTF8"
+			},
+			{
+				"name": "line_vat_rate",
+				"type": "DOUBLE"
+			},
+			{
+				"name": "line_vat_amount",
+				"type": "DOUBLE"
+			},
+			{
+				"name": "line_price",
+				"type": "DOUBLE"
+			},
+			{
+				"name": "line_price_excl_vat",
+				"type": "DOUBLE"
+			},
+			{
+				"name": "line_total_price",
+				"type": "DOUBLE"
+			},
+			{
+				"name": "line_total_price_excl_vat",
+				"type": "DOUBLE"
+			},
+			{
+				"name": "line_total_vat",
+				"type": "DOUBLE"
+			},
+			{
+				"name": "line_invoicing_number",
+				"type": "UTF8"
+			},
+			{
+				"name": "line_general_ledger_number",
+				"type": "UTF8"
+			},
+			{
+				"name": "line_cost_center",
+				"type": "UTF8"
+			},
+			{
+				"name": "source_file",
+				"type": "UTF8"
+			}
+		]
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

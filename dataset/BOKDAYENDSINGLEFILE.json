@@ -1,0 +1,314 @@
+{
+	"name": "BOKDAYENDSINGLEFILE",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureDataLakeStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "dudok05655_20260326.json",
+				"folderPath": "dayend",
+				"fileSystem": "container1"
+			}
+		},
+		"schema": {
+			"type": "object",
+			"properties": {
+				"data": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"properties": {
+							"type": {
+								"type": "string"
+							},
+							"ActualDate": {
+								"type": "integer"
+							},
+							"CenterKey": {
+								"type": "string"
+							},
+							"CenterLeftNr": {
+								"type": "integer"
+							},
+							"CenterName": {
+								"type": "string"
+							},
+							"CenterNr": {
+								"type": "string"
+							},
+							"CenterRightNr": {
+								"type": "integer"
+							},
+							"Date": {
+								"type": "integer"
+							},
+							"Key": {
+								"type": "string"
+							},
+							"LicenseInfo": {
+								"type": "object",
+								"properties": {
+									"type": {
+										"type": "string"
+									},
+									"Address": {
+										"type": "string"
+									},
+									"City": {
+										"type": "string"
+									},
+									"CompanyName": {
+										"type": "string"
+									},
+									"Country": {
+										"type": "string"
+									},
+									"Vat": {
+										"type": "string"
+									},
+									"ZipCode": {
+										"type": "string"
+									}
+								}
+							},
+							"Orders": {
+								"type": "array",
+								"items": {
+									"type": "object",
+									"properties": {
+										"type": {
+											"type": "string"
+										},
+										"ActualDate": {
+											"type": "integer"
+										},
+										"Date": {
+											"type": "integer"
+										},
+										"Key": {
+											"type": "string"
+										},
+										"Lines": {
+											"type": "array",
+											"items": {
+												"type": "object",
+												"properties": {
+													"type": {
+														"type": "string"
+													},
+													"Addons": {
+														"type": "array"
+													},
+													"CourseName": {
+														"type": "string"
+													},
+													"GroupKey": {
+														"type": "string"
+													},
+													"GroupLeftNr": {
+														"type": "integer"
+													},
+													"GroupName": {
+														"type": "string"
+													},
+													"GroupNr": {
+														"type": "integer"
+													},
+													"GroupRightNr": {
+														"type": "integer"
+													},
+													"Key": {
+														"type": "string"
+													},
+													"Memo": {
+														"type": "string"
+													},
+													"MenuId": {
+														"type": "string"
+													},
+													"Price": {
+														"type": "number"
+													},
+													"ProductKey": {
+														"type": "string"
+													},
+													"ProductName": {
+														"type": "string"
+													},
+													"ProductNr": {
+														"type": "integer"
+													},
+													"ProductType": {
+														"type": "string"
+													},
+													"ProductTypeTranslated": {
+														"type": "string"
+													},
+													"Qty": {
+														"type": "integer"
+													},
+													"TotalEx": {
+														"type": "number"
+													},
+													"TotalInc": {
+														"type": "number"
+													},
+													"Units": {
+														"type": "integer"
+													},
+													"VatNr": {
+														"type": "integer"
+													},
+													"VatPerc": {
+														"type": "integer"
+													}
+												}
+											}
+										},
+										"Paymodes": {
+											"type": "array",
+											"items": {
+												"type": "object",
+												"properties": {
+													"type": {
+														"type": "string"
+													},
+													"GroupKey": {
+														"type": "string"
+													},
+													"GroupLeftNr": {
+														"type": "integer"
+													},
+													"GroupName": {
+														"type": "string"
+													},
+													"GroupRightNr": {
+														"type": "integer"
+													},
+													"Key": {
+														"type": "string"
+													},
+													"Memo": {
+														"type": "string"
+													},
+													"PaymodeKey": {
+														"type": "string"
+													},
+													"PaymodeName": {
+														"type": "string"
+													},
+													"PaymodeNr": {
+														"type": "integer"
+													},
+													"PaymodeType": {
+														"type": "string"
+													},
+													"Price": {
+														"type": "number"
+													},
+													"Qty": {
+														"type": "integer"
+													},
+													"TerminalId": {
+														"type": "string"
+													},
+													"Total": {
+														"type": "number"
+													},
+													"TransactionCost": {
+														"type": "integer"
+													},
+													"TransactionId": {
+														"type": "string"
+													}
+												}
+											}
+										},
+										"PcName": {
+											"type": "string"
+										},
+										"PcNr": {
+											"type": "integer"
+										},
+										"TicketKey": {
+											"type": "string"
+										},
+										"Time": {
+											"type": "string"
+										},
+										"UserId": {
+											"type": "string"
+										},
+										"UserKey": {
+											"type": "string"
+										},
+										"UserName": {
+											"type": "string"
+										}
+									}
+								}
+							},
+							"PcName": {
+								"type": "string"
+							},
+							"PcNr": {
+								"type": "integer"
+							},
+							"PcRegistrationNr": {
+								"type": "string"
+							},
+							"PrepStatus": {
+								"type": "string"
+							},
+							"PrintType": {
+								"type": "string"
+							},
+							"ReceiptNr": {
+								"type": "string"
+							},
+							"RefundedBy": {
+								"type": "string"
+							},
+							"RefundFor": {
+								"type": "string"
+							},
+							"TableName": {
+								"type": "string"
+							},
+							"TicketNr": {
+								"type": "integer"
+							},
+							"Time": {
+								"type": "string"
+							},
+							"TotalPrice": {
+								"type": "number"
+							},
+							"TotalToPay": {
+								"type": "integer"
+							},
+							"UserId": {
+								"type": "string"
+							},
+							"UserKey": {
+								"type": "string"
+							},
+							"UserName": {
+								"type": "string"
+							},
+							"ZNumber": {
+								"type": "integer"
+							}
+						}
+					}
+				}
+			}
+		}
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

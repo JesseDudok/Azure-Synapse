@@ -1,0 +1,42 @@
+{
+	"name": "NostradamusSATISFACTION",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureDataLakeStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "dudok_nostradamus_satisfaction.json",
+				"fileSystem": "container2"
+			}
+		},
+		"schema": {
+			"type": "object",
+			"properties": {
+				"date": {
+					"type": "string"
+				},
+				"staff_name": {
+					"type": "string"
+				},
+				"office": {
+					"type": "string"
+				},
+				"department": {
+					"type": "string"
+				},
+				"satisfaction": {
+					"type": "integer"
+				},
+				"remarks": {
+					"type": "null"
+				}
+			}
+		}
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

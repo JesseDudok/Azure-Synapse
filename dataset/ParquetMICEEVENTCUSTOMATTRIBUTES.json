@@ -1,0 +1,167 @@
+{
+	"name": "ParquetMICEEVENTCUSTOMATTRIBUTES",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureDataLakeStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "dudok_custom_attributes.parquet",
+				"folderPath": "outputMICE/events",
+				"fileSystem": "synapse"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": [
+			{
+				"name": "event_id",
+				"type": "INT64"
+			},
+			{
+				"name": "event_name",
+				"type": "UTF8"
+			},
+			{
+				"name": "client_id",
+				"type": "INT64"
+			},
+			{
+				"name": "company_id",
+				"type": "INT64"
+			},
+			{
+				"name": "planner_id",
+				"type": "INT64"
+			},
+			{
+				"name": "notities_niet_op_werkbrief",
+				"type": "UTF8"
+			},
+			{
+				"name": "poinkoopnummer",
+				"type": "UTF8"
+			},
+			{
+				"name": "poinkoopordernummer",
+				"type": "UTF8"
+			},
+			{
+				"name": "fb_aantekeningen",
+				"type": "UTF8"
+			},
+			{
+				"name": "opstelling",
+				"type": "UTF8"
+			},
+			{
+				"name": "leveranciers",
+				"type": "UTF8"
+			},
+			{
+				"name": "decoratie",
+				"type": "UTF8"
+			},
+			{
+				"name": "gasten",
+				"type": "UTF8"
+			},
+			{
+				"name": "betaalwijze_raw",
+				"type": "UTF8"
+			},
+			{
+				"name": "locatie",
+				"type": "UTF8"
+			},
+			{
+				"name": "accountmanager",
+				"type": "UTF8"
+			},
+			{
+				"name": "producent",
+				"type": "UTF8"
+			},
+			{
+				"name": "slagingskans",
+				"type": "UTF8"
+			},
+			{
+				"name": "handtekening",
+				"type": "UTF8"
+			},
+			{
+				"name": "notities_wel_op_de_werkbrief",
+				"type": "UTF8"
+			},
+			{
+				"name": "opbouw_en_draaiduty",
+				"type": "UTF8"
+			},
+			{
+				"name": "custom_datum",
+				"type": "UTF8"
+			},
+			{
+				"name": "personeel",
+				"type": "UTF8"
+			},
+			{
+				"name": "opstelling_turbinehal",
+				"type": "UTF8"
+			},
+			{
+				"name": "opstelling_megawatt",
+				"type": "UTF8"
+			},
+			{
+				"name": "opstelling_voltage_ingang",
+				"type": "UTF8"
+			},
+			{
+				"name": "opstelling_machinekamer_1",
+				"type": "UTF8"
+			},
+			{
+				"name": "opstelling_machinekamer_2",
+				"type": "UTF8"
+			},
+			{
+				"name": "opstelling_schakelruimte",
+				"type": "UTF8"
+			},
+			{
+				"name": "catering",
+				"type": "UTF8"
+			},
+			{
+				"name": "crewcatering",
+				"type": "UTF8"
+			},
+			{
+				"name": "techniek",
+				"type": "UTF8"
+			},
+			{
+				"name": "bijzonderheden",
+				"type": "UTF8"
+			},
+			{
+				"name": "label",
+				"type": "UTF8"
+			},
+			{
+				"name": "basisvoorziening",
+				"type": "UTF8"
+			},
+			{
+				"name": "source_file",
+				"type": "UTF8"
+			}
+		]
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

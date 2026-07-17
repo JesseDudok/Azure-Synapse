@@ -1,0 +1,116 @@
+{
+	"name": "DataflowREALTIMEHOURSNostradamus",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "ParquetNostradamusREALTIMEHOURS",
+						"type": "DatasetReference"
+					},
+					"name": "RealtimeHours"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "S_HoursTable",
+						"type": "DatasetReference"
+					},
+					"name": "sinkRealTimeHours"
+				}
+			],
+			"transformations": [
+				{
+					"name": "MapDriftedRealTimehours",
+					"description": "Creates an explicit mapping for each drifted column"
+				},
+				{
+					"name": "selectRealTimeHours"
+				},
+				{
+					"name": "AlterRowRealTimeHours"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          office_id as string,",
+				"          office_name as string,",
+				"          card_id as string,",
+				"          card_name as string,",
+				"          hour_id as string,",
+				"          hour_office_id as string,",
+				"          hour_department_id as string,",
+				"          hour_team_id as string,",
+				"          hour_date as string,",
+				"          hour_hours as double,",
+				"          hour_enter as string,",
+				"          hour_exit as string,",
+				"          hour_state as string,",
+				"          hour_type as string,",
+				"          project_id as string,",
+				"          hour_type_name as string,",
+				"          hour_break as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false,",
+				"     format: 'parquet') ~> RealtimeHours",
+				"RealtimeHours derive(office_id = toString(byName('office_id')),",
+				"          office_name = toString(byName('office_name')),",
+				"          card_id = toString(byName('card_id')),",
+				"          card_name = toString(byName('card_name')),",
+				"          hour_id = toString(byName('hour_id')),",
+				"          hour_office_id = toString(byName('hour_office_id')),",
+				"          hour_department_id = toString(byName('hour_department_id')),",
+				"          hour_team_id = toString(byName('hour_team_id')),",
+				"          hour_date = toString(byName('hour_date')),",
+				"          hour_hours = toDouble(byName('hour_hours')),",
+				"          hour_enter = toString(byName('hour_enter')),",
+				"          hour_exit = toString(byName('hour_exit')),",
+				"          hour_state = toString(byName('hour_state')),",
+				"          hour_type = toString(byName('hour_type')),",
+				"          project_id = toString(byName('project_id')),",
+				"          hour_type_name = toString(byName('hour_type_name')),",
+				"          hour_break = toString(byName('hour_break'))) ~> MapDriftedRealTimehours",
+				"MapDriftedRealTimehours select(mapColumn(",
+				"          OfficeID = office_id,",
+				"          OfficeName = office_name,",
+				"          CardID = card_id,",
+				"          CardName = card_name,",
+				"          HourID = hour_id,",
+				"          HourOfficeID = hour_office_id,",
+				"          HourDepartmentID = hour_department_id,",
+				"          HourTeamID = hour_team_id,",
+				"          HourDate = hour_date,",
+				"          HourHours = hour_hours,",
+				"          HourEnter = hour_enter,",
+				"          HourExit = hour_exit,",
+				"          HourState = hour_state,",
+				"          HourType = hour_type,",
+				"          ProjectID = project_id,",
+				"          HourTypeName = hour_type_name,",
+				"          HourBreak = hour_break",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> selectRealTimeHours",
+				"selectRealTimeHours alterRow(upsertIf(true())) ~> AlterRowRealTimeHours",
+				"AlterRowRealTimeHours sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          Id as integer",
+				"     ),",
+				"     deletable:false,",
+				"     insertable:false,",
+				"     updateable:false,",
+				"     upsertable:true,",
+				"     keys:['OfficeID','OfficeName','CardID','CardName','HourID'],",
+				"     format: 'table',",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError') ~> sinkRealTimeHours"
+			]
+		}
+	}
+}

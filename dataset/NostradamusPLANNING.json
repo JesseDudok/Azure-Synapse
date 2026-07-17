@@ -1,0 +1,78 @@
+{
+	"name": "NostradamusPLANNING",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureDataLakeStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "dudok_nostradamus_planning.json",
+				"fileSystem": "container2"
+			}
+		},
+		"schema": {
+			"type": "object",
+			"properties": {
+				"office_id": {
+					"type": "string"
+				},
+				"office_name": {
+					"type": "string"
+				},
+				"card_id": {
+					"type": "string"
+				},
+				"planning_department_id": {
+					"type": "string"
+				},
+				"planning_team_id": {
+					"type": "string"
+				},
+				"planning_date": {
+					"type": "string"
+				},
+				"planning_start": {
+					"type": "string"
+				},
+				"planning_end": {
+					"type": "string"
+				},
+				"planning_hours": {
+					"type": "string"
+				},
+				"planning_costs": {
+					"type": "string"
+				},
+				"planning_workplace_id": {
+					"type": "string"
+				},
+				"planning_workplace_name": {
+					"type": "string"
+				},
+				"planning_workplace_type": {
+					"type": "string"
+				},
+				"planning_project_id": {
+					"type": "null"
+				},
+				"planning_break": {
+					"type": "string"
+				},
+				"planning_labels": {
+					"type": "string"
+				},
+				"planning_remarks": {
+					"type": "string"
+				},
+				"planning_type_id": {
+					"type": "string"
+				}
+			}
+		}
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

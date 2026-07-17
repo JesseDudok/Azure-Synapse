@@ -1,0 +1,60 @@
+{
+	"name": "NostradamusSICKNESS",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureDataLakeStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "dudok_nostradamus_sickness.json",
+				"fileSystem": "container2"
+			}
+		},
+		"schema": {
+			"type": "object",
+			"properties": {
+				"office_id": {
+					"type": "string"
+				},
+				"office_name": {
+					"type": "string"
+				},
+				"card_id": {
+					"type": "string"
+				},
+				"sickness_id": {
+					"type": "string"
+				},
+				"sickness_start": {
+					"type": "string"
+				},
+				"sickness_end": {
+					"type": "string"
+				},
+				"sickness_waitday_hours": {
+					"type": "string"
+				},
+				"sickness_waitday_days": {
+					"type": "string"
+				},
+				"sickness_hours": {
+					"type": "string"
+				},
+				"sickness_days": {
+					"type": "string"
+				},
+				"sickness_type": {
+					"type": "string"
+				},
+				"sickness_type_name": {
+					"type": "string"
+				}
+			}
+		}
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

@@ -1,0 +1,45 @@
+{
+	"name": "NostradamusCUMULATIVE",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureDataLakeStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": "cumulative",
+				"fileSystem": "container2"
+			}
+		},
+		"schema": {
+			"type": "object",
+			"properties": {
+				"office_id": {
+					"type": "string"
+				},
+				"office_name": {
+					"type": "string"
+				},
+				"card_id": {
+					"type": "integer"
+				},
+				"cumm_over_hours": {
+					"type": "number"
+				},
+				"cumm_holiday_hours": {
+					"type": "number"
+				},
+				"cumm_compensation_hours": {
+					"type": "integer"
+				},
+				"period": {
+					"type": "string"
+				}
+			}
+		}
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

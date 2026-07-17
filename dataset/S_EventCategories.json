@@ -1,0 +1,23 @@
+{
+	"name": "S_EventCategories",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureSqlDatabase1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "Id",
+				"type": "int",
+				"precision": 10
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "EventCategoriesTable"
+		}
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

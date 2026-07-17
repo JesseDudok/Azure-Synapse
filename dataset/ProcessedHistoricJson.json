@@ -1,0 +1,19 @@
+{
+	"name": "ProcessedHistoricJson",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureDataLakeStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Binary",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": "staginghistoric",
+				"fileSystem": "synapse"
+			}
+		}
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

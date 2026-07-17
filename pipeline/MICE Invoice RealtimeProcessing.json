@@ -1,0 +1,474 @@
+{
+	"name": "MICE Invoice RealtimeProcessing",
+	"properties": {
+		"activities": [
+			{
+				"name": "Get_Messages_From_Invoice_Queue",
+				"type": "WebActivity",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 2,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"method": "GET",
+					"headers": {
+						"x-ms-version": "2021-08-06"
+					},
+					"url": "https://dudodatalake.queue.core.windows.net/mice-invoices/messages?numofmessages=32&visibilitytimeout=900&api-version=2021-08-06",
+					"connectVia": {
+						"referenceName": "AutoResolveIntegrationRuntime",
+						"type": "IntegrationRuntimeReference"
+					},
+					"authentication": {
+						"type": "MSI",
+						"resource": "https://storage.azure.com/"
+					}
+				}
+			},
+			{
+				"name": "ForEach_Invoice_Message",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "Get_Messages_From_Invoice_Queue",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@xpath(xml(activity('Get_Messages_From_Invoice_Queue').output.Response), '//QueueMessage')",
+						"type": "Expression"
+					},
+					"isSequential": true,
+					"activities": [
+						{
+							"name": "Parse_Queue_Message",
+							"type": "SetVariable",
+							"dependsOn": [],
+							"policy": {
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "messageBody",
+								"value": {
+									"value": "@base64ToString(string(xpath(item(), '//MessageText/text()')[0]))",
+									"type": "Expression"
+								}
+							}
+						},
+						{
+							"name": "Extract_Event_Type",
+							"type": "SetVariable",
+							"dependsOn": [
+								{
+									"activity": "Parse_Queue_Message",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"policy": {
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "eventType",
+								"value": {
+									"value": "@json(variables('messageBody')).event_type",
+									"type": "Expression"
+								}
+							}
+						},
+						{
+							"name": "Extract_Invoice_ID",
+							"type": "SetVariable",
+							"dependsOn": [
+								{
+									"activity": "Parse_Queue_Message",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"policy": {
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "invoiceId",
+								"value": {
+									"value": "@json(variables('messageBody')).invoice_id",
+									"type": "Expression"
+								}
+							}
+						},
+						{
+							"name": "Extract_Company_ID",
+							"type": "SetVariable",
+							"dependsOn": [
+								{
+									"activity": "Parse_Queue_Message",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"policy": {
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "companyId",
+								"value": {
+									"value": "@json(variables('messageBody')).company_id",
+									"type": "Expression"
+								}
+							}
+						},
+						{
+							"name": "Extract_Timestamp",
+							"type": "SetVariable",
+							"dependsOn": [
+								{
+									"activity": "Parse_Queue_Message",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"policy": {
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "timestamp",
+								"value": {
+									"value": "@json(variables('messageBody')).timestamp",
+									"type": "Expression"
+								}
+							}
+						},
+						{
+							"name": "Switch_On_Event_Type",
+							"type": "Switch",
+							"dependsOn": [
+								{
+									"activity": "Extract_Event_Type",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								},
+								{
+									"activity": "Extract_Invoice_ID",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								},
+								{
+									"activity": "Extract_Company_ID",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								},
+								{
+									"activity": "Extract_Timestamp",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"userProperties": [],
+							"typeProperties": {
+								"on": {
+									"value": "@json(variables('messageBody')).event_type",
+									"type": "Expression"
+								},
+								"cases": [
+									{
+										"value": "invoice.deleted",
+										"activities": [
+											{
+												"name": "Delete_Invoice_SQL",
+												"type": "SqlServerStoredProcedure",
+												"dependsOn": [],
+												"policy": {
+													"timeout": "0.12:00:00",
+													"retry": 2,
+													"retryIntervalInSeconds": 30,
+													"secureOutput": false,
+													"secureInput": false
+												},
+												"userProperties": [],
+												"typeProperties": {
+													"storedProcedureName": "[dbo].[sp_DeleteInvoice]",
+													"storedProcedureParameters": {
+														"InvoiceId": {
+															"value": {
+																"value": "@variables('invoiceId')",
+																"type": "Expression"
+															},
+															"type": "String"
+														}
+													}
+												},
+												"linkedServiceName": {
+													"referenceName": "AzureSqlDatabase1",
+													"type": "LinkedServiceReference"
+												}
+											}
+										]
+									}
+								],
+								"defaultActivities": [
+									{
+										"name": "Set_API_Key",
+										"type": "SetVariable",
+										"dependsOn": [],
+										"policy": {
+											"secureOutput": false,
+											"secureInput": false
+										},
+										"userProperties": [],
+										"typeProperties": {
+											"variableName": "apiKey",
+											"value": {
+												"value": "@if(equals(variables('companyId'), '2593'), '256f316c70300927d3283ee1f06088913731457cf3f5a754e18bb19eaa35664ad', if(equals(variables('companyId'), '2592'), '276504bc237dd39e44862449732bf90347c005dbf403ae6ca6fc921bf637feb06', if(equals(variables('companyId'), '2811'), '2d629636b361b82b468be35ab8c629e9ae74e0bbf0021870c188a044286e1b890', if(equals(variables('companyId'), '2835'), '2a1cdb0bb788267e43e72d72c7df2d10acd21a720ed3079583fc88f66cbcf7831', if(equals(variables('companyId'), '2834'), '24cb34f8a698b11d818f38755fba705765f9c9044f21da390bd90ebe047c5de16', if(equals(variables('companyId'), '3291'), '2df53ab09a346ef8ff35a2490f4addd88a166e13e8d3ea83cf16ebfb3720db2fe', if(equals(variables('companyId'), '1568'), '26aa5090e00d501d3c1b1a9f955a9f9f8d5bb4ca4c653f2ead872b76e12b69d18', if(equals(variables('companyId'), '2676'), '2cc1421c3221217b6f89806d5bf9ae9042f5db96154a5022a3170dac1eed9b196', if(equals(variables('companyId'), '2591'), '2636f6ce5ca7bd7f6ab9e6991904ada8e7ba8d5218f0c4c729ddbc55b83bde6fc', if(equals(variables('companyId'), '2590'), '21e85d1869ed8edf89ebdd78cb9f5087c8d8b67e1ce7e1fdc3fec74ac86745f8c', ''))))))))))",
+												"type": "Expression"
+											}
+										}
+									},
+									{
+										"name": "Get_Invoice_From_API",
+										"type": "WebActivity",
+										"dependsOn": [
+											{
+												"activity": "Set_API_Key",
+												"dependencyConditions": [
+													"Succeeded"
+												]
+											}
+										],
+										"policy": {
+											"timeout": "0.12:00:00",
+											"retry": 2,
+											"retryIntervalInSeconds": 30,
+											"secureOutput": false,
+											"secureInput": false
+										},
+										"userProperties": [],
+										"typeProperties": {
+											"method": "GET",
+											"headers": {
+												"Authorization": {
+													"value": "@variables('apiKey')",
+													"type": "Expression"
+												},
+												"Content-Type": "application/json"
+											},
+											"url": {
+												"value": "@concat('https://api.miceoperations.com/api/v1/invoices/', variables('invoiceId'))",
+												"type": "Expression"
+											},
+											"connectVia": {
+												"referenceName": "AutoResolveIntegrationRuntime",
+												"type": "IntegrationRuntimeReference"
+											}
+										}
+									},
+									{
+										"name": "Save_JSON_To_Blob",
+										"type": "WebActivity",
+										"dependsOn": [
+											{
+												"activity": "Get_Invoice_From_API",
+												"dependencyConditions": [
+													"Succeeded"
+												]
+											}
+										],
+										"policy": {
+											"timeout": "0.12:00:00",
+											"retry": 0,
+											"retryIntervalInSeconds": 30,
+											"secureOutput": false,
+											"secureInput": false
+										},
+										"userProperties": [],
+										"typeProperties": {
+											"method": "PUT",
+											"headers": {
+												"x-ms-blob-type": "BlockBlob",
+												"x-ms-version": "2021-08-06"
+											},
+											"url": {
+												"value": "@concat('https://dudodatalake.blob.core.windows.net/synapse/stagingMICE/realtime/invoices/invoice_', variables('invoiceId'), '_', replace(variables('timestamp'), ':', '-'), '.json')",
+												"type": "Expression"
+											},
+											"connectVia": {
+												"referenceName": "AutoResolveIntegrationRuntime",
+												"type": "IntegrationRuntimeReference"
+											},
+											"body": {
+												"value": "@activity('Get_Invoice_From_API').output",
+												"type": "Expression"
+											},
+											"authentication": {
+												"type": "MSI",
+												"resource": "https://storage.azure.com/"
+											}
+										}
+									}
+								]
+							}
+						},
+						{
+							"name": "Delete_Queue_Message",
+							"type": "WebActivity",
+							"dependsOn": [
+								{
+									"activity": "Switch_On_Event_Type",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"method": "DELETE",
+								"headers": {
+									"x-ms-version": "2021-08-06"
+								},
+								"url": {
+									"value": "@concat('https://dudodatalake.queue.core.windows.net/mice-invoices/messages/', string(xpath(item(), '//MessageId/text()')[0]), '?popreceipt=', encodeUriComponent(string(xpath(item(), '//PopReceipt/text()')[0])))",
+									"type": "Expression"
+								},
+								"connectVia": {
+									"referenceName": "AutoResolveIntegrationRuntime",
+									"type": "IntegrationRuntimeReference"
+								},
+								"authentication": {
+									"type": "MSI",
+									"resource": "https://storage.azure.com/"
+								}
+							}
+						}
+					]
+				}
+			},
+			{
+				"name": "Convert_Invoices_JSON_to_Parquet",
+				"type": "SynapseNotebook",
+				"dependsOn": [
+					{
+						"activity": "ForEach_Invoice_Message",
+						"dependencyConditions": [
+							"Completed"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebook": {
+						"referenceName": "JSONtoPARQUETMICEREALTIMEINVOICES",
+						"type": "NotebookReference"
+					},
+					"snapshot": true,
+					"sparkPool": {
+						"referenceName": "SparkPool3",
+						"type": "BigDataPoolReference"
+					},
+					"executorSize": "Small",
+					"conf": {
+						"spark.dynamicAllocation.enabled": null,
+						"spark.dynamicAllocation.minExecutors": 1,
+						"spark.dynamicAllocation.maxExecutors": 1
+					},
+					"driverSize": "Small",
+					"numExecutors": 1
+				}
+			},
+			{
+				"name": "Execute_Dataflow_INVOICE",
+				"type": "ExecuteDataFlow",
+				"dependsOn": [
+					{
+						"activity": "Convert_Invoices_JSON_to_Parquet",
+						"dependencyConditions": [
+							"Completed"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataflow": {
+						"referenceName": "Dataflow REALTIME INVOICE",
+						"type": "DataFlowReference"
+					},
+					"compute": {
+						"coreCount": 8,
+						"computeType": "General"
+					},
+					"traceLevel": "Fine"
+				}
+			}
+		],
+		"variables": {
+			"messageBody": {
+				"type": "String"
+			},
+			"eventType": {
+				"type": "String"
+			},
+			"invoiceId": {
+				"type": "String"
+			},
+			"companyId": {
+				"type": "String"
+			},
+			"timestamp": {
+				"type": "String"
+			},
+			"apiKey": {
+				"type": "String"
+			}
+		},
+		"annotations": [],
+		"lastPublishTime": "2026-03-19T08:53:54Z"
+	},
+	"type": "Microsoft.Synapse/workspaces/pipelines"
+}

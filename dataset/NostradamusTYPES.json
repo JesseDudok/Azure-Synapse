@@ -1,0 +1,36 @@
+{
+	"name": "NostradamusTYPES",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureDataLakeStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "dudok_nostradamus_types.json",
+				"fileSystem": "container2"
+			}
+		},
+		"schema": {
+			"type": "object",
+			"properties": {
+				"office_id": {
+					"type": "string"
+				},
+				"type_id": {
+					"type": "string"
+				},
+				"type_parent_id": {
+					"type": "null"
+				},
+				"type_name": {
+					"type": "string"
+				}
+			}
+		}
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

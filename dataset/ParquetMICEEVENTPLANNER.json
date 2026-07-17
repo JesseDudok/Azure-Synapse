@@ -1,0 +1,59 @@
+{
+	"name": "ParquetMICEEVENTPLANNER",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureDataLakeStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "dudok_planners.parquet",
+				"folderPath": "outputMICE/events",
+				"fileSystem": "synapse"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": [
+			{
+				"name": "planner_id",
+				"type": "INT64"
+			},
+			{
+				"name": "first_name",
+				"type": "UTF8"
+			},
+			{
+				"name": "last_name",
+				"type": "UTF8"
+			},
+			{
+				"name": "full_name",
+				"type": "UTF8"
+			},
+			{
+				"name": "email",
+				"type": "UTF8"
+			},
+			{
+				"name": "phone",
+				"type": "UTF8"
+			},
+			{
+				"name": "avatar_url",
+				"type": "UTF8"
+			},
+			{
+				"name": "initials",
+				"type": "UTF8"
+			},
+			{
+				"name": "source_file",
+				"type": "UTF8"
+			}
+		]
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

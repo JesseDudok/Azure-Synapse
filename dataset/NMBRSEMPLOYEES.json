@@ -1,0 +1,53 @@
+{
+	"name": "NMBRSEMPLOYEES",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureDataLakeStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": "employees",
+				"fileSystem": "container3"
+			}
+		},
+		"schema": {
+			"type": "object",
+			"properties": {
+				"employeeId": {
+					"type": "string"
+				},
+				"employeeBasicInfo": {
+					"type": "object",
+					"properties": {
+						"employeeNumber": {
+							"type": "integer"
+						},
+						"firstName": {
+							"type": "string"
+						},
+						"firstNameInFull": {
+							"type": "string"
+						},
+						"prefix": {
+							"type": "null"
+						},
+						"initials": {
+							"type": "string"
+						},
+						"lastName": {
+							"type": "string"
+						},
+						"employeeType": {
+							"type": "string"
+						}
+					}
+				}
+			}
+		}
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

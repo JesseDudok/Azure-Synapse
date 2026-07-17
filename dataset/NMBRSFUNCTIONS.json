@@ -1,0 +1,42 @@
+{
+	"name": "NMBRSFUNCTIONS",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureDataLakeStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": "functions",
+				"fileSystem": "container3"
+			}
+		},
+		"schema": {
+			"type": "object",
+			"properties": {
+				"debtorId": {
+					"type": "string"
+				},
+				"debtorName": {
+					"type": "string"
+				},
+				"functionId": {
+					"type": "string"
+				},
+				"code": {
+					"type": "integer"
+				},
+				"description": {
+					"type": "string"
+				},
+				"createdAt": {
+					"type": "string"
+				}
+			}
+		}
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

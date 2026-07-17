@@ -1,0 +1,2244 @@
+{
+	"name": "MICEprocessingPipe1",
+	"properties": {
+		"activities": [
+			{
+				"name": "Copy CLIENTS",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "JsonSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"wildcardFileName": "*.json",
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "JsonReadSettings"
+						}
+					},
+					"sink": {
+						"type": "ParquetSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "ParquetWriteSettings"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"path": "id"
+								},
+								"sink": {
+									"name": "id",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"path": "created"
+								},
+								"sink": {
+									"name": "created",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "updated"
+								},
+								"sink": {
+									"name": "updated",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "type"
+								},
+								"sink": {
+									"name": "type",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "name"
+								},
+								"sink": {
+									"name": "name",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "email"
+								},
+								"sink": {
+									"name": "email",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "phone"
+								},
+								"sink": {
+									"name": "phone",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "phone_2"
+								},
+								"sink": {
+									"name": "phone_2",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "address_line_1"
+								},
+								"sink": {
+									"name": "address_line_1",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "address_line_2"
+								},
+								"sink": {
+									"name": "address_line_2",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "postalcode"
+								},
+								"sink": {
+									"name": "postalcode",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "city"
+								},
+								"sink": {
+									"name": "city",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "country"
+								},
+								"sink": {
+									"name": "country",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "vat_number"
+								},
+								"sink": {
+									"name": "vat_number",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "reference"
+								},
+								"sink": {
+									"name": "reference",
+									"type": "String"
+								}
+							}
+						]
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "MICECLIENTS",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ParquetMICECLIENTS",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "Copy LOCATIONS",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "JsonSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"wildcardFileName": "*.json",
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "JsonReadSettings"
+						}
+					},
+					"sink": {
+						"type": "ParquetSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "ParquetWriteSettings"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"path": "product_name"
+								},
+								"sink": {
+									"name": "product_name",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "name"
+								},
+								"sink": {
+									"name": "name",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "subtitle"
+								},
+								"sink": {
+									"name": "subtitle",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "disabled"
+								},
+								"sink": {
+									"name": "disabled",
+									"type": "Boolean"
+								}
+							},
+							{
+								"source": {
+									"path": "description"
+								},
+								"sink": {
+									"name": "description",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "content"
+								},
+								"sink": {
+									"name": "content",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "vat_rate"
+								},
+								"sink": {
+									"name": "vat_rate",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"path": "sort"
+								},
+								"sink": {
+									"name": "sort",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"path": "general_ledger_number"
+								},
+								"sink": {
+									"name": "general_ledger_number",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "price"
+								},
+								"sink": {
+									"name": "price",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"path": "id"
+								},
+								"sink": {
+									"name": "id",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"path": "code"
+								},
+								"sink": {
+									"name": "code",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "category"
+								},
+								"sink": {
+									"name": "category",
+									"type": "String"
+								}
+							}
+						]
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "MICELOCATIONS",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ParquetMICELOCATIONS",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "Copy EVENTS",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "JsonSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"wildcardFileName": "*.json",
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "JsonReadSettings"
+						}
+					},
+					"sink": {
+						"type": "JsonSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "JsonWriteSettings"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"path": "$['created']"
+								},
+								"sink": {
+									"name": "created",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['updated']"
+								},
+								"sink": {
+									"name": "updated",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['status']"
+								},
+								"sink": {
+									"name": "status",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['planner_id']"
+								},
+								"sink": {
+									"name": "planner_id_direct"
+								}
+							},
+							{
+								"source": {
+									"path": "$['company_id']"
+								},
+								"sink": {
+									"name": "company",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"path": "$['booking_id']"
+								},
+								"sink": {
+									"name": "booking",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"path": "$['location_id']"
+								},
+								"sink": {
+									"name": "location_id_direct",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"path": "$['reference']"
+								},
+								"sink": {
+									"name": "reference",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['name']"
+								},
+								"sink": {
+									"name": "name",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['guests']"
+								},
+								"sink": {
+									"name": "guests",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"path": "$['noticeboard_name']"
+								},
+								"sink": {
+									"name": "noticeboard_name",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['group_name']"
+								},
+								"sink": {
+									"name": "group_name",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['datetime_start']"
+								},
+								"sink": {
+									"name": "datetime_start",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['datetime_end']"
+								},
+								"sink": {
+									"name": "datetime_end",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['event_type_id']"
+								},
+								"sink": {
+									"name": "event_type_id",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"path": "$['booking_message']"
+								},
+								"sink": {
+									"name": "booking_message",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['client_id']"
+								},
+								"sink": {
+									"name": "client_id",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"path": "$['date_unknown']"
+								},
+								"sink": {
+									"name": "date_unknown",
+									"type": "Boolean"
+								}
+							},
+							{
+								"source": {
+									"path": "$['total_price']"
+								},
+								"sink": {
+									"name": "total_price",
+									"type": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"path": "$['total_price_excl_vat']"
+								},
+								"sink": {
+									"name": "total_price_excl_vat",
+									"type": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"path": "$['locale']"
+								},
+								"sink": {
+									"name": "locale",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['custom_attributes']['fb_aantekeningen']"
+								},
+								"sink": {
+									"name": "fb_aantekeningen",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['custom_attributes']['locatie']"
+								},
+								"sink": {
+									"name": "locatie",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['custom_attributes']['accountmanager']"
+								},
+								"sink": {
+									"name": "accountmanager",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['custom_attributes']['label']"
+								},
+								"sink": {
+									"name": "label",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['custom_attributes']['basisvoorziening']"
+								},
+								"sink": {
+									"name": "basisvoorziening",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['custom_attributes']['notities_niet_op_werkbrief']"
+								},
+								"sink": {
+									"name": "notities_niet_op_werkbrief",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['custom_attributes']['opstelling']"
+								},
+								"sink": {
+									"name": "opstelling",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['custom_attributes']['leveranciers']"
+								},
+								"sink": {
+									"name": "leveranciers",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['custom_attributes']['decoratie']"
+								},
+								"sink": {
+									"name": "decoratie",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['custom_attributes']['gasten']"
+								},
+								"sink": {
+									"name": "gasten",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['contacts_id']"
+								},
+								"sink": {
+									"name": "contacts_id",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"path": "$['contacts_first_name']"
+								},
+								"sink": {
+									"name": "contacts_first_name",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['contacts_last_name']"
+								},
+								"sink": {
+									"name": "contacts_last_name",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['contacts_full_name']"
+								},
+								"sink": {
+									"name": "contacts_full_name",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['contacts_email']"
+								},
+								"sink": {
+									"name": "contacts_email",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['contacts_phone']"
+								},
+								"sink": {
+									"name": "contacts_phone",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['role']"
+								},
+								"sink": {
+									"name": "role",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['activities_id']"
+								},
+								"sink": {
+									"name": "activities_id",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['activities_created']"
+								},
+								"sink": {
+									"name": "activities_created",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['activities_updated']"
+								},
+								"sink": {
+									"name": "activities_updated",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['event_id']"
+								},
+								"sink": {
+									"name": "event_id",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"path": "$['event_timeline_id']"
+								},
+								"sink": {
+									"name": "event_timeline_id",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"path": "$['activities_location_id_nested']"
+								},
+								"sink": {
+									"name": "activities_location_id_nested",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"path": "$['activities_url']"
+								},
+								"sink": {
+									"name": "activities_url",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['activities_name']"
+								},
+								"sink": {
+									"name": "activities_name",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['activities_description']"
+								},
+								"sink": {
+									"name": "activities_description",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['activities_guests']"
+								},
+								"sink": {
+									"name": "activities_guests",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['memo']"
+								},
+								"sink": {
+									"name": "memo",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['internnal_memo']"
+								},
+								"sink": {
+									"name": "internal_memo",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['activities_datetime_start']"
+								},
+								"sink": {
+									"name": "activities_datetime_start",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['activities_datetime_end']"
+								},
+								"sink": {
+									"name": "activities_datetime_end",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['activities_products']"
+								},
+								"sink": {
+									"name": "activities_products",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['activities_location_name']"
+								},
+								"sink": {
+									"name": "activities_location_name",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['activities_location_description']"
+								},
+								"sink": {
+									"name": "activities_location_description",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['activities_location_content']"
+								},
+								"sink": {
+									"name": "activities_location_content",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['setup']"
+								},
+								"sink": {
+									"name": "setup",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['products']"
+								},
+								"sink": {
+									"name": "products",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['packages']"
+								},
+								"sink": {
+									"name": "packages",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['id']"
+								},
+								"sink": {
+									"name": "id",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"path": "$['url']"
+								},
+								"sink": {
+									"name": "url",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['total_billed_amount']"
+								},
+								"sink": {
+									"name": "total_billed_amount",
+									"type": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"path": "$['total_billed_amount_excl_vat']"
+								},
+								"sink": {
+									"name": "total_billed_amount_excl_vat",
+									"type": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"path": "$['total_billed_amount_vat_rates']"
+								},
+								"sink": {
+									"name": "total_billed_amount_vat_rates",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['event_type']['id']"
+								},
+								"sink": {
+									"name": "type_id",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"path": "$['event_type']['name']"
+								},
+								"sink": {
+									"name": "event_type_name",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['location']['id']"
+								},
+								"sink": {
+									"name": "location_id_nested",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"path": "$['location']['name']"
+								},
+								"sink": {
+									"name": "location_name",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['location']['description']"
+								},
+								"sink": {
+									"name": "location_description",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['location']['content']"
+								},
+								"sink": {
+									"name": "location_content",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['planner']['id']"
+								},
+								"sink": {
+									"name": "planner_id_nested",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"path": "$['planner']['first_name']"
+								},
+								"sink": {
+									"name": "planner_first_name",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['planner']['last_name']"
+								},
+								"sink": {
+									"name": "planner_last_name",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['planner']['full_name']"
+								},
+								"sink": {
+									"name": "planner_full_name",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['planner']['email']"
+								},
+								"sink": {
+									"name": "planner_email",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['planner']['phone']"
+								},
+								"sink": {
+									"name": "planner_phone",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['planner']['avatar_url']"
+								},
+								"sink": {
+									"name": "avatar_url",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['planner']['initials']"
+								},
+								"sink": {
+									"name": "initials",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['external_company_id']"
+								},
+								"sink": {
+									"name": "external_company_id",
+									"type": "Int32"
+								}
+							}
+						],
+						"collectionReference": ""
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "MICEEVENTS",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ProcessedMICEEVENTS",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "Copy PRODUCTS",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "JsonSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"wildcardFileName": "*.json",
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "JsonReadSettings"
+						}
+					},
+					"sink": {
+						"type": "JsonSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "JsonWriteSettings"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"path": "$['id']"
+								},
+								"sink": {
+									"name": "id"
+								}
+							},
+							{
+								"source": {
+									"path": "$['amount_pp']"
+								},
+								"sink": {
+									"name": "amount_pp"
+								}
+							},
+							{
+								"source": {
+									"path": "$['name']"
+								},
+								"sink": {
+									"name": "name"
+								}
+							},
+							{
+								"source": {
+									"path": "$['description']"
+								},
+								"sink": {
+									"name": "description"
+								}
+							},
+							{
+								"source": {
+									"path": "$['content']"
+								},
+								"sink": {
+									"name": "content"
+								}
+							},
+							{
+								"source": {
+									"path": "$['price']"
+								},
+								"sink": {
+									"name": "price"
+								}
+							},
+							{
+								"source": {
+									"path": "$['price_excl_vat']"
+								},
+								"sink": {
+									"name": "price_excl_vat"
+								}
+							},
+							{
+								"source": {
+									"path": "$['vat']"
+								},
+								"sink": {
+									"name": "vat"
+								}
+							},
+							{
+								"source": {
+									"path": "$['general_ledger_number']"
+								},
+								"sink": {
+									"name": "general_ledger_number"
+								}
+							},
+							{
+								"source": {
+									"path": "$['vat_rates'][0]['rate']"
+								},
+								"sink": {
+									"name": "rate"
+								}
+							},
+							{
+								"source": {
+									"path": "$['vat_rates'][0]['vat']"
+								},
+								"sink": {
+									"name": "vat_rates'][0]['vat"
+								}
+							},
+							{
+								"source": {
+									"path": "$['vat_rates'][0]['price']"
+								},
+								"sink": {
+									"name": "vat_rates'][0]['price"
+								}
+							},
+							{
+								"source": {
+									"path": "$['vat_rates'][0]['price_excl']"
+								},
+								"sink": {
+									"name": "price_excl"
+								}
+							},
+							{
+								"source": {
+									"path": "$['vat_rates'][0]['general_ledger_number']"
+								},
+								"sink": {
+									"name": "vat_rates'][0]['general_ledger_number"
+								}
+							},
+							{
+								"source": {
+									"path": "$['code']"
+								},
+								"sink": {
+									"name": "code"
+								}
+							},
+							{
+								"source": {
+									"path": "$['price_name']"
+								},
+								"sink": {
+									"name": "price_name"
+								}
+							},
+							{
+								"source": {
+									"path": "$['group_id']"
+								},
+								"sink": {
+									"name": "group_id"
+								}
+							},
+							{
+								"source": {
+									"path": "$['category']['id']"
+								},
+								"sink": {
+									"name": "category_id"
+								}
+							},
+							{
+								"source": {
+									"path": "$['category']['name']"
+								},
+								"sink": {
+									"name": "category_name"
+								}
+							}
+						]
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "MICEPRODUCTS",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "JsonprocessingMICEPRODUCTS",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "Copy INVOICES",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "JsonSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"wildcardFileName": "*.json",
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "JsonReadSettings"
+						}
+					},
+					"sink": {
+						"type": "JsonSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "JsonWriteSettings"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"path": "$['type']"
+								},
+								"sink": {
+									"name": "type",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['draft_nr']"
+								},
+								"sink": {
+									"name": "draft_nr",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"path": "$['company_id']"
+								},
+								"sink": {
+									"name": "company_id",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"path": "$['identifier']"
+								},
+								"sink": {
+									"name": "identifier",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['invoice_nr']"
+								},
+								"sink": {
+									"name": "invoice_nr",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"path": "$['client_id']"
+								},
+								"sink": {
+									"name": "client_id",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"path": "$['locale']"
+								},
+								"sink": {
+									"name": "locale",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['synced']"
+								},
+								"sink": {
+									"name": "synced",
+									"type": "Boolean"
+								}
+							},
+							{
+								"source": {
+									"path": "$['send_count']"
+								},
+								"sink": {
+									"name": "send_count",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"path": "$['reminder_count']"
+								},
+								"sink": {
+									"name": "reminder_count",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"path": "$['exhortation_count']"
+								},
+								"sink": {
+									"name": "exhortation_count",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"path": "$['client_reference']"
+								},
+								"sink": {
+									"name": "client_reference",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['client_name']"
+								},
+								"sink": {
+									"name": "client_name",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['client_phone']"
+								},
+								"sink": {
+									"name": "client_phone",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['client_email']"
+								},
+								"sink": {
+									"name": "client_email",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['client_first_name']"
+								},
+								"sink": {
+									"name": "client_first_name",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['client_last_name']"
+								},
+								"sink": {
+									"name": "client_last_name",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['client_address_line_1']"
+								},
+								"sink": {
+									"name": "client_address_line_1",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['client_address_line_2']"
+								},
+								"sink": {
+									"name": "client_address_line_2",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['client_postalcode']"
+								},
+								"sink": {
+									"name": "client_postalcode",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['client_city']"
+								},
+								"sink": {
+									"name": "client_city",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['client_country']"
+								},
+								"sink": {
+									"name": "client_country",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['client_vat_number']"
+								},
+								"sink": {
+									"name": "client_vat_number",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['client_coc_number']"
+								},
+								"sink": {
+									"name": "client_coc_number",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['status']"
+								},
+								"sink": {
+									"name": "status",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['$[\\'line_items\\'][*][\\'description\\']']"
+								},
+								"sink": {
+									"name": "line_description",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['total_excl_vat']"
+								},
+								"sink": {
+									"name": "total_excl_vat",
+									"type": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"path": "$['total_vat']"
+								},
+								"sink": {
+									"name": "total_vat",
+									"type": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"path": "$['total_discount']"
+								},
+								"sink": {
+									"name": "total_discount",
+									"type": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"path": "$['total_incl_vat']"
+								},
+								"sink": {
+									"name": "total_incl_vat",
+									"type": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"path": "$['parent_invoice_id']"
+								},
+								"sink": {
+									"name": "parent_invoice_id",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['reference']"
+								},
+								"sink": {
+									"name": "reference",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['payment_process_paused']"
+								},
+								"sink": {
+									"name": "payment_process_paused",
+									"type": "Boolean"
+								}
+							},
+							{
+								"source": {
+									"path": "$['payment_term']"
+								},
+								"sink": {
+									"name": "payment_term",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"path": "$['internal_note']"
+								},
+								"sink": {
+									"name": "internal_note",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['id']"
+								},
+								"sink": {
+									"name": "id",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"path": "$['incl_vat']"
+								},
+								"sink": {
+									"name": "incl_vat",
+									"type": "Boolean"
+								}
+							},
+							{
+								"source": {
+									"path": "$['event_id']"
+								},
+								"sink": {
+									"name": "event_id",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"path": "$['object_type']"
+								},
+								"sink": {
+									"name": "object_type",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['object_id']"
+								},
+								"sink": {
+									"name": "object_id",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['object_code']"
+								},
+								"sink": {
+									"name": "object_code",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['date']"
+								},
+								"sink": {
+									"name": "date",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['amount']"
+								},
+								"sink": {
+									"name": "amount",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"path": "$['vat_rate']"
+								},
+								"sink": {
+									"name": "vat_rate",
+									"type": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"path": "$['vat_amount']"
+								},
+								"sink": {
+									"name": "vat_amount",
+									"type": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"path": "$['price']"
+								},
+								"sink": {
+									"name": "price",
+									"type": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"path": "$['price_excl_vat']"
+								},
+								"sink": {
+									"name": "price_excl_vat",
+									"type": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"path": "$['total_price']"
+								},
+								"sink": {
+									"name": "total_price",
+									"type": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"path": "$['total_price_excl_vat']"
+								},
+								"sink": {
+									"name": "total_price_excl_vat",
+									"type": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"path": "$['invoicing_number']"
+								},
+								"sink": {
+									"name": "invoicing_number",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['general_ledger_number']"
+								},
+								"sink": {
+									"name": "general_ledger_number",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['cost_center']"
+								},
+								"sink": {
+									"name": "cost_center",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['created']"
+								},
+								"sink": {
+									"name": "created",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['updated']"
+								},
+								"sink": {
+									"name": "updated",
+									"type": "String"
+								}
+							}
+						]
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "MICEINVOICES",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "JsonprocessingMICEINVOICES",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "Copy PRODUCT CATEGORIES",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "JsonSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"wildcardFileName": "*.json",
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "JsonReadSettings"
+						}
+					},
+					"sink": {
+						"type": "JsonSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "JsonWriteSettings"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"path": "id"
+								},
+								"sink": {
+									"name": "id",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"path": "name"
+								},
+								"sink": {
+									"name": "name",
+									"type": "String"
+								}
+							}
+						]
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "MICEPRODUCTCATEGORIES",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "JsonprocessingMICEPRODUCTCATEGORIES",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "Copy COMPANY",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "JsonSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"wildcardFileName": "*.json",
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "JsonReadSettings"
+						}
+					},
+					"sink": {
+						"type": "ParquetSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "ParquetWriteSettings"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"path": "$['data']['id']"
+								},
+								"sink": {
+									"name": "id",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"path": "$['data']['name']"
+								},
+								"sink": {
+									"name": "name",
+									"type": "String"
+								}
+							}
+						]
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "MICECOMPANY",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ParquetMICECOMPANY",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "Data flow MICE",
+				"type": "ExecuteDataFlow",
+				"dependsOn": [
+					{
+						"activity": "Copy CLIENTS",
+						"dependencyConditions": [
+							"Completed"
+						]
+					},
+					{
+						"activity": "Copy LOCATIONS",
+						"dependencyConditions": [
+							"Completed"
+						]
+					},
+					{
+						"activity": "Copy COMPANY",
+						"dependencyConditions": [
+							"Completed"
+						]
+					},
+					{
+						"activity": "JSONtoPARQUETMICEEVENT",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					},
+					{
+						"activity": "JSONtoPARQUETMICEINVOICES",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					},
+					{
+						"activity": "JSONtoPARQUETMICEPRODUCTS",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					},
+					{
+						"activity": "JSONtoPARQUETMICEPRODUCTCATEGORIES",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 5,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataflow": {
+						"referenceName": "Dataflow MICE",
+						"type": "DataFlowReference"
+					},
+					"compute": {
+						"coreCount": 8,
+						"computeType": "General"
+					},
+					"traceLevel": "Fine"
+				}
+			},
+			{
+				"name": "JSONtoPARQUETMICEEVENT",
+				"type": "SynapseNotebook",
+				"dependsOn": [
+					{
+						"activity": "Copy EVENTS",
+						"dependencyConditions": [
+							"Completed"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebook": {
+						"referenceName": "JSONtoPARQUETMICEEVENT",
+						"type": "NotebookReference"
+					},
+					"snapshot": true,
+					"sparkPool": {
+						"referenceName": "SparkPool3",
+						"type": "BigDataPoolReference"
+					},
+					"executorSize": "Medium",
+					"conf": {
+						"spark.dynamicAllocation.minExecutors": 1,
+						"spark.dynamicAllocation.maxExecutors": 2
+					},
+					"driverSize": "Medium",
+					"numExecutors": 1
+				}
+			},
+			{
+				"name": "JSONtoPARQUETMICEINVOICES",
+				"type": "SynapseNotebook",
+				"dependsOn": [
+					{
+						"activity": "Copy INVOICES",
+						"dependencyConditions": [
+							"Completed"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebook": {
+						"referenceName": "JSONtoPARQUETMICEINVOICES",
+						"type": "NotebookReference"
+					},
+					"snapshot": true,
+					"sparkPool": {
+						"referenceName": "SparkPool3",
+						"type": "BigDataPoolReference"
+					},
+					"executorSize": "Medium",
+					"conf": {
+						"spark.dynamicAllocation.minExecutors": 1,
+						"spark.dynamicAllocation.maxExecutors": 2
+					},
+					"driverSize": "Medium",
+					"numExecutors": 1
+				}
+			},
+			{
+				"name": "JSONtoPARQUETMICEPRODUCTS",
+				"type": "SynapseNotebook",
+				"dependsOn": [
+					{
+						"activity": "Copy PRODUCTS",
+						"dependencyConditions": [
+							"Completed"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebook": {
+						"referenceName": "JSONtoPARQUETMICEPRODUCTS",
+						"type": "NotebookReference"
+					},
+					"snapshot": true,
+					"sparkPool": {
+						"referenceName": "SparkPool3",
+						"type": "BigDataPoolReference"
+					},
+					"executorSize": "Medium",
+					"conf": {
+						"spark.dynamicAllocation.minExecutors": 1,
+						"spark.dynamicAllocation.maxExecutors": 2
+					},
+					"driverSize": "Medium",
+					"numExecutors": 1
+				}
+			},
+			{
+				"name": "JSONtoPARQUETMICEPRODUCTCATEGORIES",
+				"type": "SynapseNotebook",
+				"dependsOn": [
+					{
+						"activity": "Copy PRODUCT CATEGORIES",
+						"dependencyConditions": [
+							"Completed"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebook": {
+						"referenceName": "JSONtoPARQUETMICEPRODUCTCATEGORIES",
+						"type": "NotebookReference"
+					},
+					"snapshot": true,
+					"sparkPool": {
+						"referenceName": "SparkPool3",
+						"type": "BigDataPoolReference"
+					},
+					"executorSize": "Medium",
+					"conf": {
+						"spark.dynamicAllocation.minExecutors": 1,
+						"spark.dynamicAllocation.maxExecutors": 2
+					},
+					"driverSize": "Medium",
+					"numExecutors": 1
+				}
+			}
+		],
+		"annotations": [],
+		"lastPublishTime": "2026-07-07T11:40:12Z"
+	},
+	"type": "Microsoft.Synapse/workspaces/pipelines"
+}

@@ -1,0 +1,2752 @@
+{
+	"name": "NostradamusprocessingPipe1",
+	"properties": {
+		"activities": [
+			{
+				"name": "COPY HOURS",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "JsonSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "JsonReadSettings"
+						}
+					},
+					"sink": {
+						"type": "ParquetSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "ParquetWriteSettings"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"path": "$['office_id']"
+								},
+								"sink": {
+									"name": "office_id",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['office_name']"
+								},
+								"sink": {
+									"name": "office_name",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['card_id']"
+								},
+								"sink": {
+									"name": "card_id",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['card_name']"
+								},
+								"sink": {
+									"name": "card_name",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['hour_id']"
+								},
+								"sink": {
+									"name": "hour_id",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['hour_office_id']"
+								},
+								"sink": {
+									"name": "hour_office_id",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['hour_department_id']"
+								},
+								"sink": {
+									"name": "hour_department_id",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['hour_team_id']"
+								},
+								"sink": {
+									"name": "hour_team_id",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['hour_date']"
+								},
+								"sink": {
+									"name": "hour_date",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['hour_hours']"
+								},
+								"sink": {
+									"name": "hour_hours",
+									"type": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"path": "$['hour_enter']"
+								},
+								"sink": {
+									"name": "hour_enter",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['hour_exit']"
+								},
+								"sink": {
+									"name": "hour_exit",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['hour_state']"
+								},
+								"sink": {
+									"name": "hour_state",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['hour_type']"
+								},
+								"sink": {
+									"name": "hour_type",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['project_id']"
+								},
+								"sink": {
+									"name": "project_id",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['hour_type_name']"
+								},
+								"sink": {
+									"name": "hour_type_name",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['hour_break']"
+								},
+								"sink": {
+									"name": "hour_break",
+									"type": "String"
+								}
+							}
+						]
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "NostradamusHOURS",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ParquetNostradamusHOURS",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "COPY CONTRACTS",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "JsonSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "JsonReadSettings"
+						}
+					},
+					"sink": {
+						"type": "ParquetSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "ParquetWriteSettings"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"path": "$['id']"
+								},
+								"sink": {
+									"name": "id",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"path": "$['parent_id']"
+								},
+								"sink": {
+									"name": "parent_id",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"path": "$['card_id']"
+								},
+								"sink": {
+									"name": "card_id",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"path": "$['profile']"
+								},
+								"sink": {
+									"name": "profile",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['cao']"
+								},
+								"sink": {
+									"name": "cao",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['contract_number']"
+								},
+								"sink": {
+									"name": "contract_number",
+									"type": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"path": "$['contract_start_date']"
+								},
+								"sink": {
+									"name": "contract_start_date",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['contract_end_date']"
+								},
+								"sink": {
+									"name": "contract_end_date",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['contract_probation_end']"
+								},
+								"sink": {
+									"name": "contract_probation_end",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['contract_display_end_date']"
+								},
+								"sink": {
+									"name": "contract_display_end_date",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['contract_type']"
+								},
+								"sink": {
+									"name": "contract_type",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['contract_week_hours']"
+								},
+								"sink": {
+									"name": "contract_week_hours",
+									"type": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"path": "$['contract_week_days']"
+								},
+								"sink": {
+									"name": "contract_week_days",
+									"type": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"path": "$['contract_day_hours_avg']"
+								},
+								"sink": {
+									"name": "contract_day_hours_avg",
+									"type": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"path": "$['contract_period_hours']"
+								},
+								"sink": {
+									"name": "contract_period_hours",
+									"type": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"path": "$['contract_first_period_hours']"
+								},
+								"sink": {
+									"name": "contract_first_period_hours",
+									"type": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"path": "$['contract_last_period_hours']"
+								},
+								"sink": {
+									"name": "contract_last_period_hours",
+									"type": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"path": "$['contract_holiday_build']"
+								},
+								"sink": {
+									"name": "contract_holiday_build",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['contract_remarks']"
+								},
+								"sink": {
+									"name": "contract_remarks",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['contract_modified']"
+								},
+								"sink": {
+									"name": "contract_modified",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['contract_modified_by']"
+								},
+								"sink": {
+									"name": "contract_modified_by",
+									"type": "String"
+								}
+							}
+						]
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "NostradamusCONTRACTS",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ParquetNostradamusCONTRACTS",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "COPY CUMULATIVE",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "ValidateCUMULATIVEFiles",
+						"dependencyConditions": [
+							"Completed"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "JsonSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"wildcardFileName": "*.json",
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "JsonReadSettings"
+						}
+					},
+					"sink": {
+						"type": "ParquetSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "ParquetWriteSettings"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"path": "$['office_id']"
+								},
+								"sink": {
+									"name": "office_id",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['office_name']"
+								},
+								"sink": {
+									"name": "office_name",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['card_id']"
+								},
+								"sink": {
+									"name": "card_id",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"path": "$['cumm_over_hours']"
+								},
+								"sink": {
+									"name": "cumm_over_hours",
+									"type": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"path": "$['cumm_holiday_hours']"
+								},
+								"sink": {
+									"name": "cumm_holiday_hours",
+									"type": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"path": "$['cumm_compensation_hours']"
+								},
+								"sink": {
+									"name": "cumm_compensation_hours",
+									"type": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"path": "$['period']"
+								},
+								"sink": {
+									"name": "period",
+									"type": "String"
+								}
+							}
+						]
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "NostradamusCUMULATIVE",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ParquetNostradamusCUMULATIVE",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "COPY DEPARTMENTS",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "JsonSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "JsonReadSettings"
+						}
+					},
+					"sink": {
+						"type": "ParquetSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "ParquetWriteSettings"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"path": "$['office_id']"
+								},
+								"sink": {
+									"name": "office_id",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['department_id']"
+								},
+								"sink": {
+									"name": "department_id",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['department_name']"
+								},
+								"sink": {
+									"name": "department_name",
+									"type": "String"
+								}
+							}
+						]
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "NostradamusDEPARTMENTS",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ParquetNostradamusDEPARTMENTS",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "COPY FREEDAYS",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "JsonSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "JsonReadSettings"
+						}
+					},
+					"sink": {
+						"type": "ParquetSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "ParquetWriteSettings"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"path": "$['office_id']"
+								},
+								"sink": {
+									"name": "office_id",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['office_name']"
+								},
+								"sink": {
+									"name": "office_name",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['card_id']"
+								},
+								"sink": {
+									"name": "card_id",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"path": "$['freeday_id']"
+								},
+								"sink": {
+									"name": "freeday_id",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['freeday_start']"
+								},
+								"sink": {
+									"name": "freeday_start",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['freeday_end']"
+								},
+								"sink": {
+									"name": "freeday_end",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['freeday_days']"
+								},
+								"sink": {
+									"name": "freeday_days",
+									"type": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"path": "$['freeday_type']"
+								},
+								"sink": {
+									"name": "freeday_type",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"path": "$['freeday_hours']"
+								},
+								"sink": {
+									"name": "freeday_hours",
+									"type": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"path": "$['freeday_remarks']"
+								},
+								"sink": {
+									"name": "freeday_remarks",
+									"type": "String"
+								}
+							}
+						]
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "NostradamusFREEDAYS",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ParquetNostradamusFREEDAYS",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "COPY FUNCTIONS",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "JsonSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "JsonReadSettings"
+						}
+					},
+					"sink": {
+						"type": "ParquetSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "ParquetWriteSettings"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"path": "$['function_id']"
+								},
+								"sink": {
+									"name": "function_id",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['function_name']"
+								},
+								"sink": {
+									"name": "function_name",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['department_id']"
+								},
+								"sink": {
+									"name": "department_id",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['function_accountant']"
+								},
+								"sink": {
+									"name": "function_accountant",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['function_state']"
+								},
+								"sink": {
+									"name": "function_state",
+									"type": "String"
+								}
+							}
+						]
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "NostradamusFunctions",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ParquetNostradamusFUNCTIONS",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "COPY MUTATIONS",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "JsonSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "JsonReadSettings"
+						}
+					},
+					"sink": {
+						"type": "ParquetSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "ParquetWriteSettings"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"path": "$['staff_id']"
+								},
+								"sink": {
+									"name": "staff_id",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"path": "$['wage_code']"
+								},
+								"sink": {
+									"name": "wage_code",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['date']"
+								},
+								"sink": {
+									"name": "date",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['value']"
+								},
+								"sink": {
+									"name": "value",
+									"type": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"path": "$['remarks']"
+								},
+								"sink": {
+									"name": "remarks",
+									"type": "String"
+								}
+							}
+						]
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "NostradamusMUTATIONS",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ParquetNostradamusMUTATIONS",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "COPY OFFICES",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "JsonSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "JsonReadSettings"
+						}
+					},
+					"sink": {
+						"type": "ParquetSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "ParquetWriteSettings"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"path": "$['office_id']"
+								},
+								"sink": {
+									"name": "office_id",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['office_name']"
+								},
+								"sink": {
+									"name": "office_name",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['office_id_accountant']"
+								},
+								"sink": {
+									"name": "office_id_accountant",
+									"type": "String"
+								}
+							}
+						]
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "NostradamusOFFICES",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ParquetNostradamusOFFICES",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "COPY PLANNING",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "JsonSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "JsonReadSettings"
+						}
+					},
+					"sink": {
+						"type": "ParquetSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "ParquetWriteSettings"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"path": "$['office_id']"
+								},
+								"sink": {
+									"name": "office_id",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['office_name']"
+								},
+								"sink": {
+									"name": "office_name",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['card_id']"
+								},
+								"sink": {
+									"name": "card_id",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['planning_department_id']"
+								},
+								"sink": {
+									"name": "planning_department_id",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['planning_team_id']"
+								},
+								"sink": {
+									"name": "planning_team_id",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['planning_date']"
+								},
+								"sink": {
+									"name": "planning_date",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['planning_start']"
+								},
+								"sink": {
+									"name": "planning_start",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['planning_end']"
+								},
+								"sink": {
+									"name": "planning_end",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['planning_hours']"
+								},
+								"sink": {
+									"name": "planning_hours"
+								}
+							},
+							{
+								"source": {
+									"path": "$['planning_costs']"
+								},
+								"sink": {
+									"name": "planning_costs",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['planning_workplace_id']"
+								},
+								"sink": {
+									"name": "planning_workplace_id",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['planning_workplace_name']"
+								},
+								"sink": {
+									"name": "planning_workplace_name",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['planning_workplace_type']"
+								},
+								"sink": {
+									"name": "planning_workplace_type",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['planning_project_id']"
+								},
+								"sink": {
+									"name": "planning_project_id",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"path": "$['planning_break']"
+								},
+								"sink": {
+									"name": "planning_break",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['planning_labels']"
+								},
+								"sink": {
+									"name": "planning_labels",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['planning_remarks']"
+								},
+								"sink": {
+									"name": "planning_remarks",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['planning_type_id']"
+								},
+								"sink": {
+									"name": "planning_type_id",
+									"type": "String"
+								}
+							}
+						]
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "NostradamusPLANNING",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ParquetNostradamusPLANNING",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "COPY PROGNOSIS",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "JsonSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "JsonReadSettings"
+						}
+					},
+					"sink": {
+						"type": "ParquetSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "ParquetWriteSettings"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"path": "$['office_id']"
+								},
+								"sink": {
+									"name": "office_id",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['type_id']"
+								},
+								"sink": {
+									"name": "type_id",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['prognosis_date']"
+								},
+								"sink": {
+									"name": "prognosis_date",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['prognosis_guests']"
+								},
+								"sink": {
+									"name": "prognosis_guests",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['prognosis_spending']"
+								},
+								"sink": {
+									"name": "prognosis_spending",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['prognosis_turnover']"
+								},
+								"sink": {
+									"name": "prognosis_turnover",
+									"type": "String"
+								}
+							}
+						],
+						"mapComplexValuesToString": false
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "NostradamusPROGNOSIS",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ParquetNostradamusPROGNOSIS",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "COPY PROJECTS",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "JsonSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "JsonReadSettings"
+						}
+					},
+					"sink": {
+						"type": "ParquetSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "ParquetWriteSettings"
+						}
+					},
+					"enableStaging": false
+				},
+				"inputs": [
+					{
+						"referenceName": "NostradamusPROJECTS",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ParquetNostradamusPROJECTS",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "COPY SALARY",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "JsonSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "JsonReadSettings"
+						}
+					},
+					"sink": {
+						"type": "ParquetSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "ParquetWriteSettings"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"path": "$['id']"
+								},
+								"sink": {
+									"name": "id",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['card_id']"
+								},
+								"sink": {
+									"name": "card_id",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['coa_id']"
+								},
+								"sink": {
+									"name": "coa_id",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['salary_start_date']"
+								},
+								"sink": {
+									"name": "salary_start_date",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['salary_end_date']"
+								},
+								"sink": {
+									"name": "salary_end_date",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['salary_level']"
+								},
+								"sink": {
+									"name": "salary_level",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['salary_wage_group']"
+								},
+								"sink": {
+									"name": "salary_wage_group",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['salary_use_wage']"
+								},
+								"sink": {
+									"name": "salary_use_wage",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['salary_base']"
+								},
+								"sink": {
+									"name": "salary_base",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['salary_extra']"
+								},
+								"sink": {
+									"name": "salary_extra",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['salary_bonus']"
+								},
+								"sink": {
+									"name": "salary_bonus",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['salary_total']"
+								},
+								"sink": {
+									"name": "salary_total",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['salary_holiday_days_percentage']"
+								},
+								"sink": {
+									"name": "salary_holiday_days_percentage",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['salary_holiday_legal_percentage']"
+								},
+								"sink": {
+									"name": "salary_holiday_legal_percentage",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['salary_holiday_extralegal_percentage']"
+								},
+								"sink": {
+									"name": "salary_holiday_extralegal_percentage",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['salary_holiday_money_percentage']"
+								},
+								"sink": {
+									"name": "salary_holiday_money_percentage",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['salary_rate']"
+								},
+								"sink": {
+									"name": "salary_rate",
+									"type": "String"
+								}
+							}
+						]
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "NostradamusSALARY",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ParquetNostradamusSALARY",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "COPY SATISFACTION",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "JsonSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "JsonReadSettings"
+						}
+					},
+					"sink": {
+						"type": "ParquetSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "ParquetWriteSettings"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"path": "$['date']"
+								},
+								"sink": {
+									"name": "date",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['staff_name']"
+								},
+								"sink": {
+									"name": "staff_name",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['office']"
+								},
+								"sink": {
+									"name": "office",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['department']"
+								},
+								"sink": {
+									"name": "department",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['satisfaction']"
+								},
+								"sink": {
+									"name": "satisfaction",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"path": "$['remarks']"
+								},
+								"sink": {
+									"name": "remarks",
+									"type": "String"
+								}
+							}
+						]
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "NostradamusSATISFACTION",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ParquetNostradamusSATISFACTION",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "COPY SICKNESS",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "JsonSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "JsonReadSettings"
+						}
+					},
+					"sink": {
+						"type": "ParquetSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "ParquetWriteSettings"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"path": "$['office_id']"
+								},
+								"sink": {
+									"name": "office_id",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['office_name']"
+								},
+								"sink": {
+									"name": "office_name",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['card_id']"
+								},
+								"sink": {
+									"name": "card_id",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['sickness_id']"
+								},
+								"sink": {
+									"name": "sickness_id",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['sickness_start']"
+								},
+								"sink": {
+									"name": "sickness_start",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['sickness_end']"
+								},
+								"sink": {
+									"name": "sickness_end",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['sickness_waitday_hours']"
+								},
+								"sink": {
+									"name": "sickness_waitday_hours",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['sickness_waitday_days']"
+								},
+								"sink": {
+									"name": "sickness_waitday_days",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['sickness_hours']"
+								},
+								"sink": {
+									"name": "sickness_hours",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['sickness_days']"
+								},
+								"sink": {
+									"name": "sickness_days",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['sickness_type']"
+								},
+								"sink": {
+									"name": "sickness_type",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['sickness_type_name']"
+								},
+								"sink": {
+									"name": "sickness_type_name",
+									"type": "String"
+								}
+							}
+						]
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "NostradamusSICKNESS",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ParquetNostradamusSICKNESS",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "COPY STAFF",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "JsonSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "JsonReadSettings"
+						}
+					},
+					"sink": {
+						"type": "ParquetSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "ParquetWriteSettings"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"path": "$['office_id']"
+								},
+								"sink": {
+									"name": "office_id",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['office_name']"
+								},
+								"sink": {
+									"name": "office_name",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['card_id']"
+								},
+								"sink": {
+									"name": "card_id",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['card_accountant_number']"
+								},
+								"sink": {
+									"name": "card_accountant_number",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['card_name']"
+								},
+								"sink": {
+									"name": "card_name",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['card_start']"
+								},
+								"sink": {
+									"name": "card_start",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['card_end']"
+								},
+								"sink": {
+									"name": "card_end",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['card_contract_hours']"
+								},
+								"sink": {
+									"name": "card_contract_hours",
+									"type": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"path": "$['card_hourly_salary']"
+								},
+								"sink": {
+									"name": "card_hourly_salary",
+									"type": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"path": "$['card_salary_rate']"
+								},
+								"sink": {
+									"name": "card_salary_rate",
+									"type": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"path": "$['card_department']"
+								},
+								"sink": {
+									"name": "card_department",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['card_function']"
+								},
+								"sink": {
+									"name": "card_function",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['card_contract_number']"
+								},
+								"sink": {
+									"name": "card_contract_number",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['card_contract_profile']"
+								},
+								"sink": {
+									"name": "card_contract_profile",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['overwrite_office_id']"
+								},
+								"sink": {
+									"name": "overwrite_office_id",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['show_address']"
+								},
+								"sink": {
+									"name": "show_address",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"path": "$['show_phone']"
+								},
+								"sink": {
+									"name": "show_phone",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"path": "$['show_mobile']"
+								},
+								"sink": {
+									"name": "show_mobile",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"path": "$['show_email']"
+								},
+								"sink": {
+									"name": "show_email",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"path": "$['show_salary']"
+								},
+								"sink": {
+									"name": "show_salary",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"path": "$['show_birthday']"
+								},
+								"sink": {
+									"name": "show_birthday",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"path": "$['card_date_of_birth']"
+								},
+								"sink": {
+									"name": "card_date_of_birth",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['card_gender']"
+								},
+								"sink": {
+									"name": "card_gender",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['card_phone']"
+								},
+								"sink": {
+									"name": "card_phone",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['card_mobile']"
+								},
+								"sink": {
+									"name": "card_mobile",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['card_email']"
+								},
+								"sink": {
+									"name": "card_email",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['staff_name']"
+								},
+								"sink": {
+									"name": "staff_name",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['card_firstname']"
+								},
+								"sink": {
+									"name": "card_firstname",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['card_insertion']"
+								},
+								"sink": {
+									"name": "card_insertion",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['card_lastname']"
+								},
+								"sink": {
+									"name": "card_lastname",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['card_partner_insertion']"
+								},
+								"sink": {
+									"name": "card_partner_insertion",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['card_partner_lastname']"
+								},
+								"sink": {
+									"name": "card_partner_lastname",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['card_clock_number']"
+								},
+								"sink": {
+									"name": "card_clock_number",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['card_address']"
+								},
+								"sink": {
+									"name": "card_address",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['card_address_number']"
+								},
+								"sink": {
+									"name": "card_address_number",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['card_address_number_addition']"
+								},
+								"sink": {
+									"name": "card_address_number_addition",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['card_address_postal']"
+								},
+								"sink": {
+									"name": "card_address_postal",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['card_address_city']"
+								},
+								"sink": {
+									"name": "card_address_city",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['card_address_country']"
+								},
+								"sink": {
+									"name": "card_address_country",
+									"type": "String"
+								}
+							}
+						]
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "NostradamusSTAFF",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ParquetNostradamusSTAFF",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "COPY SUMMARIES",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "JsonSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "JsonReadSettings"
+						}
+					},
+					"sink": {
+						"type": "ParquetSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "ParquetWriteSettings"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"path": "$['office_id']"
+								},
+								"sink": {
+									"name": "office_id",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['date']"
+								},
+								"sink": {
+									"name": "date",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['guests_turnover']"
+								},
+								"sink": {
+									"name": "guests_turnover",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['guests_arriving']"
+								},
+								"sink": {
+									"name": "guests_arriving",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['day_of_the_week']"
+								},
+								"sink": {
+									"name": "day_of_the_week",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['week_of_the_year']"
+								},
+								"sink": {
+									"name": "week_of_the_year",
+									"type": "String"
+								}
+							}
+						]
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "NostradamusSUMMARIES",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ParquetNostradamusSUMMARIES",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "COPY TEAMS",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "JsonSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "JsonReadSettings"
+						}
+					},
+					"sink": {
+						"type": "ParquetSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "ParquetWriteSettings"
+						}
+					},
+					"enableStaging": false
+				},
+				"inputs": [
+					{
+						"referenceName": "NostradamusTEAMS",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ParquetNostradamusTEAMS",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "COPY TYPES",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "JsonSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "JsonReadSettings"
+						}
+					},
+					"sink": {
+						"type": "ParquetSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "ParquetWriteSettings"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"path": "$['office_id']"
+								},
+								"sink": {
+									"name": "office_id",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['type_id']"
+								},
+								"sink": {
+									"name": "type_id",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['type_parent_id']"
+								},
+								"sink": {
+									"name": "type_parent_id",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"path": "$['type_name']"
+								},
+								"sink": {
+									"name": "type_name",
+									"type": "String"
+								}
+							}
+						]
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "NostradamusTYPES",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ParquetNostradamusTYPES",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "Data flow MASTERDATA NOSTRADAMUS",
+				"type": "ExecuteDataFlow",
+				"dependsOn": [
+					{
+						"activity": "COPY HOURS",
+						"dependencyConditions": [
+							"Completed"
+						]
+					},
+					{
+						"activity": "COPY CONTRACTS",
+						"dependencyConditions": [
+							"Completed"
+						]
+					},
+					{
+						"activity": "COPY DEPARTMENTS",
+						"dependencyConditions": [
+							"Completed"
+						]
+					},
+					{
+						"activity": "COPY FUNCTIONS",
+						"dependencyConditions": [
+							"Completed"
+						]
+					},
+					{
+						"activity": "COPY MUTATIONS",
+						"dependencyConditions": [
+							"Completed"
+						]
+					},
+					{
+						"activity": "COPY OFFICES",
+						"dependencyConditions": [
+							"Completed"
+						]
+					},
+					{
+						"activity": "COPY PLANNING",
+						"dependencyConditions": [
+							"Completed"
+						]
+					},
+					{
+						"activity": "COPY PROGNOSIS",
+						"dependencyConditions": [
+							"Completed"
+						]
+					},
+					{
+						"activity": "COPY PROJECTS",
+						"dependencyConditions": [
+							"Completed"
+						]
+					},
+					{
+						"activity": "COPY SALARY",
+						"dependencyConditions": [
+							"Completed"
+						]
+					},
+					{
+						"activity": "COPY SATISFACTION",
+						"dependencyConditions": [
+							"Completed"
+						]
+					},
+					{
+						"activity": "COPY SICKNESS",
+						"dependencyConditions": [
+							"Completed"
+						]
+					},
+					{
+						"activity": "COPY STAFF",
+						"dependencyConditions": [
+							"Completed"
+						]
+					},
+					{
+						"activity": "COPY SUMMARIES",
+						"dependencyConditions": [
+							"Completed"
+						]
+					},
+					{
+						"activity": "COPY TEAMS",
+						"dependencyConditions": [
+							"Completed"
+						]
+					},
+					{
+						"activity": "COPY TYPES",
+						"dependencyConditions": [
+							"Completed"
+						]
+					},
+					{
+						"activity": "DeleteCUMULATIVE",
+						"dependencyConditions": [
+							"Completed"
+						]
+					},
+					{
+						"activity": "COPY FREEDAYS",
+						"dependencyConditions": [
+							"Completed"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 5,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataflow": {
+						"referenceName": "DataflowMASTERDATANostradamus",
+						"type": "DataFlowReference"
+					},
+					"compute": {
+						"coreCount": 8,
+						"computeType": "General"
+					},
+					"traceLevel": "Fine"
+				}
+			},
+			{
+				"name": "DeleteCUMULATIVE",
+				"type": "Delete",
+				"dependsOn": [
+					{
+						"activity": "COPY CUMULATIVE",
+						"dependencyConditions": [
+							"Completed"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataset": {
+						"referenceName": "NostradamusCUMULATIVE",
+						"type": "DatasetReference"
+					},
+					"enableLogging": false,
+					"storeSettings": {
+						"type": "AzureBlobFSReadSettings",
+						"recursive": true,
+						"enablePartitionDiscovery": false
+					}
+				}
+			},
+			{
+				"name": "ValidateCUMULATIVEFiles",
+				"type": "Validation",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"dataset": {
+						"referenceName": "NostradamusCUMULATIVE",
+						"type": "DatasetReference"
+					},
+					"timeout": "0.00:05:00",
+					"sleep": 1
+				}
+			}
+		],
+		"annotations": [],
+		"lastPublishTime": "2026-05-04T18:53:13Z"
+	},
+	"type": "Microsoft.Synapse/workspaces/pipelines"
+}

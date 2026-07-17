@@ -1,0 +1,111 @@
+{
+	"name": "ParquetMICEEVENTREALTIMEPACKAGES",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureDataLakeStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "dudok_packages.parquet",
+				"folderPath": "outputMICE/realtime/events",
+				"fileSystem": "synapse"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": [
+			{
+				"name": "event_id",
+				"type": "INT64"
+			},
+			{
+				"name": "event_name",
+				"type": "UTF8"
+			},
+			{
+				"name": "event_status",
+				"type": "UTF8"
+			},
+			{
+				"name": "event_url",
+				"type": "UTF8"
+			},
+			{
+				"name": "company_id",
+				"type": "INT64"
+			},
+			{
+				"name": "planner_id",
+				"type": "INT64"
+			},
+			{
+				"name": "client_id",
+				"type": "INT64"
+			},
+			{
+				"name": "event_location_id",
+				"type": "INT64"
+			},
+			{
+				"name": "planner_detail_id",
+				"type": "INT64"
+			},
+			{
+				"name": "planner_name",
+				"type": "UTF8"
+			},
+			{
+				"name": "planner_email",
+				"type": "UTF8"
+			},
+			{
+				"name": "event_type_detail_id",
+				"type": "INT64"
+			},
+			{
+				"name": "event_type_name",
+				"type": "UTF8"
+			},
+			{
+				"name": "package_id",
+				"type": "INT64"
+			},
+			{
+				"name": "package_name",
+				"type": "UTF8"
+			},
+			{
+				"name": "package_description",
+				"type": "UTF8"
+			},
+			{
+				"name": "package_price",
+				"type": "DOUBLE"
+			},
+			{
+				"name": "package_price_excl_vat",
+				"type": "DOUBLE"
+			},
+			{
+				"name": "package_total_price",
+				"type": "DOUBLE"
+			},
+			{
+				"name": "package_total_price_excl_vat",
+				"type": "DOUBLE"
+			},
+			{
+				"name": "package_source",
+				"type": "UTF8"
+			},
+			{
+				"name": "source_file",
+				"type": "UTF8"
+			}
+		]
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

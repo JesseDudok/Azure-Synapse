@@ -1,0 +1,39 @@
+{
+	"name": "NostradamusMUTATIONS",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureDataLakeStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "dudok_nostradamus_mutations.json",
+				"fileSystem": "container2"
+			}
+		},
+		"schema": {
+			"type": "object",
+			"properties": {
+				"staff_id": {
+					"type": "integer"
+				},
+				"wage_code": {
+					"type": "string"
+				},
+				"date": {
+					"type": "string"
+				},
+				"value": {
+					"type": "number"
+				},
+				"remarks": {
+					"type": "string"
+				}
+			}
+		}
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

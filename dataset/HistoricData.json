@@ -1,0 +1,435 @@
+{
+	"name": "HistoricData",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "dudodatasynapse1-WorkspaceDefaultStorage",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileSystem": "container1"
+			}
+		},
+		"schema": {
+			"type": "object",
+			"properties": {
+				"Key": {
+					"type": "string"
+				},
+				"TicketNr": {
+					"type": "integer"
+				},
+				"ZNumber": {
+					"type": "integer"
+				},
+				"ActualDate": {
+					"type": "integer"
+				},
+				"Date": {
+					"type": "integer"
+				},
+				"Time": {
+					"type": "string"
+				},
+				"UserKey": {
+					"type": "string"
+				},
+				"UserId": {
+					"type": "string"
+				},
+				"UserName": {
+					"type": "string"
+				},
+				"PcNr": {
+					"type": "integer"
+				},
+				"PcName": {
+					"type": "string"
+				},
+				"CenterKey": {
+					"type": "string"
+				},
+				"CenterNr": {
+					"type": "string"
+				},
+				"CenterName": {
+					"type": "string"
+				},
+				"CenterLeftNr": {
+					"type": "integer"
+				},
+				"CenterRightNr": {
+					"type": "integer"
+				},
+				"Internal": {
+					"type": "null"
+				},
+				"AccountKey": {
+					"type": "null"
+				},
+				"AccountNr": {
+					"type": "null"
+				},
+				"AccountName": {
+					"type": "null"
+				},
+				"TableNr": {
+					"type": "integer"
+				},
+				"TableName": {
+					"type": "string"
+				},
+				"Covers": {
+					"type": "integer"
+				},
+				"TotalPrice": {
+					"type": "number"
+				},
+				"TotalToPay": {
+					"type": "number"
+				},
+				"CurrencySymbol": {
+					"type": "null"
+				},
+				"PrepStatus": {
+					"type": "string"
+				},
+				"Receipt": {
+					"type": "null"
+				},
+				"RefundedBy": {
+					"type": "string"
+				},
+				"RefundFor": {
+					"type": "string"
+				},
+				"LicenseInfo": {
+					"type": "object",
+					"properties": {
+						"CompanyName": {
+							"type": "string"
+						},
+						"Vat": {
+							"type": "string"
+						},
+						"Address": {
+							"type": "string"
+						},
+						"ZipCode": {
+							"type": "string"
+						},
+						"City": {
+							"type": "string"
+						},
+						"Country": {
+							"type": "string"
+						}
+					}
+				},
+				"ReceiptNr": {
+					"type": "string"
+				},
+				"PcRegistrationNr": {
+					"type": "string"
+				},
+				"BlackboxSerialNr": {
+					"type": "null"
+				},
+				"PrintType": {
+					"type": "string"
+				},
+				"Orders": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"properties": {
+							"Key": {
+								"type": "string"
+							},
+							"ActionId": {
+								"type": "integer"
+							},
+							"ActualDate": {
+								"type": "integer"
+							},
+							"Date": {
+								"type": "integer"
+							},
+							"Time": {
+								"type": "string"
+							},
+							"UserKey": {
+								"type": "string"
+							},
+							"UserId": {
+								"type": "string"
+							},
+							"UserName": {
+								"type": "string"
+							},
+							"PcNr": {
+								"type": "integer"
+							},
+							"PcName": {
+								"type": "string"
+							},
+							"TableNr": {
+								"type": "integer"
+							},
+							"TicketKey": {
+								"type": "string"
+							},
+							"Lines": {
+								"type": "array",
+								"items": {
+									"type": "object",
+									"properties": {
+										"Key": {
+											"type": "string"
+										},
+										"ProductKey": {
+											"type": "string"
+										},
+										"ProductNr": {
+											"type": "integer"
+										},
+										"ProductName": {
+											"type": "string"
+										},
+										"ProductType": {
+											"type": "string"
+										},
+										"ProductTypeTranslated": {
+											"type": "string"
+										},
+										"MenuId": {
+											"type": "string"
+										},
+										"GroupKey": {
+											"type": "string"
+										},
+										"GroupNr": {
+											"type": "integer"
+										},
+										"GroupName": {
+											"type": "string"
+										},
+										"GroupLeftNr": {
+											"type": "integer"
+										},
+										"GroupRightNr": {
+											"type": "integer"
+										},
+										"TA": {
+											"type": "boolean"
+										},
+										"Qty": {
+											"type": "number"
+										},
+										"Price": {
+											"type": "number"
+										},
+										"PromoName": {
+											"type": "null"
+										},
+										"TotalInc": {
+											"type": "number"
+										},
+										"TotalEx": {
+											"type": "number"
+										},
+										"TotalDisc": {
+											"type": "number"
+										},
+										"VatNr": {
+											"type": "integer"
+										},
+										"VatPerc": {
+											"type": "number"
+										},
+										"CourseNr": {
+											"type": "integer"
+										},
+										"CourseName": {
+											"type": "string"
+										},
+										"CostPrice": {
+											"type": "number"
+										},
+										"Memo": {
+											"type": "string"
+										},
+										"Units": {
+											"type": "integer"
+										},
+										"UnitId": {
+											"type": "integer"
+										},
+										"Addons": {
+											"type": "array",
+											"items": {
+												"type": "object",
+												"properties": {
+													"Key": {
+														"type": "string"
+													},
+													"ProductKey": {
+														"type": "string"
+													},
+													"ProductNr": {
+														"type": "integer"
+													},
+													"ProductName": {
+														"type": "string"
+													},
+													"ProductType": {
+														"type": "string"
+													},
+													"ProductTypeTranslated": {
+														"type": "string"
+													},
+													"MenuId": {
+														"type": "string"
+													},
+													"GroupKey": {
+														"type": "string"
+													},
+													"GroupNr": {
+														"type": "integer"
+													},
+													"GroupName": {
+														"type": "string"
+													},
+													"GroupLeftNr": {
+														"type": "integer"
+													},
+													"GroupRightNr": {
+														"type": "integer"
+													},
+													"TA": {
+														"type": "boolean"
+													},
+													"Qty": {
+														"type": "number"
+													},
+													"Price": {
+														"type": "number"
+													},
+													"PromoName": {
+														"type": "null"
+													},
+													"TotalInc": {
+														"type": "number"
+													},
+													"TotalEx": {
+														"type": "number"
+													},
+													"TotalDisc": {
+														"type": "number"
+													},
+													"VatNr": {
+														"type": "integer"
+													},
+													"VatPerc": {
+														"type": "number"
+													},
+													"CourseNr": {
+														"type": "integer"
+													},
+													"CourseName": {
+														"type": "string"
+													},
+													"CostPrice": {
+														"type": "number"
+													},
+													"Memo": {
+														"type": "string"
+													},
+													"Units": {
+														"type": "integer"
+													},
+													"UnitId": {
+														"type": "integer"
+													},
+													"Addons": {
+														"type": "array"
+													}
+												}
+											}
+										}
+									}
+								}
+							},
+							"Paymodes": {
+								"type": "array",
+								"items": {
+									"type": "object",
+									"properties": {
+										"Key": {
+											"type": "string"
+										},
+										"PaymodeKey": {
+											"type": "string"
+										},
+										"PaymodeNr": {
+											"type": "integer"
+										},
+										"PaymodeName": {
+											"type": "string"
+										},
+										"PaymodeType": {
+											"type": "string"
+										},
+										"TransactionId": {
+											"type": "string"
+										},
+										"TerminalId": {
+											"type": "string"
+										},
+										"Memo": {
+											"type": "string"
+										},
+										"GroupKey": {
+											"type": "string"
+										},
+										"GroupNr": {
+											"type": "integer"
+										},
+										"GroupName": {
+											"type": "string"
+										},
+										"GroupLeftNr": {
+											"type": "integer"
+										},
+										"GroupRightNr": {
+											"type": "integer"
+										},
+										"Qty": {
+											"type": "number"
+										},
+										"Price": {
+											"type": "number"
+										},
+										"Total": {
+											"type": "number"
+										},
+										"Tip": {
+											"type": "number"
+										},
+										"TransactionCost": {
+											"type": "number"
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

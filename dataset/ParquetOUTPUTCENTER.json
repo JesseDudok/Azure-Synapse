@@ -1,0 +1,67 @@
+{
+	"name": "ParquetOUTPUTCENTER",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureDataLakeStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "centers.parquet",
+				"folderPath": "outputBORK/masterdata",
+				"fileSystem": "synapse"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": [
+			{
+				"name": "SourceFileName",
+				"type": "UTF8"
+			},
+			{
+				"name": "CenterNr",
+				"type": "UTF8"
+			},
+			{
+				"name": "Key",
+				"type": "UTF8"
+			},
+			{
+				"name": "LeftNr",
+				"type": "INT64"
+			},
+			{
+				"name": "Level",
+				"type": "INT64"
+			},
+			{
+				"name": "Name",
+				"type": "UTF8"
+			},
+			{
+				"name": "RevenueCenter",
+				"type": "BOOLEAN"
+			},
+			{
+				"name": "RightNr",
+				"type": "INT64"
+			},
+			{
+				"name": "SiteNr",
+				"type": "INT64"
+			},
+			{
+				"name": "SubCenter",
+				"type": "INT64"
+			},
+			{
+				"name": "type",
+				"type": "UTF8"
+			}
+		]
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

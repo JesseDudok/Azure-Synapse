@@ -1,0 +1,47 @@
+{
+	"name": "ParquetOUTPUTUSERS",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureDataLakeStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "users.parquet",
+				"folderPath": "outputBORK/masterdata",
+				"fileSystem": "synapse"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": [
+			{
+				"name": "SourceFileName",
+				"type": "UTF8"
+			},
+			{
+				"name": "Key",
+				"type": "UTF8"
+			},
+			{
+				"name": "Name",
+				"type": "UTF8"
+			},
+			{
+				"name": "NationalId",
+				"type": "UTF8"
+			},
+			{
+				"name": "PersonelId",
+				"type": "UTF8"
+			},
+			{
+				"name": "type",
+				"type": "UTF8"
+			}
+		]
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

@@ -1,0 +1,20 @@
+{
+	"name": "ProcessedHistoricJsonDayEnd",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "dudodatasynapse1-WorkspaceDefaultStorage",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": "staginghistoric",
+				"fileSystem": "synapse"
+			}
+		},
+		"schema": {}
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

@@ -1,0 +1,1585 @@
+{
+	"name": "NMBRSprocessingPipe1",
+	"properties": {
+		"activities": [
+			{
+				"name": "COPY CONTRACTS",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "JsonSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"wildcardFileName": "dudok_contracts*.json",
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "JsonReadSettings"
+						}
+					},
+					"sink": {
+						"type": "ParquetSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "ParquetWriteSettings"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"path": "$['employeeId']"
+								},
+								"sink": {
+									"name": "employeeId",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['contractId']"
+								},
+								"sink": {
+									"name": "contractId",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['startDate']"
+								},
+								"sink": {
+									"name": "startDate",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['trialPeriod']"
+								},
+								"sink": {
+									"name": "trialPeriod",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['endDate']"
+								},
+								"sink": {
+									"name": "endDate",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['indefinite']"
+								},
+								"sink": {
+									"name": "indefinite",
+									"type": "Boolean"
+								}
+							},
+							{
+								"source": {
+									"path": "$['writtenContract']"
+								},
+								"sink": {
+									"name": "writtenContract",
+									"type": "Boolean"
+								}
+							},
+							{
+								"source": {
+									"path": "$['hoursPerWeek']"
+								},
+								"sink": {
+									"name": "hoursPerWeek",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['createdAt']"
+								},
+								"sink": {
+									"name": "createdAt",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['companyId']"
+								},
+								"sink": {
+									"name": "companyId",
+									"type": "String"
+								}
+							}
+						]
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "NMBRSCONTRACTS",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ParquetNMBRSCONTRACTS",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "COPY COMPANY",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "JsonSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"wildcardFileName": "*company*.json",
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "JsonReadSettings"
+						}
+					},
+					"sink": {
+						"type": "ParquetSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "ParquetWriteSettings"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"path": "$['companyId']"
+								},
+								"sink": {
+									"name": "companyId",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['number']"
+								},
+								"sink": {
+									"name": "number",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['name']"
+								},
+								"sink": {
+									"name": "name",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['debtorId']"
+								},
+								"sink": {
+									"name": "debtorId",
+									"type": "String"
+								}
+							}
+						]
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "NMBRSCOMPANY",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ParquetNMBRSCOMPANY",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "COPY DEBTORS",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "JsonSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"wildcardFileName": "*debtors*.json",
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "JsonReadSettings"
+						}
+					},
+					"sink": {
+						"type": "ParquetSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "ParquetWriteSettings"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"path": "$['debtor']['debtorId']"
+								},
+								"sink": {
+									"name": "debtorId",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['debtor']['number']"
+								},
+								"sink": {
+									"name": "number",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['debtor']['name']"
+								},
+								"sink": {
+									"name": "name",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['address']['addressId']"
+								},
+								"sink": {
+									"name": "addressId",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['address']['isDefault']"
+								},
+								"sink": {
+									"name": "isDefault",
+									"type": "Boolean"
+								}
+							},
+							{
+								"source": {
+									"path": "$['address']['type']"
+								},
+								"sink": {
+									"name": "type",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['address']['street']"
+								},
+								"sink": {
+									"name": "street",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['address']['houseNumber']"
+								},
+								"sink": {
+									"name": "houseNumber",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['address']['houseNumberAddition']"
+								},
+								"sink": {
+									"name": "houseNumberAddition",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['address']['postalCode']"
+								},
+								"sink": {
+									"name": "postalCode",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['address']['city']"
+								},
+								"sink": {
+									"name": "city",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['address']['stateProvince']"
+								},
+								"sink": {
+									"name": "stateProvince",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['address']['countryISOCode']"
+								},
+								"sink": {
+									"name": "countryISOCode",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['address']['period']"
+								},
+								"sink": {
+									"name": "period",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['address']['createdAt']"
+								},
+								"sink": {
+									"name": "createdAt",
+									"type": "String"
+								}
+							}
+						]
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "NMBRSDEBTORS",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ParquetNMBRSDEBTORS",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "COPY EMPLOYEES",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "JsonSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"wildcardFileName": "*employees*.json",
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "JsonReadSettings"
+						}
+					},
+					"sink": {
+						"type": "ParquetSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "ParquetWriteSettings"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"path": "$['employeeId']"
+								},
+								"sink": {
+									"name": "employeeId",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['employeeNumber']"
+								},
+								"sink": {
+									"name": "employeeNumber",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['firstName']"
+								},
+								"sink": {
+									"name": "firstName",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['firstNameInFull']"
+								},
+								"sink": {
+									"name": "firstNameInFull",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['prefix']"
+								},
+								"sink": {
+									"name": "prefix",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['initials']"
+								},
+								"sink": {
+									"name": "initials",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['lastName']"
+								},
+								"sink": {
+									"name": "lastName",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['employeeType']"
+								},
+								"sink": {
+									"name": "employeeType",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['companyName']"
+								},
+								"sink": {
+									"name": "companyName",
+									"type": "String"
+								}
+							}
+						]
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "NMBRSEMPLOYEES",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ParquetNMBRSEMPLOYEES",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "COPY MANAGERS",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "JsonSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"wildcardFileName": "*managers*.json",
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "JsonReadSettings"
+						}
+					},
+					"sink": {
+						"type": "ParquetSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "ParquetWriteSettings"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"path": "$['managerId']"
+								},
+								"sink": {
+									"name": "managerId",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['number']"
+								},
+								"sink": {
+									"name": "number",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"path": "$['firstName']"
+								},
+								"sink": {
+									"name": "firstName",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['lastName']"
+								},
+								"sink": {
+									"name": "lastName",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['gender']"
+								},
+								"sink": {
+									"name": "gender",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['department']['departmentId']"
+								},
+								"sink": {
+									"name": "departmentId",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['department']['code']"
+								},
+								"sink": {
+									"name": "department_code",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"path": "$['department']['description']"
+								},
+								"sink": {
+									"name": "department_description",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['department']['createdAt']"
+								},
+								"sink": {
+									"name": "department_createdAt",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['function']['functionId']"
+								},
+								"sink": {
+									"name": "functionId",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['function']['code']"
+								},
+								"sink": {
+									"name": "function_code",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"path": "$['function']['description']"
+								},
+								"sink": {
+									"name": "function_description",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['function']['createdAt']"
+								},
+								"sink": {
+									"name": "function_createdAt",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['phoneNumber']"
+								},
+								"sink": {
+									"name": "phoneNumber",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['cellphone']"
+								},
+								"sink": {
+									"name": "cellphone",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['fax']"
+								},
+								"sink": {
+									"name": "fax",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['email']"
+								},
+								"sink": {
+									"name": "email",
+									"type": "String"
+								}
+							}
+						]
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "NMBRSMANAGERS",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ParquetNMBRSMANAGERS",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "COPY EMPLOYMENTS",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "JsonSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"wildcardFileName": "*employments*.json",
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "JsonReadSettings"
+						}
+					},
+					"sink": {
+						"type": "ParquetSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "ParquetWriteSettings"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"path": "$['employeeId']"
+								},
+								"sink": {
+									"name": "employeeId",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['employmentId']"
+								},
+								"sink": {
+									"name": "employmentId",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['creationDate']"
+								},
+								"sink": {
+									"name": "creationDate",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['startDate']"
+								},
+								"sink": {
+									"name": "startDate",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['endDate']"
+								},
+								"sink": {
+									"name": "endDate",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['seniorityDate']"
+								},
+								"sink": {
+									"name": "seniorityDate",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['endContractReasonCode']"
+								},
+								"sink": {
+									"name": "endContractReasonCode",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['endContractReasonDescription']"
+								},
+								"sink": {
+									"name": "endContractReasonDescription",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['changedDate']"
+								},
+								"sink": {
+									"name": "changedDate",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['companyId']"
+								},
+								"sink": {
+									"name": "companyId",
+									"type": "String"
+								}
+							}
+						],
+						"mapComplexValuesToString": true
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "NMBRSEMPLOYMENTS",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ParquetNMBRSEMPLOYMENTS",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "Data flow NMBRS",
+				"type": "ExecuteDataFlow",
+				"dependsOn": [
+					{
+						"activity": "COPY EMPLOYMENTS",
+						"dependencyConditions": [
+							"Completed"
+						]
+					},
+					{
+						"activity": "COPY MANAGERS",
+						"dependencyConditions": [
+							"Completed"
+						]
+					},
+					{
+						"activity": "COPY EMPLOYEES",
+						"dependencyConditions": [
+							"Completed"
+						]
+					},
+					{
+						"activity": "COPY DEBTORS",
+						"dependencyConditions": [
+							"Completed"
+						]
+					},
+					{
+						"activity": "COPY COMPANY",
+						"dependencyConditions": [
+							"Completed"
+						]
+					},
+					{
+						"activity": "COPY CONTRACTS",
+						"dependencyConditions": [
+							"Completed"
+						]
+					},
+					{
+						"activity": "COPY FUNCTIONS",
+						"dependencyConditions": [
+							"Completed"
+						]
+					},
+					{
+						"activity": "COPY FUNCTIONS HISTORY",
+						"dependencyConditions": [
+							"Completed"
+						]
+					},
+					{
+						"activity": "COPY MANAGERS HISTORY",
+						"dependencyConditions": [
+							"Completed"
+						]
+					},
+					{
+						"activity": "COPY EMPLOYEE SCHEDULE HISTORY",
+						"dependencyConditions": [
+							"Completed"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 5,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataflow": {
+						"referenceName": "Dataflow NMBRS",
+						"type": "DataFlowReference"
+					},
+					"compute": {
+						"coreCount": 8,
+						"computeType": "General"
+					},
+					"traceLevel": "Fine"
+				}
+			},
+			{
+				"name": "COPY FUNCTIONS",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "JsonSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"wildcardFileName": "*functions*.json",
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "JsonReadSettings"
+						}
+					},
+					"sink": {
+						"type": "ParquetSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "ParquetWriteSettings"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"path": "$['debtorId']"
+								},
+								"sink": {
+									"name": "debtorId",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['debtorName']"
+								},
+								"sink": {
+									"name": "debtorName",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['functionId']"
+								},
+								"sink": {
+									"name": "functionId",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['code']"
+								},
+								"sink": {
+									"name": "code",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"path": "$['description']"
+								},
+								"sink": {
+									"name": "description",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['createdAt']"
+								},
+								"sink": {
+									"name": "createdAt",
+									"type": "String"
+								}
+							}
+						],
+						"mapComplexValuesToString": true
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "NMBRSFUNCTIONS",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ParquetNMBRSFUNCTIONS",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "COPY FUNCTIONS HISTORY",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "JsonSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"wildcardFileName": "*functions*.json",
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "JsonReadSettings"
+						}
+					},
+					"sink": {
+						"type": "ParquetSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "ParquetWriteSettings"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"path": "$['employeeId']"
+								},
+								"sink": {
+									"name": "employeeId",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['functionId']"
+								},
+								"sink": {
+									"name": "functionId",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['code']"
+								},
+								"sink": {
+									"name": "code",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"path": "$['description']"
+								},
+								"sink": {
+									"name": "description",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['companyId']"
+								},
+								"sink": {
+									"name": "companyId",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['companyName']"
+								},
+								"sink": {
+									"name": "companyName",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['createdAt']"
+								},
+								"sink": {
+									"name": "createdAt",
+									"type": "String"
+								}
+							}
+						],
+						"mapComplexValuesToString": true
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "NMBRSFUNCTIONSHISTORY",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ParquetNMBRSFUNCTIONSHISTORY",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "COPY MANAGERS HISTORY",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "JsonSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"wildcardFileName": "**.json",
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "JsonReadSettings"
+						}
+					},
+					"sink": {
+						"type": "ParquetSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "ParquetWriteSettings"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"path": "$['employeeId']"
+								},
+								"sink": {
+									"name": "employeeId",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['managerId']"
+								},
+								"sink": {
+									"name": "managerId",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['firstName']"
+								},
+								"sink": {
+									"name": "firstName",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['lastName']"
+								},
+								"sink": {
+									"name": "lastName",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['email']"
+								},
+								"sink": {
+									"name": "email",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['createdAt']"
+								},
+								"sink": {
+									"name": "createdAt",
+									"type": "String"
+								}
+							}
+						],
+						"mapComplexValuesToString": true
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "NMRBSMANAGERSHISTORY",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ParquetNMBRSMANAGERHISTORY",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "COPY EMPLOYEE SCHEDULE HISTORY",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "JsonSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"wildcardFileName": "**.json",
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "JsonReadSettings"
+						}
+					},
+					"sink": {
+						"type": "ParquetSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "ParquetWriteSettings"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"path": "$['employeeId']"
+								},
+								"sink": {
+									"name": "employeeId",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['scheduleId']"
+								},
+								"sink": {
+									"name": "scheduleId",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['startDate']"
+								},
+								"sink": {
+									"name": "startDate",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['parttimePercentage']"
+								},
+								"sink": {
+									"name": "parttimePercentage",
+									"type": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"path": "$['week1_monday']"
+								},
+								"sink": {
+									"name": "week1_monday",
+									"type": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"path": "$['week1_tuesday']"
+								},
+								"sink": {
+									"name": "week1_tuesday",
+									"type": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"path": "$['week1_wednesday']"
+								},
+								"sink": {
+									"name": "week1_wednesday",
+									"type": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"path": "$['week1_thursday']"
+								},
+								"sink": {
+									"name": "week1_thursday",
+									"type": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"path": "$['week1_friday']"
+								},
+								"sink": {
+									"name": "week1_friday",
+									"type": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"path": "$['week1_saturday']"
+								},
+								"sink": {
+									"name": "week1_saturday",
+									"type": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"path": "$['week1_sunday']"
+								},
+								"sink": {
+									"name": "week1_sunday",
+									"type": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"path": "$['week2_monday']"
+								},
+								"sink": {
+									"name": "week2_monday",
+									"type": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"path": "$['week2_tuesday']"
+								},
+								"sink": {
+									"name": "week2_tuesday",
+									"type": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"path": "$['week2_wednesday']"
+								},
+								"sink": {
+									"name": "week2_wednesday",
+									"type": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"path": "$['week2_thursday']"
+								},
+								"sink": {
+									"name": "week2_thursday",
+									"type": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"path": "$['week2_friday']"
+								},
+								"sink": {
+									"name": "week2_friday",
+									"type": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"path": "$['week2_saturday']"
+								},
+								"sink": {
+									"name": "week2_saturday",
+									"type": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"path": "$['week2_sunday']"
+								},
+								"sink": {
+									"name": "week2_sunday",
+									"type": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"path": "$['createdAt']"
+								},
+								"sink": {
+									"name": "createdAt",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['companyId']"
+								},
+								"sink": {
+									"name": "companyId",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['companyName']"
+								},
+								"sink": {
+									"name": "companyName",
+									"type": "String"
+								}
+							}
+						],
+						"mapComplexValuesToString": true
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "NMBRSEMPLOYEESCHEDULEHISTORY",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ParquetNMBRSEMPLOYEESCHEDULEHISTORY",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
+		"annotations": [],
+		"lastPublishTime": "2026-03-27T13:39:21Z"
+	},
+	"type": "Microsoft.Synapse/workspaces/pipelines"
+}

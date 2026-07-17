@@ -1,0 +1,126 @@
+{
+	"name": "BORKprocessingPipe3",
+	"properties": {
+		"activities": [
+			{
+				"name": "COPY FILTERED LATEST",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "JsonSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"wildcardFileName": "*latest*.json",
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "JsonReadSettings"
+						}
+					},
+					"sink": {
+						"type": "JsonSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "JsonWriteSettings"
+						}
+					},
+					"enableStaging": false
+				},
+				"inputs": [
+					{
+						"referenceName": "BORKLATEST",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ProcessedBorkJsonLatest",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "LATEST PROCESSING",
+				"type": "SynapseNotebook",
+				"dependsOn": [
+					{
+						"activity": "COPY FILTERED LATEST",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebook": {
+						"referenceName": "JSONtoPARQUETBORKLATEST",
+						"type": "NotebookReference"
+					},
+					"snapshot": true,
+					"sparkPool": {
+						"referenceName": "SparkPool3",
+						"type": "BigDataPoolReference"
+					},
+					"executorSize": "Small",
+					"driverSize": "Small"
+				}
+			},
+			{
+				"name": "DATA FLOW BORK REALTIME",
+				"type": "ExecuteDataFlow",
+				"dependsOn": [
+					{
+						"activity": "LATEST PROCESSING",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataflow": {
+						"referenceName": "DataflowREALTIMEBORK",
+						"type": "DataFlowReference"
+					},
+					"compute": {
+						"coreCount": 8,
+						"computeType": "General"
+					},
+					"traceLevel": "None",
+					"cacheSinks": {
+						"firstRowOnly": true
+					}
+				}
+			}
+		],
+		"annotations": [],
+		"lastPublishTime": "2026-03-19T08:53:43Z"
+	},
+	"type": "Microsoft.Synapse/workspaces/pipelines"
+}

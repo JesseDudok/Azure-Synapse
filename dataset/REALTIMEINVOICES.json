@@ -1,0 +1,21 @@
+{
+	"name": "REALTIMEINVOICES",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureDataLakeStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "dudok_invoices.json",
+				"folderPath": "Realtime/Invoices",
+				"fileSystem": "container4"
+			}
+		},
+		"schema": {}
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

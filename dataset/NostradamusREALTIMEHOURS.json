@@ -1,0 +1,75 @@
+{
+	"name": "NostradamusREALTIMEHOURS",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureDataLakeStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "dudok_nostradamus_hours_real_time.json",
+				"fileSystem": "container2"
+			}
+		},
+		"schema": {
+			"type": "object",
+			"properties": {
+				"office_id": {
+					"type": "string"
+				},
+				"office_name": {
+					"type": "string"
+				},
+				"card_id": {
+					"type": "string"
+				},
+				"card_name": {
+					"type": "string"
+				},
+				"hour_id": {
+					"type": "string"
+				},
+				"hour_office_id": {
+					"type": "string"
+				},
+				"hour_department_id": {
+					"type": "string"
+				},
+				"hour_team_id": {
+					"type": "string"
+				},
+				"hour_date": {
+					"type": "string"
+				},
+				"hour_hours": {
+					"type": "number"
+				},
+				"hour_enter": {
+					"type": "string"
+				},
+				"hour_exit": {
+					"type": "string"
+				},
+				"hour_state": {
+					"type": "null"
+				},
+				"hour_type": {
+					"type": "string"
+				},
+				"project_id": {
+					"type": "null"
+				},
+				"hour_type_name": {
+					"type": "string"
+				},
+				"hour_break": {
+					"type": "string"
+				}
+			}
+		}
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

@@ -1,0 +1,155 @@
+{
+	"name": "MICE Event Orchestrator",
+	"properties": {
+		"activities": [
+			{
+				"name": "Until_Queue_Empty",
+				"type": "Until",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"expression": {
+						"value": "@equals(variables('hasMoreMessages'), false)",
+						"type": "Expression"
+					},
+					"activities": [
+						{
+							"name": "Execute_Process_Batch",
+							"type": "ExecutePipeline",
+							"dependsOn": [],
+							"policy": {
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"pipeline": {
+									"referenceName": "MICE Event RealtimeProcessing_Child",
+									"type": "PipelineReference"
+								},
+								"waitOnCompletion": true
+							}
+						},
+						{
+							"name": "Set_Has_More_Messages",
+							"type": "SetVariable",
+							"dependsOn": [
+								{
+									"activity": "Execute_Process_Batch",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"policy": {
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "hasMoreMessages",
+								"value": {
+									"value": "@bool(activity('Execute_Process_Batch').output.pipelineReturnValue.hasMoreMessages)",
+									"type": "Expression"
+								}
+							}
+						}
+					],
+					"timeout": "0.12:00:00"
+				}
+			},
+			{
+				"name": "Convert_JSON_to_Parquet",
+				"type": "SynapseNotebook",
+				"dependsOn": [
+					{
+						"activity": "Until_Queue_Empty",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebook": {
+						"referenceName": "JSONtoPARQUETMICEREALTIMEEVENT_FIXED_v6_MULTILINE",
+						"type": "NotebookReference"
+					},
+					"snapshot": true,
+					"sparkPool": {
+						"referenceName": "SparkPool3",
+						"type": "BigDataPoolReference"
+					},
+					"executorSize": "Small",
+					"conf": {
+						"spark.dynamicAllocation.enabled": null,
+						"spark.dynamicAllocation.minExecutors": 1,
+						"spark.dynamicAllocation.maxExecutors": 1
+					},
+					"driverSize": "Small",
+					"numExecutors": 1
+				}
+			},
+			{
+				"name": "If Events Are processed",
+				"type": "IfCondition",
+				"dependsOn": [
+					{
+						"activity": "Convert_JSON_to_Parquet",
+						"dependencyConditions": [
+							"Completed"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"expression": {
+						"value": "@greater(int(activity('Convert_JSON_to_Parquet').output.status.Output.result.exitValue), 0)",
+						"type": "Expression"
+					},
+					"ifTrueActivities": [
+						{
+							"name": "Execute_Dataflow",
+							"type": "ExecuteDataFlow",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 5,
+								"retryIntervalInSeconds": 60,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"dataflow": {
+									"referenceName": "Dataflow REALTIME MICE",
+									"type": "DataFlowReference"
+								},
+								"compute": {
+									"coreCount": 8,
+									"computeType": "General"
+								},
+								"traceLevel": "Fine"
+							}
+						}
+					]
+				}
+			}
+		],
+		"variables": {
+			"hasMoreMessages": {
+				"type": "Boolean",
+				"defaultValue": true
+			}
+		},
+		"annotations": [],
+		"lastPublishTime": "2026-03-19T08:53:57Z"
+	},
+	"type": "Microsoft.Synapse/workspaces/pipelines"
+}

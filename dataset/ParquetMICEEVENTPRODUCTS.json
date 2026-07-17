@@ -1,0 +1,159 @@
+{
+	"name": "ParquetMICEEVENTPRODUCTS",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureDataLakeStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "dudok_products.parquet",
+				"folderPath": "outputMICE/events",
+				"fileSystem": "synapse"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": [
+			{
+				"name": "event_id",
+				"type": "INT64"
+			},
+			{
+				"name": "event_name",
+				"type": "UTF8"
+			},
+			{
+				"name": "event_status",
+				"type": "UTF8"
+			},
+			{
+				"name": "event_start",
+				"type": "UTF8"
+			},
+			{
+				"name": "event_end",
+				"type": "UTF8"
+			},
+			{
+				"name": "event_guests",
+				"type": "INT64"
+			},
+			{
+				"name": "company_id",
+				"type": "INT64"
+			},
+			{
+				"name": "planner_id",
+				"type": "INT64"
+			},
+			{
+				"name": "client_id",
+				"type": "INT64"
+			},
+			{
+				"name": "event_location_id",
+				"type": "INT64"
+			},
+			{
+				"name": "activity_id",
+				"type": "INT64"
+			},
+			{
+				"name": "activity_name",
+				"type": "UTF8"
+			},
+			{
+				"name": "product_id",
+				"type": "INT64"
+			},
+			{
+				"name": "object_type",
+				"type": "UTF8"
+			},
+			{
+				"name": "object_id",
+				"type": "INT64"
+			},
+			{
+				"name": "object_code",
+				"type": "UTF8"
+			},
+			{
+				"name": "object_category_id",
+				"type": "INT64"
+			},
+			{
+				"name": "product_event_id",
+				"type": "INT64"
+			},
+			{
+				"name": "event_timeline_id",
+				"type": "INT64"
+			},
+			{
+				"name": "event_activity_id",
+				"type": "INT64"
+			},
+			{
+				"name": "event_package_id",
+				"type": "INT64"
+			},
+			{
+				"name": "amount",
+				"type": "INT64"
+			},
+			{
+				"name": "amount_pp",
+				"type": "INT64"
+			},
+			{
+				"name": "product_name",
+				"type": "UTF8"
+			},
+			{
+				"name": "subtitle",
+				"type": "UTF8"
+			},
+			{
+				"name": "description",
+				"type": "UTF8"
+			},
+			{
+				"name": "price",
+				"type": "DOUBLE"
+			},
+			{
+				"name": "price_excl_vat",
+				"type": "DOUBLE"
+			},
+			{
+				"name": "total_price",
+				"type": "DOUBLE"
+			},
+			{
+				"name": "total_price_excl_vat",
+				"type": "DOUBLE"
+			},
+			{
+				"name": "cost_price",
+				"type": "DOUBLE"
+			},
+			{
+				"name": "vat",
+				"type": "DOUBLE"
+			},
+			{
+				"name": "product_source",
+				"type": "UTF8"
+			},
+			{
+				"name": "source_file",
+				"type": "UTF8"
+			}
+		]
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

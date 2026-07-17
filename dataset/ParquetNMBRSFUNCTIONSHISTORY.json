@@ -1,0 +1,46 @@
+{
+	"name": "ParquetNMBRSFUNCTIONSHISTORY",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureDataLakeStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": "outputNMBRS/Functions history",
+				"fileSystem": "synapse"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": [
+			{
+				"name": "employeeId",
+				"type": "UTF8"
+			},
+			{
+				"name": "functionId",
+				"type": "UTF8"
+			},
+			{
+				"name": "code",
+				"type": "INT32"
+			},
+			{
+				"name": "description",
+				"type": "UTF8"
+			},
+			{
+				"name": "companyId",
+				"type": "UTF8"
+			},
+			{
+				"name": "companyName",
+				"type": "UTF8"
+			}
+		]
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

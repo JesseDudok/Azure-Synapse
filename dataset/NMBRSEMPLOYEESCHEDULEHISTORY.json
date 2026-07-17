@@ -1,0 +1,87 @@
+{
+	"name": "NMBRSEMPLOYEESCHEDULEHISTORY",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "dudodatasynapse1-WorkspaceDefaultStorage",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": "schedules history",
+				"fileSystem": "container3"
+			}
+		},
+		"schema": {
+			"type": "object",
+			"properties": {
+				"employeeId": {
+					"type": "string"
+				},
+				"scheduleId": {
+					"type": "string"
+				},
+				"startDate": {
+					"type": "string"
+				},
+				"parttimePercentage": {
+					"type": "number"
+				},
+				"week1_monday": {
+					"type": "number"
+				},
+				"week1_tuesday": {
+					"type": "number"
+				},
+				"week1_wednesday": {
+					"type": "number"
+				},
+				"week1_thursday": {
+					"type": "number"
+				},
+				"week1_friday": {
+					"type": "number"
+				},
+				"week1_saturday": {
+					"type": "number"
+				},
+				"week1_sunday": {
+					"type": "number"
+				},
+				"week2_monday": {
+					"type": "number"
+				},
+				"week2_tuesday": {
+					"type": "number"
+				},
+				"week2_wednesday": {
+					"type": "number"
+				},
+				"week2_thursday": {
+					"type": "number"
+				},
+				"week2_friday": {
+					"type": "number"
+				},
+				"week2_saturday": {
+					"type": "number"
+				},
+				"week2_sunday": {
+					"type": "number"
+				},
+				"createdAt": {
+					"type": "string"
+				},
+				"companyId": {
+					"type": "string"
+				},
+				"companyName": {
+					"type": "string"
+				}
+			}
+		}
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

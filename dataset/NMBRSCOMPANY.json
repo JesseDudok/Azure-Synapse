@@ -1,0 +1,73 @@
+{
+	"name": "NMBRSCOMPANY",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureDataLakeStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": "company",
+				"fileSystem": "container3"
+			}
+		},
+		"schema": {
+			"type": "object",
+			"properties": {
+				"pagination": {
+					"type": "object",
+					"properties": {
+						"pageNumber": {
+							"type": "integer"
+						},
+						"pageSize": {
+							"type": "integer"
+						},
+						"firstPage": {
+							"type": "string"
+						},
+						"lastPage": {
+							"type": "string"
+						},
+						"totalPages": {
+							"type": "integer"
+						},
+						"totalRecords": {
+							"type": "integer"
+						},
+						"nextPage": {
+							"type": "null"
+						},
+						"previousPage": {
+							"type": "null"
+						}
+					}
+				},
+				"data": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"properties": {
+							"companyId": {
+								"type": "string"
+							},
+							"number": {
+								"type": "string"
+							},
+							"name": {
+								"type": "string"
+							},
+							"debtorId": {
+								"type": "string"
+							}
+						}
+					}
+				}
+			}
+		}
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

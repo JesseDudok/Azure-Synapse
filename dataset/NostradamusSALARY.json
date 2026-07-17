@@ -1,0 +1,75 @@
+{
+	"name": "NostradamusSALARY",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureDataLakeStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "dudok_nostradamus_salary.json",
+				"fileSystem": "container2"
+			}
+		},
+		"schema": {
+			"type": "object",
+			"properties": {
+				"id": {
+					"type": "string"
+				},
+				"card_id": {
+					"type": "string"
+				},
+				"coa_id": {
+					"type": "string"
+				},
+				"salary_start_date": {
+					"type": "string"
+				},
+				"salary_end_date": {
+					"type": "string"
+				},
+				"salary_level": {
+					"type": "string"
+				},
+				"salary_wage_group": {
+					"type": "string"
+				},
+				"salary_use_wage": {
+					"type": "string"
+				},
+				"salary_base": {
+					"type": "string"
+				},
+				"salary_extra": {
+					"type": "string"
+				},
+				"salary_bonus": {
+					"type": "string"
+				},
+				"salary_total": {
+					"type": "string"
+				},
+				"salary_holiday_days_percentage": {
+					"type": "string"
+				},
+				"salary_holiday_legal_percentage": {
+					"type": "string"
+				},
+				"salary_holiday_extralegal_percentage": {
+					"type": "string"
+				},
+				"salary_holiday_money_percentage": {
+					"type": "string"
+				},
+				"salary_rate": {
+					"type": "string"
+				}
+			}
+		}
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

@@ -1,0 +1,141 @@
+{
+	"name": "NostradamusSTAFF",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureDataLakeStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "dudok_nostradamus_staff.json",
+				"fileSystem": "container2"
+			}
+		},
+		"schema": {
+			"type": "object",
+			"properties": {
+				"office_id": {
+					"type": "string"
+				},
+				"office_name": {
+					"type": "string"
+				},
+				"card_id": {
+					"type": "string"
+				},
+				"card_accountant_number": {
+					"type": "string"
+				},
+				"card_name": {
+					"type": "string"
+				},
+				"card_start": {
+					"type": "string"
+				},
+				"card_end": {
+					"type": "string"
+				},
+				"card_contract_hours": {
+					"type": "string"
+				},
+				"card_hourly_salary": {
+					"type": "number"
+				},
+				"card_salary_rate": {
+					"type": "number"
+				},
+				"card_department": {
+					"type": "string"
+				},
+				"card_function": {
+					"type": "string"
+				},
+				"card_contract_number": {
+					"type": "string"
+				},
+				"card_contract_profile": {
+					"type": "string"
+				},
+				"overwrite_office_id": {
+					"type": "string"
+				},
+				"show_address": {
+					"type": "integer"
+				},
+				"show_phone": {
+					"type": "integer"
+				},
+				"show_mobile": {
+					"type": "integer"
+				},
+				"show_email": {
+					"type": "integer"
+				},
+				"show_salary": {
+					"type": "integer"
+				},
+				"show_birthday": {
+					"type": "integer"
+				},
+				"card_date_of_birth": {
+					"type": "string"
+				},
+				"card_gender": {
+					"type": "string"
+				},
+				"card_phone": {
+					"type": "string"
+				},
+				"card_mobile": {
+					"type": "string"
+				},
+				"card_email": {
+					"type": "string"
+				},
+				"staff_name": {
+					"type": "string"
+				},
+				"card_firstname": {
+					"type": "string"
+				},
+				"card_insertion": {
+					"type": "string"
+				},
+				"card_lastname": {
+					"type": "string"
+				},
+				"card_partner_insertion": {
+					"type": "string"
+				},
+				"card_partner_lastname": {
+					"type": "string"
+				},
+				"card_clock_number": {
+					"type": "string"
+				},
+				"card_address": {
+					"type": "string"
+				},
+				"card_address_number": {
+					"type": "string"
+				},
+				"card_address_number_addition": {
+					"type": "string"
+				},
+				"card_address_postal": {
+					"type": "string"
+				},
+				"card_address_city": {
+					"type": "string"
+				},
+				"card_address_country": {
+					"type": "string"
+				}
+			}
+		}
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

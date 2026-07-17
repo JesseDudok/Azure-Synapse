@@ -1,0 +1,23 @@
+{
+	"name": "S_OfficesTable",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureSqlDatabase1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "Id",
+				"type": "int",
+				"precision": 10
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "OfficesTable"
+		}
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

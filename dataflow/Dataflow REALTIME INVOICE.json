@@ -1,0 +1,48 @@
+{
+	"name": "Dataflow REALTIME INVOICE",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "BORKLATEST",
+						"type": "DatasetReference"
+					},
+					"name": "source1"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "BORKDAYEND",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				}
+			],
+			"transformations": [],
+			"scriptLines": [
+				"source(output(",
+				"          data as (type as string, ActualDate as integer, CenterKey as string, CenterLeftNr as integer, CenterName as string, CenterNr as string, CenterRightNr as integer, Date as integer, Key as string, Orders as (type as string, ActualDate as integer, Date as integer, Key as string, Lines as (type as string, Addons as string[], CourseName as string, GroupKey as string, GroupLeftNr as integer, GroupName as string, GroupNr as integer, GroupRightNr as integer, Key as string, Memo as string, MenuId as string, Price as double, ProductKey as string, ProductName as string, ProductNr as integer, ProductType as string, ProductTypeTranslated as string, Qty as integer, TotalEx as double, TotalInc as double, Units as integer, VatNr as integer, VatPerc as integer)[], Paymodes as string[], PcName as string, PcNr as integer, TableNr as integer, TicketKey as string, Time as string, UserId as string, UserKey as string, UserName as string)[], PcName as string, PcNr as integer, PrepStatus as string, RefundedBy as string, RefundFor as string, TableName as string, TableNr as integer, TicketNr as integer, Time as string, TotalPrice as double, TotalToPay as integer, UserId as string, UserKey as string, UserName as string)[]",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false,",
+				"     documentForm: 'documentPerLine') ~> source1",
+				"source1 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          statusCode as integer,",
+				"          headers as ({x-ms-workflow-run-id} as string, {x-ms-correlation-id} as string, {x-ms-client-tracking-id} as string, {x-ms-trigger-history-name} as string, {x-ms-execution-location} as string, {x-ms-workflow-system-id} as string, {x-ms-workflow-id} as string, {x-ms-workflow-version} as string, {x-ms-workflow-name} as string, {x-ms-tracking-id} as string, {Content-Type} as string, {Content-Length} as string),",
+				"          body as (type as string, ActualDate as integer, CenterKey as string, CenterLeftNr as integer, CenterName as string, CenterNr as string, CenterRightNr as integer, Date as integer, Key as string, Orders as (type as string, ActionId as integer, ActualDate as integer, Date as integer, Key as string, Lines as (type as string, Addons as string[], CourseName as string, GroupKey as string, GroupLeftNr as integer, GroupName as string, GroupNr as integer, GroupRightNr as integer, Key as string, Memo as string, MenuId as string, Price as integer, ProductKey as string, ProductName as string, ProductNr as integer, ProductType as string, ProductTypeTranslated as string, Qty as integer, TotalEx as double, TotalInc as integer, Units as integer, VatNr as integer, VatPerc as integer)[], Paymodes as string[], PcName as string, PcNr as integer, TicketKey as string, Time as string, UserId as string, UserKey as string, UserName as string)[], PcName as string, PcNr as integer, PrepStatus as string, RefundedBy as string, RefundFor as string, TableName as string, TicketNr as integer, Time as string, TotalPrice as integer, TotalToPay as integer, UserId as string, UserKey as string, UserName as string, ZNumber as integer)[]",
+				"     ),",
+				"     umask: 0022,",
+				"     preCommands: [],",
+				"     postCommands: [],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> sink1"
+			]
+		}
+	}
+}

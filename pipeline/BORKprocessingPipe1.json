@@ -1,0 +1,193 @@
+{
+	"name": "BORKprocessingPipe1",
+	"properties": {
+		"activities": [
+			{
+				"name": "Data flow DAYEND BORK",
+				"type": "ExecuteDataFlow",
+				"dependsOn": [
+					{
+						"activity": "DAYEND PROCESSING",
+						"dependencyConditions": [
+							"Completed"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.4:00:00",
+					"retry": 5,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataflow": {
+						"referenceName": "DataflowDAYENDBORK",
+						"type": "DataFlowReference"
+					},
+					"compute": {
+						"coreCount": 8,
+						"computeType": "General"
+					},
+					"traceLevel": "Fine"
+				}
+			},
+			{
+				"name": "COPY FILTERED DAYEND",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.4:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "JsonSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"modifiedDatetimeStart": {
+								"value": "@startOfDay(addDays(utcnow(), -1))",
+								"type": "Expression"
+							},
+							"wildcardFileName": "**.json",
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "JsonReadSettings"
+						}
+					},
+					"sink": {
+						"type": "JsonSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "JsonWriteSettings"
+						}
+					},
+					"enableStaging": false
+				},
+				"inputs": [
+					{
+						"referenceName": "BORKDAYEND",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ProcessedBorkJsonDayEnd",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "DAYEND PROCESSING",
+				"type": "SynapseNotebook",
+				"dependsOn": [
+					{
+						"activity": "COPY FILTERED DAYEND",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.4:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebook": {
+						"referenceName": "JSONtoPARQUETBORKDAYEND",
+						"type": "NotebookReference"
+					},
+					"snapshot": true,
+					"sparkPool": {
+						"referenceName": "SparkPool3",
+						"type": "BigDataPoolReference"
+					},
+					"executorSize": "Medium",
+					"conf": {
+						"spark.dynamicAllocation.enabled": false,
+						"spark.dynamicAllocation.minExecutors": 2,
+						"spark.dynamicAllocation.maxExecutors": 2
+					},
+					"driverSize": "Medium",
+					"numExecutors": 2
+				}
+			},
+			{
+				"name": "Delete Staging",
+				"type": "Delete",
+				"dependsOn": [
+					{
+						"activity": "DAYEND PROCESSING",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataset": {
+						"referenceName": "ProcessedBorkJsonDayEnd",
+						"type": "DatasetReference"
+					},
+					"enableLogging": false,
+					"storeSettings": {
+						"type": "AzureBlobStorageReadSettings",
+						"recursive": true,
+						"wildcardFileName": "**.json",
+						"enablePartitionDiscovery": false
+					}
+				}
+			},
+			{
+				"name": "Refresh Dim_product",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "Data flow DAYEND BORK",
+						"dependencyConditions": [
+							"Completed"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.02:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[usp_RefreshDimProduct]"
+				},
+				"linkedServiceName": {
+					"referenceName": "AzureSqlDatabase1",
+					"type": "LinkedServiceReference"
+				}
+			}
+		],
+		"annotations": [],
+		"lastPublishTime": "2026-05-06T12:03:20Z"
+	},
+	"type": "Microsoft.Synapse/workspaces/pipelines"
+}

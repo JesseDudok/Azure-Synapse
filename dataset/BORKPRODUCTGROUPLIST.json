@@ -1,0 +1,62 @@
+{
+	"name": "BORKPRODUCTGROUPLIST",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureDataLakeStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "dudok_productgrouplist.json",
+				"folderPath": "masterdata",
+				"fileSystem": "container1"
+			}
+		},
+		"schema": {
+			"type": "object",
+			"properties": {
+				"data": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"properties": {
+							"type": {
+								"type": "string"
+							},
+							"ColorKey": {
+								"type": "object",
+								"properties": {
+									"type": {
+										"type": "string"
+									}
+								}
+							},
+							"Data": {
+								"type": "string"
+							},
+							"GroupLevel": {
+								"type": "integer"
+							},
+							"Key": {
+								"type": "string"
+							},
+							"LeftNr": {
+								"type": "integer"
+							},
+							"Name": {
+								"type": "string"
+							},
+							"RightNr": {
+								"type": "integer"
+							}
+						}
+					}
+				}
+			}
+		}
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

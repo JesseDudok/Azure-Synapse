@@ -1,0 +1,17 @@
+{
+	"name": "S_OrderTable",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureSqlDatabase1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "OrdersTable"
+		}
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

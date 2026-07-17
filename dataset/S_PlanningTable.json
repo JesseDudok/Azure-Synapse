@@ -1,0 +1,91 @@
+{
+	"name": "S_PlanningTable",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureSqlDatabase1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "OfficeID",
+				"type": "nvarchar"
+			},
+			{
+				"name": "OfficeName",
+				"type": "nvarchar"
+			},
+			{
+				"name": "CardID",
+				"type": "nvarchar"
+			},
+			{
+				"name": "PlanningDepartmentID",
+				"type": "nvarchar"
+			},
+			{
+				"name": "PlanningTeamID",
+				"type": "nvarchar"
+			},
+			{
+				"name": "PlanningDate",
+				"type": "nvarchar"
+			},
+			{
+				"name": "PlanningStart",
+				"type": "nvarchar"
+			},
+			{
+				"name": "PlanningEnd",
+				"type": "nvarchar"
+			},
+			{
+				"name": "PlanningHours",
+				"type": "nvarchar"
+			},
+			{
+				"name": "PlanningCosts",
+				"type": "nvarchar"
+			},
+			{
+				"name": "PlanningWorkplaceID",
+				"type": "nvarchar"
+			},
+			{
+				"name": "PlanningWorkplaceName",
+				"type": "nvarchar"
+			},
+			{
+				"name": "PlanningWorkplaceType",
+				"type": "nvarchar"
+			},
+			{
+				"name": "PlanningProjectID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "PlanningBreak",
+				"type": "nvarchar"
+			},
+			{
+				"name": "PlanningLabels",
+				"type": "nvarchar"
+			},
+			{
+				"name": "PlanningRemarks",
+				"type": "nvarchar"
+			},
+			{
+				"name": "PlanningTypeID",
+				"type": "nvarchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "PlanningTable"
+		}
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

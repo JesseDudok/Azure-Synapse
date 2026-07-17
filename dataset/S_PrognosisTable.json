@@ -1,0 +1,23 @@
+{
+	"name": "S_PrognosisTable",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureSqlDatabase1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "Id",
+				"type": "int",
+				"precision": 10
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "PrognosisTable"
+		}
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

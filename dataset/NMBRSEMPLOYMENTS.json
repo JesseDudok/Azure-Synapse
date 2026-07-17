@@ -1,0 +1,53 @@
+{
+	"name": "NMBRSEMPLOYMENTS",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureDataLakeStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": "employments",
+				"fileSystem": "container3"
+			}
+		},
+		"schema": {
+			"type": "object",
+			"properties": {
+				"employmentId": {
+					"type": "string"
+				},
+				"creationDate": {
+					"type": "string"
+				},
+				"startDate": {
+					"type": "string"
+				},
+				"endDate": {
+					"type": "string"
+				},
+				"seniorityDate": {
+					"type": "string"
+				},
+				"endContractReason": {
+					"type": "object",
+					"properties": {
+						"code": {
+							"type": "integer"
+						},
+						"reason": {
+							"type": "string"
+						}
+					}
+				},
+				"changedDate": {
+					"type": "string"
+				}
+			}
+		}
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

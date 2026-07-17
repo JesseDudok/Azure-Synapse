@@ -1,0 +1,63 @@
+{
+	"name": "ParquetMICEEVENT",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureDataLakeStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "dudok_vat_rates.parquet",
+				"folderPath": "outputMICE/events",
+				"fileSystem": "synapse"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": [
+			{
+				"name": "product_id",
+				"type": "INT64"
+			},
+			{
+				"name": "event_id",
+				"type": "INT64"
+			},
+			{
+				"name": "activity_id",
+				"type": "INT64"
+			},
+			{
+				"name": "product_name",
+				"type": "UTF8"
+			},
+			{
+				"name": "object_id",
+				"type": "INT64"
+			},
+			{
+				"name": "vat_rate",
+				"type": "DOUBLE"
+			},
+			{
+				"name": "vat_amount",
+				"type": "DOUBLE"
+			},
+			{
+				"name": "vat_price",
+				"type": "DOUBLE"
+			},
+			{
+				"name": "vat_price_excl",
+				"type": "DOUBLE"
+			},
+			{
+				"name": "general_ledger_number",
+				"type": "UTF8"
+			}
+		]
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

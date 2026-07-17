@@ -1,0 +1,247 @@
+{
+	"name": "NostradamusprocessingPipe2",
+	"properties": {
+		"activities": [
+			{
+				"name": "COPY REAL TIME HOURS",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "JsonSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "JsonReadSettings"
+						}
+					},
+					"sink": {
+						"type": "ParquetSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "ParquetWriteSettings"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"path": "$['office_id']"
+								},
+								"sink": {
+									"name": "office_id",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['office_name']"
+								},
+								"sink": {
+									"name": "office_name",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['card_id']"
+								},
+								"sink": {
+									"name": "card_id",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['card_name']"
+								},
+								"sink": {
+									"name": "card_name",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['hour_id']"
+								},
+								"sink": {
+									"name": "hour_id",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['hour_office_id']"
+								},
+								"sink": {
+									"name": "hour_office_id",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['hour_department_id']"
+								},
+								"sink": {
+									"name": "hour_department_id",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['hour_team_id']"
+								},
+								"sink": {
+									"name": "hour_team_id",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['hour_date']"
+								},
+								"sink": {
+									"name": "hour_date",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['hour_hours']"
+								},
+								"sink": {
+									"name": "hour_hours",
+									"type": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"path": "$['hour_enter']"
+								},
+								"sink": {
+									"name": "hour_enter",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['hour_exit']"
+								},
+								"sink": {
+									"name": "hour_exit",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['hour_state']"
+								},
+								"sink": {
+									"name": "hour_state",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['hour_type']"
+								},
+								"sink": {
+									"name": "hour_type",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['project_id']"
+								},
+								"sink": {
+									"name": "project_id",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['hour_type_name']"
+								},
+								"sink": {
+									"name": "hour_type_name",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['hour_break']"
+								},
+								"sink": {
+									"name": "hour_break",
+									"type": "String"
+								}
+							}
+						]
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "NostradamusREALTIMEHOURS",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ParquetNostradamusREALTIMEHOURS",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "Data flow REAL TIME HOURS",
+				"type": "ExecuteDataFlow",
+				"dependsOn": [
+					{
+						"activity": "COPY REAL TIME HOURS",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataflow": {
+						"referenceName": "DataflowREALTIMEHOURSNostradamus",
+						"type": "DataFlowReference"
+					},
+					"compute": {
+						"coreCount": 8,
+						"computeType": "General"
+					},
+					"traceLevel": "Fine"
+				}
+			}
+		],
+		"annotations": [],
+		"lastPublishTime": "2025-06-17T09:57:58Z"
+	},
+	"type": "Microsoft.Synapse/workspaces/pipelines"
+}

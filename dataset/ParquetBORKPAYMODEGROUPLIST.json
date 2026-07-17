@@ -1,0 +1,54 @@
+{
+	"name": "ParquetBORKPAYMODEGROUPLIST",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureDataLakeStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": "outputBORK/masterdata",
+				"fileSystem": "synapse"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": [
+			{
+				"name": "type",
+				"type": "UTF8"
+			},
+			{
+				"name": "ColorKey_type",
+				"type": "UTF8"
+			},
+			{
+				"name": "Data",
+				"type": "UTF8"
+			},
+			{
+				"name": "GroupLevel",
+				"type": "INT32"
+			},
+			{
+				"name": "Key",
+				"type": "UTF8"
+			},
+			{
+				"name": "LeftNr",
+				"type": "INT32"
+			},
+			{
+				"name": "Name",
+				"type": "UTF8"
+			},
+			{
+				"name": "RightNr",
+				"type": "INT32"
+			}
+		]
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

@@ -1,0 +1,164 @@
+{
+	"name": "BORKprocessingPipeSingleFile",
+	"properties": {
+		"activities": [
+			{
+				"name": "Data flow DAYEND BORK",
+				"type": "ExecuteDataFlow",
+				"dependsOn": [
+					{
+						"activity": "DAYEND PROCESSING",
+						"dependencyConditions": [
+							"Completed"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.4:00:00",
+					"retry": 5,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataflow": {
+						"referenceName": "DataflowDAYENDBORK",
+						"type": "DataFlowReference"
+					},
+					"compute": {
+						"coreCount": 8,
+						"computeType": "General"
+					},
+					"traceLevel": "Fine"
+				}
+			},
+			{
+				"name": "COPY FILTERED DAYEND",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.4:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "JsonSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "JsonReadSettings"
+						}
+					},
+					"sink": {
+						"type": "JsonSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "JsonWriteSettings"
+						}
+					},
+					"enableStaging": false
+				},
+				"inputs": [
+					{
+						"referenceName": "BOKDAYENDSINGLEFILE",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ProcessedBorkJsonDayEnd",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "DAYEND PROCESSING",
+				"type": "SynapseNotebook",
+				"dependsOn": [
+					{
+						"activity": "COPY FILTERED DAYEND",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.4:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebook": {
+						"referenceName": "JSONtoPARQUETBORKDAYEND",
+						"type": "NotebookReference"
+					},
+					"snapshot": true,
+					"sparkPool": {
+						"referenceName": "SparkPool3",
+						"type": "BigDataPoolReference"
+					},
+					"executorSize": "Medium",
+					"conf": {
+						"spark.dynamicAllocation.enabled": false
+					},
+					"driverSize": "Medium"
+				}
+			},
+			{
+				"name": "Delete Staging",
+				"type": "Delete",
+				"dependsOn": [
+					{
+						"activity": "DAYEND PROCESSING",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataset": {
+						"referenceName": "ProcessedBorkJsonDayEnd",
+						"type": "DatasetReference"
+					},
+					"logStorageSettings": {
+						"linkedServiceName": {
+							"referenceName": "dudodatasynapse1-WorkspaceDefaultStorage",
+							"type": "LinkedServiceReference"
+						}
+					},
+					"enableLogging": true,
+					"storeSettings": {
+						"type": "AzureBlobFSReadSettings",
+						"recursive": true,
+						"wildcardFileName": "**.json",
+						"enablePartitionDiscovery": false
+					}
+				}
+			}
+		],
+		"annotations": [],
+		"lastPublishTime": "2026-03-19T08:53:52Z"
+	},
+	"type": "Microsoft.Synapse/workspaces/pipelines"
+}

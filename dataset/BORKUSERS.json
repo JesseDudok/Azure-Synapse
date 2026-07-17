@@ -1,0 +1,48 @@
+{
+	"name": "BORKUSERS",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureDataLakeStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "dudok_users.json",
+				"folderPath": "masterdata",
+				"fileSystem": "container1"
+			}
+		},
+		"schema": {
+			"type": "object",
+			"properties": {
+				"data": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"properties": {
+							"type": {
+								"type": "string"
+							},
+							"Key": {
+								"type": "string"
+							},
+							"Name": {
+								"type": "string"
+							},
+							"NationalId": {
+								"type": "string"
+							},
+							"PersonelId": {
+								"type": "string"
+							}
+						}
+					}
+				}
+			}
+		}
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

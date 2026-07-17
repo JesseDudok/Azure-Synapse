@@ -1,0 +1,85 @@
+{
+	"name": "NMBRSMANAGERS",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureDataLakeStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": "managers",
+				"fileSystem": "container3"
+			}
+		},
+		"schema": {
+			"type": "object",
+			"properties": {
+				"managerId": {
+					"type": "string"
+				},
+				"number": {
+					"type": "integer"
+				},
+				"firstName": {
+					"type": "string"
+				},
+				"lastName": {
+					"type": "string"
+				},
+				"gender": {
+					"type": "string"
+				},
+				"department": {
+					"type": "object",
+					"properties": {
+						"departmentId": {
+							"type": "string"
+						},
+						"code": {
+							"type": "integer"
+						},
+						"description": {
+							"type": "string"
+						},
+						"createdAt": {
+							"type": "string"
+						}
+					}
+				},
+				"function": {
+					"type": "object",
+					"properties": {
+						"functionId": {
+							"type": "string"
+						},
+						"code": {
+							"type": "integer"
+						},
+						"description": {
+							"type": "string"
+						},
+						"createdAt": {
+							"type": "string"
+						}
+					}
+				},
+				"phoneNumber": {
+					"type": "null"
+				},
+				"cellphone": {
+					"type": "string"
+				},
+				"fax": {
+					"type": "null"
+				},
+				"email": {
+					"type": "string"
+				}
+			}
+		}
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

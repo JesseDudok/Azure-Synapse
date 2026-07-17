@@ -1,0 +1,39 @@
+{
+	"name": "NostradamusFunctions",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureDataLakeStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "dudok_nostradamus_functions.json",
+				"fileSystem": "container2"
+			}
+		},
+		"schema": {
+			"type": "object",
+			"properties": {
+				"function_id": {
+					"type": "string"
+				},
+				"function_name": {
+					"type": "string"
+				},
+				"department_id": {
+					"type": "string"
+				},
+				"function_accountant": {
+					"type": "string"
+				},
+				"function_state": {
+					"type": "string"
+				}
+			}
+		}
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

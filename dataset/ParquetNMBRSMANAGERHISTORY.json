@@ -1,0 +1,46 @@
+{
+	"name": "ParquetNMBRSMANAGERHISTORY",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureDataLakeStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": "outputNMBRS/Manager history",
+				"fileSystem": "synapse"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": [
+			{
+				"name": "employeeId",
+				"type": "UTF8"
+			},
+			{
+				"name": "managerId",
+				"type": "UTF8"
+			},
+			{
+				"name": "firstName",
+				"type": "UTF8"
+			},
+			{
+				"name": "lastName",
+				"type": "UTF8"
+			},
+			{
+				"name": "email",
+				"type": "UTF8"
+			},
+			{
+				"name": "createdAt",
+				"type": "UTF8"
+			}
+		]
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

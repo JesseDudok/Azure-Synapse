@@ -1,0 +1,532 @@
+{
+	"name": "Dataflow NMBRS",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "ParquetNMBRSCOMPANY",
+						"type": "DatasetReference"
+					},
+					"name": "NMBRSCOMPANY"
+				},
+				{
+					"dataset": {
+						"referenceName": "ParquetNMBRSCONTRACTS",
+						"type": "DatasetReference"
+					},
+					"name": "NMBRSCONTRACTS"
+				},
+				{
+					"dataset": {
+						"referenceName": "ParquetNMBRSDEBTORS",
+						"type": "DatasetReference"
+					},
+					"name": "NMBRSDEBTORS"
+				},
+				{
+					"dataset": {
+						"referenceName": "ParquetNMBRSEMPLOYEES",
+						"type": "DatasetReference"
+					},
+					"name": "NMBRSEMPLOYEES"
+				},
+				{
+					"dataset": {
+						"referenceName": "ParquetNMBRSEMPLOYMENTS",
+						"type": "DatasetReference"
+					},
+					"name": "NMBRSEMPLOYMENTS"
+				},
+				{
+					"dataset": {
+						"referenceName": "ParquetNMBRSMANAGERS",
+						"type": "DatasetReference"
+					},
+					"name": "NMBRSMANAGERS"
+				},
+				{
+					"dataset": {
+						"referenceName": "ParquetNMBRSFUNCTIONS",
+						"type": "DatasetReference"
+					},
+					"name": "NMBRSFUNCTIONS"
+				},
+				{
+					"dataset": {
+						"referenceName": "ParquetNMBRSFUNCTIONSHISTORY",
+						"type": "DatasetReference"
+					},
+					"name": "NMBRSFUNCTIONSHISTORY"
+				},
+				{
+					"dataset": {
+						"referenceName": "ParquetNMBRSMANAGERHISTORY",
+						"type": "DatasetReference"
+					},
+					"name": "NMBRSMANAGERHISTORY"
+				},
+				{
+					"dataset": {
+						"referenceName": "ParquetNMBRSEMPLOYEESCHEDULEHISTORY",
+						"type": "DatasetReference"
+					},
+					"name": "NMBRSEMPLOYEESCHEDULEHISTORY"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "S_CompanyTable",
+						"type": "DatasetReference"
+					},
+					"name": "sinkCompany"
+				},
+				{
+					"dataset": {
+						"referenceName": "S_HRContractsTable",
+						"type": "DatasetReference"
+					},
+					"name": "sinkHRContracts"
+				},
+				{
+					"dataset": {
+						"referenceName": "S_DebtorsTable",
+						"type": "DatasetReference"
+					},
+					"name": "sinkDebtors"
+				},
+				{
+					"dataset": {
+						"referenceName": "S_EmployeesTable",
+						"type": "DatasetReference"
+					},
+					"name": "sinkEmployees"
+				},
+				{
+					"dataset": {
+						"referenceName": "S_EmploymentsTable",
+						"type": "DatasetReference"
+					},
+					"name": "sinkEmployments"
+				},
+				{
+					"dataset": {
+						"referenceName": "S_ManagersTable",
+						"type": "DatasetReference"
+					},
+					"name": "sinkManagers"
+				},
+				{
+					"dataset": {
+						"referenceName": "S_HRFunctionsTable",
+						"type": "DatasetReference"
+					},
+					"name": "sinkHRFUNCTIONS"
+				},
+				{
+					"dataset": {
+						"referenceName": "S_EmployeesFunctionsTable",
+						"type": "DatasetReference"
+					},
+					"name": "sinkEMPLOYEESFUNCTIONS"
+				},
+				{
+					"dataset": {
+						"referenceName": "S_EmployeesManagersTable",
+						"type": "DatasetReference"
+					},
+					"name": "sinkEMPLOYEESMANAGERS"
+				},
+				{
+					"dataset": {
+						"referenceName": "S_EmployeesScheduleTable",
+						"type": "DatasetReference"
+					},
+					"name": "sinkEMPLOYEESSCHEDULE",
+					"description": "Export data to AzureSqlTable1"
+				}
+			],
+			"transformations": [
+				{
+					"name": "MapDrifted1",
+					"description": "Creates an explicit mapping for each drifted column"
+				},
+				{
+					"name": "MapDrifted2",
+					"description": "Creates an explicit mapping for each drifted column"
+				},
+				{
+					"name": "MapDrifted3",
+					"description": "Creates an explicit mapping for each drifted column"
+				},
+				{
+					"name": "MapDrifted4",
+					"description": "Creates an explicit mapping for each drifted column"
+				},
+				{
+					"name": "MapDrifted5",
+					"description": "Creates an explicit mapping for each drifted column"
+				},
+				{
+					"name": "MapDrifted6",
+					"description": "Creates an explicit mapping for each drifted column"
+				},
+				{
+					"name": "MapDrifted7",
+					"description": "Creates an explicit mapping for each drifted column"
+				},
+				{
+					"name": "derivedColumn1"
+				},
+				{
+					"name": "derivedColumn2"
+				},
+				{
+					"name": "AlterRow2"
+				},
+				{
+					"name": "select1"
+				},
+				{
+					"name": "AlterRow3"
+				}
+			],
+			"scriptLines": [
+				"source(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false,",
+				"     format: 'parquet') ~> NMBRSCOMPANY",
+				"source(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false,",
+				"     format: 'parquet') ~> NMBRSCONTRACTS",
+				"source(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false,",
+				"     format: 'parquet') ~> NMBRSDEBTORS",
+				"source(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false,",
+				"     format: 'parquet') ~> NMBRSEMPLOYEES",
+				"source(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false,",
+				"     format: 'parquet') ~> NMBRSEMPLOYMENTS",
+				"source(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false,",
+				"     format: 'parquet') ~> NMBRSMANAGERS",
+				"source(output(",
+				"          debtorId as string,",
+				"          debtorName as string,",
+				"          functionId as string,",
+				"          code as integer,",
+				"          description as string,",
+				"          createdAt as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false,",
+				"     format: 'parquet') ~> NMBRSFUNCTIONS",
+				"source(output(",
+				"          employeeId as string,",
+				"          functionId as string,",
+				"          code as integer,",
+				"          description as string,",
+				"          companyId as string,",
+				"          companyName as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false,",
+				"     format: 'parquet') ~> NMBRSFUNCTIONSHISTORY",
+				"source(output(",
+				"          employeeId as string,",
+				"          managerId as string,",
+				"          firstName as string,",
+				"          lastName as string,",
+				"          email as string,",
+				"          createdAt as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false,",
+				"     format: 'parquet') ~> NMBRSMANAGERHISTORY",
+				"source(output(",
+				"          employeeId as string,",
+				"          scheduleId as string,",
+				"          startDate as string,",
+				"          parttimePercentage as decimal(38,18),",
+				"          week1_monday as decimal(38,18),",
+				"          week1_tuesday as decimal(38,18),",
+				"          week1_wednesday as decimal(38,18),",
+				"          week1_thursday as decimal(38,18),",
+				"          week1_friday as decimal(38,18),",
+				"          week1_saturday as decimal(38,18),",
+				"          week1_sunday as decimal(38,18),",
+				"          week2_monday as decimal(38,18),",
+				"          week2_tuesday as decimal(38,18),",
+				"          week2_wednesday as decimal(38,18),",
+				"          week2_thursday as decimal(38,18),",
+				"          week2_friday as decimal(38,18),",
+				"          week2_saturday as decimal(38,18),",
+				"          week2_sunday as decimal(38,18),",
+				"          createdAt as string,",
+				"          companyId as string,",
+				"          companyName as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false,",
+				"     format: 'parquet') ~> NMBRSEMPLOYEESCHEDULEHISTORY",
+				"NMBRSCOMPANY derive(companyId = toString(byName('companyId')),",
+				"          number = toString(byName('number')),",
+				"          name = toString(byName('name')),",
+				"          debtorId = toString(byName('debtorId'))) ~> MapDrifted1",
+				"NMBRSCONTRACTS derive(employeeId = toString(byName('employeeId')),",
+				"          contractId = toString(byName('contractId')),",
+				"          startDate = toString(byName('startDate')),",
+				"          trialPeriod = toString(byName('trialPeriod')),",
+				"          endDate = toString(byName('endDate')),",
+				"          indefinite = toBoolean(byName('indefinite')),",
+				"          writtenContract = toBoolean(byName('writtenContract')),",
+				"          hoursPerWeek = toString(byName('hoursPerWeek')),",
+				"          createdAt = toString(byName('createdAt'))) ~> MapDrifted2",
+				"NMBRSDEBTORS derive(debtorId = toString(byName('debtorId')),",
+				"          number = toString(byName('number')),",
+				"          name = toString(byName('name')),",
+				"          addressId = toString(byName('addressId')),",
+				"          isDefault = toBoolean(byName('isDefault')),",
+				"          type = toString(byName('type')),",
+				"          street = toString(byName('street')),",
+				"          houseNumber = toString(byName('houseNumber')),",
+				"          houseNumberAddition = toString(byName('houseNumberAddition')),",
+				"          postalCode = toString(byName('postalCode')),",
+				"          city = toString(byName('city')),",
+				"          stateProvince = toString(byName('stateProvince')),",
+				"          countryISOCode = toString(byName('countryISOCode')),",
+				"          period = toString(byName('period')),",
+				"          createdAt = toString(byName('createdAt'))) ~> MapDrifted3",
+				"NMBRSEMPLOYEES derive(employeeId = toString(byName('employeeId')),",
+				"          employeeNumber = toInteger(byName('employeeNumber')),",
+				"          firstName = toString(byName('firstName')),",
+				"          firstNameInFull = toString(byName('firstNameInFull')),",
+				"          prefix = toString(byName('prefix')),",
+				"          initials = toString(byName('initials')),",
+				"          lastName = toString(byName('lastName')),",
+				"          employeeType = toString(byName('employeeType')),",
+				"          companyName = toString(byName('companyName'))) ~> MapDrifted4",
+				"NMBRSEMPLOYMENTS derive(employeeId = toString(byName('employeeId')),",
+				"          employmentId = toString(byName('employmentId')),",
+				"          creationDate = toString(byName('creationDate')),",
+				"          startDate = toString(byName('startDate')),",
+				"          endDate = toString(byName('endDate')),",
+				"          seniorityDate = toString(byName('seniorityDate')),",
+				"          code = toInteger(byName('code')),",
+				"          reason = toString(byName('reason')),",
+				"          changedDate = toString(byName('changedDate'))) ~> MapDrifted5",
+				"NMBRSMANAGERS derive(managerId = toString(byName('managerId')),",
+				"          number = toInteger(byName('number')),",
+				"          firstName = toString(byName('firstName')),",
+				"          lastName = toString(byName('lastName')),",
+				"          gender = toString(byName('gender')),",
+				"          departmentId = toString(byName('departmentId')),",
+				"          department_code = toInteger(byName('department_code')),",
+				"          department_description = toString(byName('department_description')),",
+				"          department_createdAt = toString(byName('department_createdAt')),",
+				"          functionId = toString(byName('functionId')),",
+				"          function_code = toInteger(byName('function_code')),",
+				"          function_description = toString(byName('function_description')),",
+				"          function_createdAt = toString(byName('function_createdAt')),",
+				"          phoneNumber = toString(byName('phoneNumber')),",
+				"          cellphone = toString(byName('cellphone')),",
+				"          fax = toString(byName('fax')),",
+				"          email = toString(byName('email'))) ~> MapDrifted6",
+				"NMBRSFUNCTIONS derive(debtorId = toString(byName('debtorId')),",
+				"          debtorName = toString(byName('debtorName')),",
+				"          functionId = toString(byName('functionId')),",
+				"          code = toInteger(byName('code')),",
+				"          description = toString(byName('description')),",
+				"          createdAt = toString(byName('createdAt'))) ~> MapDrifted7",
+				"NMBRSFUNCTIONSHISTORY derive(employeeId = toString(byName('employeeId')),",
+				"          functionId = toString(byName('functionId')),",
+				"          code = toString(byName('code')),",
+				"          description = toString(byName('description')),",
+				"          companyId = toString(byName('companyId')),",
+				"          companyName = toString(byName('companyName')),",
+				"          createdAt = toString(byName('createdAt'))) ~> derivedColumn1",
+				"NMBRSMANAGERHISTORY derive(employeeId = toString(byName('employeeId')),",
+				"          managerId = toString(byName('managerId')),",
+				"          firstName = toString(byName('firstName')),",
+				"          lastName = toString(byName('lastName')),",
+				"          email = toString(byName('email')),",
+				"          createdAt = toString(byName('createdAt'))) ~> derivedColumn2",
+				"MapDrifted3 alterRow(updateIf(true())) ~> AlterRow2",
+				"NMBRSEMPLOYEESCHEDULEHISTORY select(mapColumn(",
+				"          employeeId,",
+				"          scheduleId,",
+				"          startDate,",
+				"          parttimePercentage,",
+				"          week1_monday,",
+				"          week1_tuesday,",
+				"          week1_wednesday,",
+				"          week1_thursday,",
+				"          week1_friday,",
+				"          week1_saturday,",
+				"          week1_sunday,",
+				"          week2_monday,",
+				"          week2_tuesday,",
+				"          week2_wednesday,",
+				"          week2_thursday,",
+				"          week2_friday,",
+				"          week2_saturday,",
+				"          week2_sunday,",
+				"          createdAt,",
+				"          companyId,",
+				"          companyName",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select1",
+				"MapDrifted1 alterRow(upsertIf(true())) ~> AlterRow3",
+				"AlterRow3 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          Id as integer",
+				"     ),",
+				"     deletable:false,",
+				"     insertable:false,",
+				"     updateable:true,",
+				"     upsertable:false,",
+				"     keys:['companyId','number','debtorId'],",
+				"     format: 'table',",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError') ~> sinkCompany",
+				"MapDrifted2 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          Id as integer",
+				"     ),",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     recreate:true,",
+				"     format: 'table',",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError') ~> sinkHRContracts",
+				"AlterRow2 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          Id as integer",
+				"     ),",
+				"     deletable:false,",
+				"     insertable:false,",
+				"     updateable:true,",
+				"     upsertable:false,",
+				"     keys:['debtorId','number','name'],",
+				"     format: 'table',",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError') ~> sinkDebtors",
+				"MapDrifted4 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          Id as integer",
+				"     ),",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     recreate:true,",
+				"     format: 'table',",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError') ~> sinkEmployees",
+				"MapDrifted5 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          Id as integer",
+				"     ),",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     recreate:true,",
+				"     format: 'table',",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError') ~> sinkEmployments",
+				"MapDrifted6 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          Id as integer",
+				"     ),",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     recreate:true,",
+				"     format: 'table',",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError') ~> sinkManagers",
+				"MapDrifted7 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          Id as integer",
+				"     ),",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     recreate:true,",
+				"     format: 'table',",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError') ~> sinkHRFUNCTIONS",
+				"derivedColumn1 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          Id as integer",
+				"     ),",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     recreate:true,",
+				"     format: 'table',",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError') ~> sinkEMPLOYEESFUNCTIONS",
+				"derivedColumn2 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          Id as integer",
+				"     ),",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     recreate:true,",
+				"     format: 'table',",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError') ~> sinkEMPLOYEESMANAGERS",
+				"select1 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     format: 'table',",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError') ~> sinkEMPLOYEESSCHEDULE"
+			]
+		}
+	}
+}
