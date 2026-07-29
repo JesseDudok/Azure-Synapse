@@ -166,8 +166,28 @@
 					"description": "Creates an explicit mapping for each drifted column"
 				},
 				{
+					"name": "DeriveEmployeeRank",
+					"description": "Ranks employeeType lifecycle stage (newHire < payroll < formerPayroll) so the dedup step below keeps the most-advanced known state per employee"
+				},
+				{
+					"name": "SortEmployees",
+					"description": "Sorts duplicate NMBRS snapshot rows so the most-advanced employeeType state is first per employeeId+companyName"
+				},
+				{
+					"name": "DedupEmployees",
+					"description": "Collapses ~100x duplicate snapshot rows down to one row per employeeId+companyName (dual-company employees keep one row per company)"
+				},
+				{
 					"name": "MapDrifted5",
 					"description": "Creates an explicit mapping for each drifted column"
+				},
+				{
+					"name": "SortEmployments",
+					"description": "Sorts duplicate NMBRS snapshot rows by changedDate descending so the latest state is first per employmentId"
+				},
+				{
+					"name": "DedupEmployments",
+					"description": "Collapses ~90x duplicate snapshot rows down to one row per employmentId, keeping the row with the latest changedDate"
 				},
 				{
 					"name": "MapDrifted6",
@@ -191,26 +211,6 @@
 				},
 				{
 					"name": "AlterRow3"
-				},
-				{
-					"name": "DeriveEmployeeRank",
-					"description": "Ranks employeeType lifecycle stage (newHire < payroll < formerPayroll) so the dedup step below keeps the most-advanced known state per employee"
-				},
-				{
-					"name": "SortEmployees",
-					"description": "Sorts duplicate NMBRS snapshot rows so the most-advanced employeeType state is first per employeeId+companyName"
-				},
-				{
-					"name": "DedupEmployees",
-					"description": "Collapses ~100x duplicate snapshot rows down to one row per employeeId+companyName (dual-company employees keep one row per company)"
-				},
-				{
-					"name": "SortEmployments",
-					"description": "Sorts duplicate NMBRS snapshot rows by changedDate descending so the latest state is first per employmentId"
-				},
-				{
-					"name": "DedupEmployments",
-					"description": "Collapses ~90x duplicate snapshot rows down to one row per employmentId, keeping the row with the latest changedDate"
 				}
 			],
 			"scriptLines": [
@@ -338,12 +338,17 @@
 				"          lastName = toString(byName('lastName')),",
 				"          employeeType = toString(byName('employeeType')),",
 				"          companyName = toString(byName('companyName'))) ~> MapDrifted4",
-				"MapDrifted4 derive(_typeRank = iif(employeeType == 'formerPayroll', 3, iif(employeeType == 'payroll', 2, iif(employeeType == 'newHire', 1, 0)))) ~> DeriveEmployeeRank",
-				"DeriveEmployeeRank sort(desc(_typeRank, true)) ~> SortEmployees",
+				"MapDrifted4 derive(typeRank = iif(employeeType == 'formerPayroll', 3, iif(employeeType == 'payroll', 2, iif(employeeType == 'newHire', 1, 0)))) ~> DeriveEmployeeRank",
+				"DeriveEmployeeRank sort(desc(typeRank, true)) ~> SortEmployees",
 				"SortEmployees aggregate(groupBy(employeeId,",
 				"          companyName),",
-				"     each(match(name!='_typeRank'),",
-				"          $$ = first($$, false))) ~> DedupEmployees",
+				"     employeeNumber = first(byName('employeeNumber'), false),",
+				"          firstName = first(byName('firstName'), false),",
+				"          firstNameInFull = first(byName('firstNameInFull'), false),",
+				"          prefix = first(byName('prefix'), false),",
+				"          initials = first(byName('initials'), false),",
+				"          lastName = first(byName('lastName'), false),",
+				"          employeeType = first(byName('employeeType'), false)) ~> DedupEmployees",
 				"NMBRSEMPLOYMENTS derive(employeeId = toString(byName('employeeId')),",
 				"          employmentId = toString(byName('employmentId')),",
 				"          creationDate = toString(byName('creationDate')),",
@@ -355,8 +360,17 @@
 				"          changedDate = toString(byName('changedDate'))) ~> MapDrifted5",
 				"MapDrifted5 sort(desc(changedDate, true)) ~> SortEmployments",
 				"SortEmployments aggregate(groupBy(employmentId),",
-				"     each(match(true()),",
-				"          $$ = first($$, false))) ~> DedupEmployments",
+				"     employeeId = first(byName('employeeId'), false),",
+				"          creationDate = first(byName('creationDate'), false),",
+				"          startDate = first(byName('startDate'), false),",
+				"          endDate = first(byName('endDate'), false),",
+				"          seniorityDate = first(byName('seniorityDate'), false),",
+				"          endContractReasonCode = first(byName('endContractReasonCode'), false),",
+				"          endContractReasonDescription = first(byName('endContractReasonDescription'), false),",
+				"          changedDate = first(byName('changedDate'), false),",
+				"          companyId = first(byName('companyId'), false),",
+				"          code = first(byName('code'), false),",
+				"          reason = first(byName('reason'), false)) ~> DedupEmployments",
 				"NMBRSMANAGERS derive(managerId = toString(byName('managerId')),",
 				"          number = toInteger(byName('number')),",
 				"          firstName = toString(byName('firstName')),",
